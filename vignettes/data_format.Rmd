@@ -1,0 +1,201 @@
+---
+title: "Data format"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data format}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(anovir)
+```
+
+## Introduction {#top}
+
+This vignette describes how survival data should be formatted for use with the 
+functions in this package. 
+
+There is a general data format that works for most functions 
+([here](#general)), but some functions require data to be in a specific format, 
+these are;
+
+[nll_two_inf_subpops_obs](#nll_two_inf_subpops_obs) | 
+[nll_recovery](#nll_recovery) | 
+[nll_recovery_II](#nll_recovery_II)
+
+## General format required {#general}
+
+The negative log-likelihood (_nll_) functions in this package require the 
+survival data to be analysed to be in a data frame. 
+
+The default assumption is each row contains data for an individual host. 
+
+Data can be grouped, where a row contains data on the frequency of individuals 
+from a particular treatment or population experiencing the same event, in the 
+same sampling interval. 
+In this case, the frequency data __must__ be in a column named, '__fq__'. 
+This column will be automatically detected and _nll_ calculations adjusted 
+accordingly; frequencies of zero ('0') are allowed.
+
+By default, most _nll_ functions assume a data frame will contain three 
+columns named as follows,
+
+* __censor__, 
+* __time__,
+* __infection_treatment__
+
+containing the following information;
+
+* __censor__
+    * describes whether event was death or right-censoring
+    * needs a numerical value of;
+        * '0' for death,
+        * '1' for right-censoring.
+        
+* __time__
+    * describes the time when the event occurred
+        * needs to be a numerical value > 0.
+    
+* __infection_treatment__
+    * identifies whether data are from an infected or uninfected treatment
+    * needs to be a numerical value of;
+        * '0' for an uninfected treatment,
+        * '1' for an infected treatment.
+
+These columns can be renamed when specifying parameters for the _nll_ function 
+to be sent for estimation by maximum likelihood. Columns with the default 
+names above to not need to be specified, but the contents of their rows must 
+be specified as above, i.e., data from an infected treatment must be specified 
+as '1' and not 'infected', '+ve', etc.
+
+All _nll_ functions assume individuals in an uninfected treatment 
+are uninfected.
+
+Not all functions assume all individuals in an infected treatment are infected.
+
+[back to top](#top)
+
+## Specific formats
+
+Some _nll_ functions have specific data formatting requirements.
+
+### nll_two_inf_subpops_obs {#nll_two_inf_subpops_obs}
+
+This function applies to cases where two distinct subpopulations of hosts have 
+been identified ('observed') within an infected population or treatment. 
+In addition to the columns above, this function requires the data frame to be 
+analysed to have a column identifying the two infected subpopulations;
+
+* __infsubpop__
+    * identifies which subpopulation of data infected hosts belong to;
+        * '1' for subpopulation '1'
+        * '2' for subpopulation '2'
+            * values of '1' or '2' are arbitrary and only used for 
+            identifying each subpopulation
+        
+The column can be renamed when specifying the _nll_ function, 
+but it must contain values of '1' or '2' for the two subpopulations. 
+
+[back to top](#top)
+
+### nll_recovery {#nll_recovery}
+
+The data frame required by this function has a specific structure. 
+In this case, whether an event was death or right-censoring is not coded 
+in the rows of a data frame, but in columns.
+
+The data frame needs six columns with the following column names and these 
+columns need to be filled with binary [0/1] data as follows;
+
+* __control.d__
+    * '1' for control individuals dying during the experiment, 
+    * '0' otherwise
+* __control.c__
+    * '1' for control individuals censored during or at the end of the experiment
+    * '0' otherwise
+* __infected.d__
+    * '1' for infected individuals dying while still infected during of 
+    the experiment
+    * '0' otherwise
+* __infected.c__
+    * '1' for infected individuals censored during or at the end of 
+    the experiment
+    * '0' otherwise
+* __recovered.d__
+    * '1' for recovered individuals dying during the end of the experiment
+    * '0' otherwise
+* __recovered.c__
+    * '1' for recovered individuals censored during or at the end of 
+    the experiment
+    * '0' otherwise
+
+Each of these six columns needs an individual row for __every__ 
+sampling interval between the first and last sampling interval, 
+i.e., from time _t = 1_ to time _t = tmax_, 
+where _tmax_ is the last sampling interval. 
+
+For example, if survival data was sampled each day from 
+days 1 to 20 of an experiment, the data frame will need to have; 
+6 x _tmax_ = 6 x 20 = 120 rows. 
+
+NB it is assumed sampling intervals are equally spaced throughout the experiment.
+
+There also needs to the following columns with the following names and contents, 
+
+* __censor__
+    * '1' for censored data
+    * '0' otherwise
+* __t__
+    * data for the time of event; needs to be numeric with _t_ > 0
+* __fq__
+    * data for the frequency of events occuring at time _t_; 
+    values of zero (0) are allowed
+    
+For example, the first few lines of the data frame 
+_data_recovery_ are given below;
+
+```{r}
+head(recovery_data, 3)
+```
+
+they are for the population _control.d_, 
+that is control individuals dying during the experiment (_control.d = 1_), 
+and show these individuals were not censored (_censor = 0_), 
+and for times _1, 2, 3_, the frequency of individuals dying was
+_1, 4, 11_, respectively. 
+
+The last few lines of the same data frame are,
+
+```{r}
+tail(recovery_data, 3)
+```
+
+for the population of hosts that recovered and were right-censored, 
+_recovered.c = 1, censor = 1_, and for times _18, 19, 20_, 
+the frequency of individauls censored in this population was _0, 0, 41_, 
+respectively. 
+NB all rows between _t = 1_ and _t = tmax_ need to be included and in 
+ascending order, even if the frequency of individuals involved is zero. 
+
+[back to top](#top)
+
+### nll_recovery_II {#nll_recovery_II}
+
+The data for this function needs to be in the same format as for 
+_nll_recovery_ and needs to include the two columns, 
+_control.d, control.c_, along with the frequency of individuals dying at 
+each interval (= 0), and the number censored during or at the end of the 
+experiment, even though they do not contribute towards the 
+calculation of the negative log-likelihood.
+
+[back to top](#top)
+
+

@@ -1,0 +1,274 @@
+---
+title: "Using nll functions"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Using nll functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: \usepackage{amsmath}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(anovir)
+```
+### Introduciton {#top}
+
+This vignette explains how to use the default form of the negative 
+log-likelihood (_nll_) functions in this package. 
+
+In their default form, the various parameters underlying each _nll\_function_ 
+are estimated as constants. 
+However, this behaviour can be extended to make these parameters into 
+functions themselves.
+In such cases, it is the parameters of these parameter functions that 
+are estimated by constants. 
+
+How to modify _nll\_functions_ is described in a separate vignette: [nll_functions_modifying](nll_functions_modifying.html)
+
+## Two-step preparation
+
+The _nll\_functions_ in this package calcuate the negative log-likelihood 
+(_nll_) for observed patterns of mortality in survival data based on the 
+approach analysing relative survival. 
+The different functions vary in how they assume the data are structured. 
+However the way to use each function is the same and involves a two-step 
+process;
+
+* [Step #1](#step1) collects the information needed to form a likelihood 
+expression,
+* [Step #2](#step2) calls a maximum likelihood estimation function to 
+mimimise the _nll_ of the 
+expression by varying the expressions' variables
+
+The resulting estimates of these variables can be used to describe the
+patterns of background mortality and mortality due to infection in the 
+observed data, including the pathogen's virulence. 
+
+The following sections provide further details of the two-step process.
+
+### Step #1 {#step1}
+
+The first step is to write a preparatory-, or prep-, function 
+which collects the information
+needed to define and parameterise the likelihood expression to be minimised. 
+
+* The formals, or arguments, of the 'prep-function' lists the names of the variables to be estimated
+
+    * The body of the 'prep-function' contains the name of the _nll\_function_ 
+    to be used.
+
+        * The formals, or arguments, of the _nll\_function_ repeats the list 
+        of variables to be estimated, plus details identifying where the data 
+        are, how they are labelled, and the choice of probability 
+        distribution(s) to describe them. 
+
+
+The example below shows Step #1 preparing the function _nll\_basic_ for 
+analysis, given the data frame `data01`.
+
+`data01` is a subset of data from the study by Blanford et al [@Blanford_2012]. 
+The data are from the uninfected and infected
+treatments `cont` and `Bb06`, respectively, of the 3rd experimental 
+block of the experiment.
+
+```{r include = FALSE}
+data01 <- subset(data_blanford,
+  (data_blanford$block == 3) & 
+  ((data_blanford$treatment == 'cont') | (data_blanford$treatment == 'Bb06')) &
+  (data_blanford$day > 0)
+  )
+```
+
+```{r}
+head(data01, 6)
+```
+
+```{r eval = FALSE, echo = TRUE}
+    m01_prep_function <- function(a1, b1, a2, b2){
+      nll_basic(
+        a1, b1, a2, b2,
+        data = data01,
+        time = day,
+        censor = censor,
+        infected_treatment = inf,
+        d1 = 'Weibull', d2 = 'Weibull')
+        }
+```
+
+Here,
+
+* `m01_prep_function`
+    * name given to the 'prep' function being prepared
+* `function(a1, b1, a2, b2)`    
+    * the formals, or arguments of the function containing the names of 
+    the variables to be estimated
+    * here they correspond with the location and scale parameters for 
+    background mortality and mortality due to infection, _a1, b1, a2, b2_, 
+    respectively
+* `data = data01`
+    * data = the name of the data frame containing the data to be analysed; 
+* `time = day`
+    * time = the name of the column in the data frame identifying the 
+    timing of events;
+    * the column _t_ could also have been used in this example
+    * values in this column must be > 0
+* `censor = censor`
+    * censor = the name of the column in the data frame whether data 
+    were censored or not; 
+    * values in this column must be,
+        * '0' data not censored
+        * '1' data right-censored
+* `infected_treatment = inf`
+    * infected_treatment = the name of the column in the data frame 
+    identifying whether data are from an infected or uninfected treatment;
+    * values in the this column must be,
+        * '0' uninfected or control treatment
+        * '1' infected treatment
+    * NB the function _nll\_basic_ assumes all individuals in an 
+    infected treatment are infected; 
+    this is not necessarily the case for other functions; 
+    see [nll_functions](nll_functions.html)
+* `d1 = 'Weibull', d2 = 'Weibull'`
+    * d1 = the name of the probability distribution chosen to describe 
+    background mortality
+    * d2 = the name of the probability distribution chosen to describe 
+    mortality due to infection
+    * choice of distributions are, Gumbel, Weibull, Fréchet
+        * NB the exponential distribution is a special case of the 
+        Weibull distribution. 
+        It can be specified by setting a scale parameter to equal one, 
+        e.g., _b1 = 1_ 
+        see [the exponential distribution](the_exponential_distribution.html)
+* __NB__ _nll_ functions automatically detect the column `fq` and take into
+account the frequency of individuals involved
+    * if there is no column `fq` it is assumed each line of data corresponds 
+    with an individual host.
+
+The information above is used to define a log-likelihood function of the form;
+
+\begin{equation}
+\log L = \sum_{i=1}^{n} \left\{ d \log \left[ h_1(t_i) + g \cdot h_2(t_i) \right] + \log \left[ S_1(t_i) \right] + g \cdot \log \left[ S_2(t_i) \right] \right\}
+\end{equation}
+
+where;
+
+* _d_ is a death indicator taking a value of '1' when data are for death and '0' for censored data;
+    * it is the complement of the data defined as 'censor'
+* _g_ is an indicator of infection treatment taking a value of '1' for an infected treatment and '0' for an uninfected treatment
+* _h_~1~(_t_) is the hazard function for background mortality for individual _i_ at time _t_            
+* _h_~2~(_t_) is the hazard function for mortality due to infection for individual _i_ at time _t_            
+* _S_~1~(_t_) is the cumulative survival function for background mortality for individual _i_ at time _t_            
+* _S_~2~(_t_) is the cumulative survival function for mortality due to infection for individual _i_ at time _t_            
+
+The Weibull distribution was chosen to describe the background rate of mortality and mortality due to infection. 
+
+The survival function describing
+background mortality was,
+
+\begin{equation}
+S_1(t) = \exp \left[ - \exp \left( z_1 \right) \right]
+\end{equation}
+
+with the hazard function being,
+
+\begin{equation}
+h_1(t) = \frac{1}{b_1 t} \exp \left( z_1 \right)
+\end{equation}
+
+where, \(z_1 = \left( \log t - a_1\right) / b_1 \)
+
+Equivalent expressions described mortality due to infection, where the 
+index '1' is replaced by '2'.
+
+_a_~1~, _b_~1~, _a_~2~, _b_~2~ are the variables to be estimated, 
+as listed in the formal arguments of `m01_prep_function`.
+
+[back to top](#top)
+
+### Step #2 {#step2}
+
+Step #2 involves calling the _mle2_ function of the package _bbmle_ [@bbmle] which will estimate the values of variables maximising the likelihood function.
+
+In the example below, _mle2_ is given the name of the prep-function, `m01_prep_function` along with a list giving starting values for the variables to be estimated.
+
+```{r eval = FALSE, echo = TRUE}
+    m01 <- mle2(m01_prep_function,
+             start = list(a1 = 2, b1 = 0.5, a2 = 2, b2 = 0.5)
+             )
+```
+
+Yielding the results,
+
+```{r eval = TRUE, echo = FALSE, collapse = TRUE, error = FALSE, message = FALSE, warning = FALSE}
+
+    m01_prep_function <- function(a1, b1, a2, b2){
+      nll_basic(
+        a1, b1, a2, b2,
+        data = data01,
+        time = day,
+        censor = censor,
+        infected_treatment = inf,
+        d1 = 'Weibull',
+        d2 = 'Weibull')
+        }
+
+    m01 <- mle2(m01_prep_function,
+             start = list(a1 = 2, b1 = 0.5, a2 = 2, b2 = 0.5)
+             )
+
+    summary(m01)
+
+```    
+ 
+The location and scale parameters describing mortality due to infection, _a2, b2_, lead to a numerical expression for pathogen's virulence at time _t_ as, 
+
+\begin{equation}
+\frac{1}{0.183\: t} \exp \left( \frac{\log t - 2.581}{0.183} \right) \\
+\end{equation}
+
+where the rate of mortality due to infection accelerates over time.
+
+The default of _nll\_basic_ returns estimates for, _a1, b1, a2, b2_. 
+The function _conf\_ints\_virulence_ can be used to generate a matrix with the estimate of virulence (± 95\% c.i.) based on the variance and covariance of estimates for _a2_ and _b2_.
+
+```{r fig.width = 4, fig.height = 4, fig.align = 'center'}
+
+    coef(m01)
+    
+    vcov(m01)
+
+    a2 <- coef(m01)[[3]]
+    b2 <- coef(m01)[[4]]
+    var_a2 <- vcov(m01)[3,3]
+    var_b2 <- vcov(m01)[4,4]
+    cov_a2b2 <- vcov(m01)[3,4]
+    
+    ci_matrix01 <- conf_ints_virulence(
+      a2 = a2, b2 = b2,
+      var_a2 = var_a2, var_b2 = var_b2, cov_a2b2 = cov_a2b2, 
+      d2 = "Weibull", tmax = 14)
+
+    tail(ci_matrix01)
+
+    plot(ci_matrix01[, 't'], ci_matrix01[, 'h2'], 
+         type = 'l', col = 'red', xlab = 'time', ylab = 'virulence (± 95% ci)'
+         )
+      lines(ci_matrix01[, 'lower_ci'], col = 'grey')
+      lines(ci_matrix01[, 'upper_ci'], col = 'grey')
+``` 
+
+
+[back to top](#top)
+
+
+### References 
+

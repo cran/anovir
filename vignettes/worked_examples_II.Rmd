@@ -1,0 +1,222 @@
+---
+title: "Worked examples II"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Worked examples II}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: \usepackage{amsmath}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(anovir)
+```
+
+
+### Extending _nll\_proportional\_virulence_ to multiple treatments
+
+This example shows `nll_proportional_virulence` extended
+to comparing multiple treatments against a reference treatment 
+for virulence.
+
+Data from [@Lorenz_2011; @Lorenz_data_2011]
+
+
+```{r include = TRUE, warning = FALSE}
+
+data01 <- data_lorenz
+
+# create column 'ref_vir' in dataframe coded 0, 1 and 2
+# for control, reference dose, and other dose treatments, respectively
+
+data01$ref_vir <- ifelse(data01$g == 0, 0,
+  ifelse(data01$g == 1, ifelse(data01$Infectious.dose == 5000, 1, 2), 0)
+  )
+
+# copy and modify 'nll_proportional_virulence' function
+# where the virulence in the reference treatment is 'theta'
+# which is multiplied by 'th10', 'th20', etc... in the other dose treatements
+
+nll_proportional_virulence2 <- nll_proportional_virulence
+  body(nll_proportional_virulence2)[[6]] <- substitute(pfth <- theta *
+  ifelse(data01$Infectious.dose == 10000, th10,
+  ifelse(data01$Infectious.dose == 20000, th20,
+  ifelse(data01$Infectious.dose == 40000, th40,
+  ifelse(data01$Infectious.dose == 80000, th80,
+  ifelse(data01$Infectious.dose == 160000, th160,
+  exp(0)
+  )))))
+  )
+
+# update formals 
+
+formals(nll_proportional_virulence2) <- alist(
+  a1 = a1,  b1 = b1,  a2 = a2,  b2 = b2,
+  theta = theta,
+  th10 = th10, th20 = th20, th40 = th40, th80 = th80, th160 = th160,
+  data = data01,
+  time = t,
+  censor = censored,
+  infected_treatment = g,
+  reference_virulence = ref_vir,
+  d1 = 'Gumbel', d2 = 'Weibull')
+
+# write 'prep function'
+
+m01_prep_function <- function(
+  a1, b1, a2, b2, theta, th10, th20, th40, th80, th160){
+  nll_proportional_virulence2(
+  a1, b1, a2, b2, theta, th10, th20, th40, th80, th160)
+  }
+
+# send 'prep function' to mle2
+# NB fixing 'theta = 1' scales virulence in other treatments relative to
+# that in the reference treatment
+
+m01 <- mle2(m01_prep_function,
+  start = list(
+    a1 = 24, b1 = 5, a2 = 4, b2 = 0.2,
+    theta = 1,
+    th10 = 1, th20 = 1, th40 = 1, th80 = 1, th160 = 1),
+    fixed = list(theta = 1)
+    )
+
+summary(m01)
+
+```
+
+
+
+The values of _a2_ and _b2_ define virulence at time _t_ in the reference 
+dose treatment of 5 (x10^3^) spores larva^-1^ as,
+
+\begin{equation}
+h_{5000}(t) = \frac{1}{0.188 t} \exp \left[ \frac{\log t - 3.205}{0.188} \right]
+\end{equation}
+
+which was estimated as being multiplied by 2.280, 2.303, 3.649, 4.591 and 
+5.513 times in the dose treatments of 10, 20, 40, 80 
+and 160 (x10^3^) spores larva^-1^, respectively, assuming virulence is 
+proportional among dose treatments.
+
+### Modifying _nll\_basic\_logscale_ 
+
+This example shows how to manipulate the function `nll_basic_logscale`,
+which assumes location and scale parameters are on a logscale.
+
+This function can avoid the generation of warning messages associated with
+parameters with negative values being given to logarithmic functions.
+
+Data from [@Lorenz_2011; @Lorenz_data_2011]
+
+
+```{r include = TRUE}
+data01 <- data_lorenz
+
+head(data01)
+
+
+nll_basic_logscale2 <- nll_basic_logscale 
+
+body(nll_basic_logscale2)[[4]]
+
+```
+
+Here the location parameter `a2` is to be made a linear function 
+of log(dose), 
+
+`a2 = a2i - a2ii*log(data01$Infectious.dose)`
+
+where `a2i` and `a2ii` are parameters to be estimated. 
+
+However instead of directly replacing `a2` with the right hand
+side of the expression above, i.e.,
+
+`pfa2 <- exp(a2i - a2ii*log(data01$Infectious.dose))`
+
+both parameters need exponentiating, i.e.,
+
+`pfa2 <- exp(a2i) - exp(a2ii)*log(data01$Infectious.dose)`
+
+
+```{r include = TRUE}
+
+body(nll_basic_logscale2)[[4]] <- substitute(
+  pfa2 <- exp(a2i) - exp(a2ii)*log(data01$Infectious.dose)
+  )
+
+body(nll_basic_logscale2)[[4]]
+
+formals(nll_basic_logscale2) <- alist(
+  a1 = a1, b1 = b1, a2i = a2i, a2ii = a2ii, b2 = b2,
+  data = data01,
+  time = t,
+  censor = censored,
+  infected_treatment = g,
+  d1 = 'Gumbel', d2 = 'Weibull'
+)
+
+m01_prep_function <- function(a1, b1, a2i, a2ii, b2){
+  nll_basic_logscale2(a1, b1, a2i, a2ii, b2)
+  }
+
+m01 <- mle2(m01_prep_function,
+  start = list(a1 = 3, b1 = 1.5, a2i = 1.4, a2ii = -3, b2 = -1.5)
+  )
+
+summary(m01)
+
+exp(coef(m01))
+
+```
+
+Estimates made using `nll_basic` are similar,
+but generate `Warning messages`
+
+```{r include = TRUE}
+
+nll_basic2 <- nll_basic 
+
+body(nll_basic2)[[4]]
+
+body(nll_basic2)[[4]] <- substitute(
+  pfa2 <- a2i + a2ii*log(data01$Infectious.dose)
+  )
+
+body(nll_basic2)[[4]]
+
+formals(nll_basic2) <- alist(
+  a1 = a1, b1 = b1, a2i = a2i, a2ii = a2ii, b2 = b2,
+  data = data01,
+  time = t,
+  censor = censored,
+  infected_treatment = g,
+  d1 = 'Gumbel', d2 = 'Weibull'
+)
+
+
+m02_prep_function <- function(a1, b1, a2i, a2ii, b2){
+  nll_basic2(a1, b1, a2i, a2ii, b2)
+  }
+
+m02 <- mle2(m02_prep_function,
+  start = list(a1 = 23, b1 = 4.5, a2i = 3.8, a2ii = -0.1, b2 = 0.4)
+  )
+
+summary(m02)
+
+
+```
+
+
+
+### References 

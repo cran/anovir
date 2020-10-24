@@ -1,0 +1,72 @@
+#' @description
+#' Epidemiological population dynamics models traditionally define a
+#' pathogen's virulence as the increase in the per capita rate of mortality
+#' of infected hosts due to infection.
+#' The ANOVIR package provides functions allowing virulence to be estimated
+#' by maximum likelihood techniques.
+#' The approach is based on the analysis of relative survival applied to
+#' the comparison of survival in matching cohorts of experimentally-infected
+#' vs. uninfected hosts (Agnew 2019).
+#'
+#' @details
+#'
+#' The analysis of relative survival is a statistical method for estimating
+#' excess mortality.
+#' Excess mortality occurs when a target population experiences greater
+#' mortality than would be expected for a given period of time.
+#' Here excess mortality is estimated in the context of emprical studies
+#' where survival in populations of experimentally infected hosts is
+#' compared to that in matching populations of uninfected, or control, hosts.
+#' In this context the relative survival approach assumes the
+#' rate of mortality observed in the infected treatment arises as the sum of
+#' two independent and mutually exclusive sources of mortality,
+#' (i) the 'natural' or background rate of mortality, and
+#' (ii) an addition rate of mortality due to infection.
+#'
+#' The background rate of mortality is the expected rate of mortality hosts in
+#' the infected treatment would have experienced had they not been
+#' exposed to infection; it is estimated from mortality
+#' observed in the matching uninfected control treatment.
+#' When there is background mortality, the rate of mortality of infected
+#' hosts due to infection is not directly observed;
+#' however it can be estimated from the difference in mortality observed
+#' for an infected treatment and that observed in a matching control treatment.
+#'
+#' The two sources of mortality assumed in the relative survival approach,
+#' and the additive effect of their rates for infected hosts, is also found
+#' in the population dynamics models on which most epidemiological theory
+#' is based.
+#' The additional rate of mortality of infected hosts due to
+#' infection is generally how these models define pathogen virulence.
+#'
+#'
+#' @author Philip AGNEW & Jimmy LOPEZ
+#' @references
+#' Agnew P (2019) Estimating virulence from relative survival. bioRxiv: 530709
+#' \href{https://doi.org/10.1101/530709}{doi}
+#' @section Acknowledgements:
+#' PA is grateful to the following people;
+#'
+#' - Yannis MICHALAKIS for affording me the time and
+#' space at work to develop this project
+#'
+#' - Simon BLANFORD and Matthew THOMAS for generously providing the data from
+#' their 2012 study and allowing it to be made publically available
+#'
+#' - Célia TOURAINE at the Institut du Cancer de Montpellier (ICM)
+#' for reading the original manuscript and validating the general
+#' approach of analysing relative survival as a means to
+#' estimate virulence
+#'
+#' - Eric ELGUERO for useful input during discussions on models for
+#' recovery from infection and estimating confidence intervals
+#'
+#' - François ROUSSET for helpful technical advice concerning R
+#'
+#' This work was funded by basic research funds from the French research
+#' agencies of the Centre National de la Recherche Scientifique (CNRS)
+#' and the Institut de Recherche pour le Développement (IRD).
+#'
+#' @seealso Vignettes for examples of how to use and modify
+#'  the functions in this package to estimate pathogen virulence
+"_PACKAGE"

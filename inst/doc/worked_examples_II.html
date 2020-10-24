@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Worked examples II</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Worked examples II</h1>
+
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(anovir)</code></pre></div>
+<div id="extending-nll_proportional_virulence-to-multiple-treatments" class="section level3">
+<h3>Extending <em>nll_proportional_virulence</em> to multiple treatments</h3>
+<p>This example shows <code>nll_proportional_virulence</code> extended to comparing multiple treatments against a reference treatment for virulence.</p>
+<p>Data from <span class="citation">[1,2]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_lorenz
+
+<span class="co"># create column 'ref_vir' in dataframe coded 0, 1 and 2</span>
+<span class="co"># for control, reference dose, and other dose treatments, respectively</span>
+
+data01<span class="op">$</span>ref_vir &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">0</span>, <span class="dv">0</span>,
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="dv">0</span>)
+  )
+
+<span class="co"># copy and modify 'nll_proportional_virulence' function</span>
+<span class="co"># where the virulence in the reference treatment is 'theta'</span>
+<span class="co"># which is multiplied by 'th10', 'th20', etc... in the other dose treatements</span>
+
+nll_proportional_virulence2 &lt;-<span class="st"> </span>nll_proportional_virulence
+  <span class="kw">body</span>(nll_proportional_virulence2)[[<span class="dv">6</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfth &lt;-<span class="st"> </span>theta <span class="op">*</span>
+<span class="st">  </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">10000</span>, th10,
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">20000</span>, th20,
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">40000</span>, th40,
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">80000</span>, th80,
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">160000</span>, th160,
+  <span class="kw">exp</span>(<span class="dv">0</span>)
+  )))))
+  )
+
+<span class="co"># update formals </span>
+
+<span class="kw">formals</span>(nll_proportional_virulence2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1,  <span class="dt">b1 =</span> b1,  <span class="dt">a2 =</span> a2,  <span class="dt">b2 =</span> b2,
+  <span class="dt">theta =</span> theta,
+  <span class="dt">th10 =</span> th10, <span class="dt">th20 =</span> th20, <span class="dt">th40 =</span> th40, <span class="dt">th80 =</span> th80, <span class="dt">th160 =</span> th160,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t,
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g,
+  <span class="dt">reference_virulence =</span> ref_vir,
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+<span class="co"># write 'prep function'</span>
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  a1, b1, a2, b2, theta, th10, th20, th40, th80, th160){
+  <span class="kw">nll_proportional_virulence2</span>(
+  a1, b1, a2, b2, theta, th10, th20, th40, th80, th160)
+  }
+
+<span class="co"># send 'prep function' to mle2</span>
+<span class="co"># NB fixing 'theta = 1' scales virulence in other treatments relative to</span>
+<span class="co"># that in the reference treatment</span>
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">24</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">4</span>, <span class="dt">b2 =</span> <span class="fl">0.2</span>,
+    <span class="dt">theta =</span> <span class="dv">1</span>,
+    <span class="dt">th10 =</span> <span class="dv">1</span>, <span class="dt">th20 =</span> <span class="dv">1</span>, <span class="dt">th40 =</span> <span class="dv">1</span>, <span class="dt">th80 =</span> <span class="dv">1</span>, <span class="dt">th160 =</span> <span class="dv">1</span>),
+    <span class="dt">fixed =</span> <span class="kw">list</span>(<span class="dt">theta =</span> <span class="dv">1</span>)
+    )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 24, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 4, b2 = 0.2, theta = 1, th10 = 1, th20 = 1, th40 = 1, </span>
+<span class="co">#&gt;     th80 = 1, th160 = 1), fixed = list(theta = 1))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;        Estimate Std. Error z value   Pr(z)    </span>
+<span class="co">#&gt; a1    23.165445   0.652943 35.4785 &lt; 2e-16 ***</span>
+<span class="co">#&gt; b1     4.660055   0.384772 12.1112 &lt; 2e-16 ***</span>
+<span class="co">#&gt; a2     3.205421   0.084396 37.9807 &lt; 2e-16 ***</span>
+<span class="co">#&gt; b2     0.188362   0.020123  9.3607 &lt; 2e-16 ***</span>
+<span class="co">#&gt; th10   2.280418   1.142473  1.9960 0.04593 *  </span>
+<span class="co">#&gt; th20   2.303080   1.144282  2.0127 0.04415 *  </span>
+<span class="co">#&gt; th40   3.649006   1.798433  2.0290 0.04246 *  </span>
+<span class="co">#&gt; th80   4.590818   2.277040  2.0161 0.04379 *  </span>
+<span class="co">#&gt; th160  5.513346   2.706341  2.0372 0.04163 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1504.575</span></code></pre></div>
+<p>The values of <em>a2</em> and <em>b2</em> define virulence at time <em>t</em> in the reference dose treatment of 5 (x10<sup>3</sup>) spores larva<sup>-1</sup> as,</p>
+<span class="math display">\[\begin{equation}
+h_{5000}(t) = \frac{1}{0.188 t} \exp \left[ \frac{\log t - 3.205}{0.188} \right]
+\end{equation}\]</span>
+<p>which was estimated as being multiplied by 2.280, 2.303, 3.649, 4.591 and 5.513 times in the dose treatments of 10, 20, 40, 80 and 160 (x10<sup>3</sup>) spores larva<sup>-1</sup>, respectively, assuming virulence is proportional among dose treatments.</p>
+</div>
+<div id="modifying-nll_basic_logscale" class="section level3">
+<h3>Modifying <em>nll_basic_logscale</em></h3>
+<p>This example shows how to manipulate the function <code>nll_basic_logscale</code>, which assumes location and scale parameters are on a logscale.</p>
+<p>This function can avoid the generation of warning messages associated with parameters with negative values being given to logarithmic functions.</p>
+<p>Data from <span class="citation">[1,2]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data01 &lt;-<span class="st"> </span>data_lorenz
+
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;    Infectious.dose Food Sex Spore.Count    t censored d g</span>
+<span class="co">#&gt; 1            10000  100   F      425000 13.0        0 1 1</span>
+<span class="co">#&gt; 2            10000   50   F       22000  3.5        0 1 1</span>
+<span class="co">#&gt; 3            10000  100   F      465000 20.5        0 1 1</span>
+<span class="co">#&gt; 8                0   50   F          NA 17.0        0 1 0</span>
+<span class="co">#&gt; 10          160000   50   F      295000 17.5        0 1 1</span>
+<span class="co">#&gt; 11          160000  100   F           0  4.0        0 1 1</span>
+
+
+nll_basic_logscale2 &lt;-<span class="st"> </span>nll_basic_logscale 
+
+<span class="kw">body</span>(nll_basic_logscale2)[[<span class="dv">4</span>]]
+<span class="co">#&gt; pfa2 &lt;- exp(a2)</span></code></pre></div>
+<p>Here the location parameter <code>a2</code> is to be made a linear function of log(dose),</p>
+<p><code>a2 = a2i - a2ii*log(data01$Infectious.dose)</code></p>
+<p>where <code>a2i</code> and <code>a2ii</code> are parameters to be estimated.</p>
+<p>However instead of directly replacing <code>a2</code> with the right hand side of the expression above, i.e.,</p>
+<p><code>pfa2 &lt;- exp(a2i - a2ii*log(data01$Infectious.dose))</code></p>
+<p>both parameters need exponentiating, i.e.,</p>
+<p><code>pfa2 &lt;- exp(a2i) - exp(a2ii)*log(data01$Infectious.dose)</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+<span class="kw">body</span>(nll_basic_logscale2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfa2 &lt;-<span class="st"> </span><span class="kw">exp</span>(a2i) <span class="op">-</span><span class="st"> </span><span class="kw">exp</span>(a2ii)<span class="op">*</span><span class="kw">log</span>(data01<span class="op">$</span>Infectious.dose)
+  )
+
+<span class="kw">body</span>(nll_basic_logscale2)[[<span class="dv">4</span>]]
+<span class="co">#&gt; pfa2 &lt;- exp(a2i) - exp(a2ii) * log(data01$Infectious.dose)</span>
+
+<span class="kw">formals</span>(nll_basic_logscale2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2i =</span> a2i, <span class="dt">a2ii =</span> a2ii, <span class="dt">b2 =</span> b2,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t,
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>
+)
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic_logscale2</span>(a1, b1, a2i, a2ii, b2)
+  }
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">3</span>, <span class="dt">b1 =</span> <span class="fl">1.5</span>, <span class="dt">a2i =</span> <span class="fl">1.4</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="dv">3</span>, <span class="dt">b2 =</span> <span class="op">-</span><span class="fl">1.5</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 3, b1 = 1.5, </span>
+<span class="co">#&gt;     a2i = 1.4, a2ii = -3, b2 = -1.5))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    3.143306   0.028334 110.937 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    1.550561   0.081129  19.112 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2i   1.346133   0.049796  27.033 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2ii -2.511533   0.217948 -11.524 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2   -1.684226   0.104964 -16.046 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1506.184</span>
+
+<span class="kw">exp</span>(<span class="kw">coef</span>(m01))
+<span class="co">#&gt;          a1          b1         a2i        a2ii          b2 </span>
+<span class="co">#&gt; 23.18036585  4.71411429  3.84253844  0.08114371  0.18558808</span></code></pre></div>
+<p>Estimates made using <code>nll_basic</code> are similar, but generate <code>Warning messages</code></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+nll_basic2 &lt;-<span class="st"> </span>nll_basic 
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]]
+<span class="co">#&gt; pfa2 &lt;- a2</span>
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfa2 &lt;-<span class="st"> </span>a2i <span class="op">+</span><span class="st"> </span>a2ii<span class="op">*</span><span class="kw">log</span>(data01<span class="op">$</span>Infectious.dose)
+  )
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]]
+<span class="co">#&gt; pfa2 &lt;- a2i + a2ii * log(data01$Infectious.dose)</span>
+
+<span class="kw">formals</span>(nll_basic2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2i =</span> a2i, <span class="dt">a2ii =</span> a2ii, <span class="dt">b2 =</span> b2,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t,
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>
+)
+
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic2</span>(a1, b1, a2i, a2ii, b2)
+  }
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="fl">4.5</span>, <span class="dt">a2i =</span> <span class="fl">3.8</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="fl">0.4</span>)
+  )
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="co">#&gt; Warning in log(h1 + g * h2): NaNs produced</span>
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 23, b1 = 4.5, </span>
+<span class="co">#&gt;     a2i = 3.8, a2ii = -0.1, b2 = 0.4))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1   23.189717   0.657339 35.2782 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    4.720309   0.383171 12.3191 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2i   3.833275   0.190004 20.1747 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2ii -0.080280   0.017580 -4.5666 4.956e-06 ***</span>
+<span class="co">#&gt; b2    0.185412   0.019389  9.5627 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1506.186</span></code></pre></div>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Lorenz_2011">
+<p>1. Lorenz LM, Koella JC. 2011 The microsporidian parasite vavraia culicis as a potential late life-acting control agent of malaria. <em>Evolutionary Applications</em> <strong>4</strong>, 783–790. (doi:<a href="https://doi.org/10.1111/j.1752-4571.2011.00199.x">10.1111/j.1752-4571.2011.00199.x</a>)</p>
+</div>
+<div id="ref-Lorenz_data_2011">
+<p>2. Lorenz LM, Koella JC. 2011 Data from: The microsporidian parasite vavraia culicis as a potential late life-acting control agent of malaria. <em>Dryad Digital Repository</em> (doi:<a href="https://doi.org/10.5061/dryad.2s231">10.5061/dryad.2s231</a>)</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

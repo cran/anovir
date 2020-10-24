@@ -1,0 +1,1660 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Worked examples I</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Worked examples I</h1>
+
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(anovir)</code></pre></div>
+<div id="introduction" class="section level3">
+<h3>Introduction</h3>
+<p>The code below repeats analyses found in the supplementary files of Agnew 2019 <span class="citation">[1]</span>.</p>
+<p><a href="#S06">S06</a> | <a href="#S08">S08</a> | <a href="#S10">S10</a> | <a href="#S11">S11</a> | <a href="#S12">S12</a> | <a href="#S14">S14</a> | <a href="#S15">S15</a></p>
+</div>
+<div id="S06" class="section level2">
+<h2>S06. Analysis of Blanford et al. data (i)</h2>
+<p>Data from <span class="citation">[2]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data01 &lt;-<span class="st"> </span><span class="kw">subset</span>(data_blanford,
+  (data_blanford<span class="op">$</span>block <span class="op">==</span><span class="st"> </span><span class="dv">3</span>) <span class="op">&amp;</span><span class="st"> </span>
+<span class="st">  </span>((data_blanford<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'cont'</span>) <span class="op">|</span><span class="st"> </span>(data_blanford<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Bb06'</span>)) <span class="op">&amp;</span>
+<span class="st">  </span>(data_blanford<span class="op">$</span>day <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+  )
+
+<span class="kw">head</span>(data01, <span class="dv">3</span>)
+<span class="co">#&gt;     block treatment replicate_cage day censor d inf t fq</span>
+<span class="co">#&gt; 450     3      cont              1   1      0 1   0 1  0</span>
+<span class="co">#&gt; 451     3      cont              1   2      0 1   0 2  0</span>
+<span class="co">#&gt; 452     3      cont              1   3      0 1   0 3  0</span>
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2){
+  <span class="kw">nll_basic</span>(a1, b1, a2, b2,
+    <span class="dt">data =</span> data01,
+    <span class="dt">time =</span> t, 
+    <span class="dt">censor =</span> censor,
+    <span class="dt">infected_treatment =</span> inf,
+    <span class="dt">d1 =</span> <span class="st">'Weibull'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+  }
+
+<span class="co"># starting values taken from linear regression of complementary</span>
+<span class="co"># log-log transformed cumulative survival data</span>
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="fl">3.343</span>, <span class="dt">b1 =</span> <span class="fl">0.792</span>, <span class="dt">a2 =</span> <span class="fl">2.508</span>, <span class="dt">b2 =</span> <span class="fl">0.493</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 3.343, </span>
+<span class="co">#&gt;     b1 = 0.792, a2 = 2.508, b2 = 0.493))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;    Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1 2.845028   0.069054 41.2000 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1 0.482718   0.043025 11.2195 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2 2.580839   0.028630 90.1457 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2 0.183062   0.031634  5.7868 7.174e-09 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1293.144</span>
+<span class="kw">confint</span>(m01)
+<span class="co">#&gt;       2.5 %    97.5 %</span>
+<span class="co">#&gt; a1 2.723105 2.9989058</span>
+<span class="co">#&gt; b1 0.407109 0.5787759</span>
+<span class="co">#&gt; a2 2.524759 2.6396903</span>
+<span class="co">#&gt; b2 0.121188 0.2507871</span>
+
+<span class="co"># log-likelihood based on estimates of linear regression </span>
+
+m02&lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="fl">3.343</span>, <span class="dt">b1 =</span> <span class="fl">0.792</span>, <span class="dt">a2 =</span> <span class="fl">2.508</span>, <span class="dt">b2 =</span> <span class="fl">0.493</span>),
+  <span class="dt">eval.only =</span> <span class="ot">TRUE</span>
+  )
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 3.343, </span>
+<span class="co">#&gt;     b1 = 0.792, a2 = 2.508, b2 = 0.493), eval.only = TRUE)</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;    Estimate Std. Error z value Pr(z)</span>
+<span class="co">#&gt; a1    3.343         NA      NA    NA</span>
+<span class="co">#&gt; b1    0.792         NA      NA    NA</span>
+<span class="co">#&gt; a2    2.508         NA      NA    NA</span>
+<span class="co">#&gt; b2    0.493         NA      NA    NA</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1381.426</span>
+
+<span class="kw">AICc</span>(m01, m02, <span class="dt">nobs =</span> <span class="kw">sum</span>(data01<span class="op">$</span>fq))
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1301.286  4</span>
+<span class="co">#&gt; 2 1389.568  4</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="S08" class="section level2">
+<h2>S08. Analysis of the Lorenz &amp; Koella data</h2>
+<p>Data from <span class="citation">[3,4]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_lorenz
+<span class="kw">head</span>(data01, <span class="dv">3</span>)
+<span class="co">#&gt;   Infectious.dose Food Sex Spore.Count    t censored d g</span>
+<span class="co">#&gt; 1           10000  100   F      425000 13.0        0 1 1</span>
+<span class="co">#&gt; 2           10000   50   F       22000  3.5        0 1 1</span>
+<span class="co">#&gt; 3           10000  100   F      465000 20.5        0 1 1</span>
+
+
+### Model 1
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2){
+  <span class="kw">nll_basic</span>(a1, b1, a2, b2,
+    <span class="dt">data =</span> data01,
+    <span class="dt">time =</span> t,
+    <span class="dt">censor =</span> censored, 
+    <span class="dt">infected_treatment =</span> g,
+    <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+  }
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">b2 =</span> <span class="dv">1</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 3, b2 = 1))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;     Estimate Std. Error  z value     Pr(z)    </span>
+<span class="co">#&gt; a1 23.215721   0.665292  34.8955 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1  4.674867   0.406836  11.4908 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2  3.019835   0.028913 104.4438 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2  0.210731   0.023552   8.9475 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1528.421</span>
+
+### Model 2
+<span class="co"># copy 'nll_basic' &amp; make each parameter function a function of food treatment</span>
+
+nll_basic2 &lt;-<span class="st"> </span>nll_basic 
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">2</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfa1 &lt;-<span class="st"> </span>a1 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, a1i, <span class="op">-</span>a1i)
+  )
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">3</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfb1 &lt;-<span class="st"> </span>b1 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, b1i, <span class="op">-</span>b1i)
+  )
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfa2 &lt;-<span class="st"> </span>a2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, a2i, <span class="op">-</span>a2i)
+)
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+  pfb2 &lt;-<span class="st"> </span>b2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, b2i, <span class="op">-</span>b2i)
+)
+
+<span class="co"># update formals </span>
+
+<span class="kw">formals</span>(nll_basic2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">a1i =</span> a1i, 
+  <span class="dt">b1 =</span> b1, <span class="dt">b1i =</span> b1i, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2i =</span> a2i, 
+  <span class="dt">b2 =</span> b2, <span class="dt">b2i =</span> b2i,
+  <span class="dt">data =</span> data01, 
+  <span class="dt">time =</span> t,
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, a1i, b1, b1i, a2, a2i, b2, b2i){
+  <span class="kw">nll_basic2</span>(a1, a1i, b1, b1i, a2, a2i, b2, b2i)
+  }
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="fl">23.2</span>, <span class="dt">a1i =</span> <span class="dv">0</span>,
+    <span class="dt">b1 =</span> <span class="fl">4.6</span>, <span class="dt">b1i =</span> <span class="dv">0</span>,
+    <span class="dt">a2 =</span> <span class="fl">3.0</span>, <span class="dt">a2i =</span> <span class="dv">0</span>, 
+    <span class="dt">b2 =</span> <span class="fl">0.2</span>, <span class="dt">b2i =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 23.2, a1i = 0, </span>
+<span class="co">#&gt;     b1 = 4.6, b1i = 0, a2 = 3, a2i = 0, b2 = 0.2, b2i = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;      Estimate Std. Error  z value  Pr(z)    </span>
+<span class="co">#&gt; a1  23.218273   0.673537  34.4721 &lt;2e-16 ***</span>
+<span class="co">#&gt; a1i -0.336986   0.673538  -0.5003 0.6168    </span>
+<span class="co">#&gt; b1   4.686262   0.409784  11.4359 &lt;2e-16 ***</span>
+<span class="co">#&gt; b1i -0.312469   0.409784  -0.7625 0.4457    </span>
+<span class="co">#&gt; a2   3.014350   0.028045 107.4842 &lt;2e-16 ***</span>
+<span class="co">#&gt; a2i -0.042484   0.028045  -1.5149 0.1298    </span>
+<span class="co">#&gt; b2   0.202349   0.023291   8.6880 &lt;2e-16 ***</span>
+<span class="co">#&gt; b2i -0.016894   0.023291  -0.7253 0.4682    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1521.028</span>
+
+### Model 3
+<span class="co"># create columns in data frame</span>
+<span class="co"># with dummary variables for dose treatments</span>
+
+data01<span class="op">$</span>d5 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d10 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">10000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d20 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">20000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d40 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">40000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d80 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">80000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d160 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">160000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;    Infectious.dose Food Sex Spore.Count    t censored d g d5 d10 d20 d40 d80</span>
+<span class="co">#&gt; 1            10000  100   F      425000 13.0        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 2            10000   50   F       22000  3.5        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 3            10000  100   F      465000 20.5        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 8                0   50   F          NA 17.0        0 1 0  0   0   0   0   0</span>
+<span class="co">#&gt; 10          160000   50   F      295000 17.5        0 1 1  0   0   0   0   0</span>
+<span class="co">#&gt; 11          160000  100   F           0  4.0        0 1 1  0   0   0   0   0</span>
+<span class="co">#&gt;    d160</span>
+<span class="co">#&gt; 1     0</span>
+<span class="co">#&gt; 2     0</span>
+<span class="co">#&gt; 3     0</span>
+<span class="co">#&gt; 8     0</span>
+<span class="co">#&gt; 10    1</span>
+<span class="co">#&gt; 11    1</span>
+
+<span class="co"># make parameter functions 'pfa2' and 'pfb2' functions of dose</span>
+<span class="co"># using columns in data01</span>
+
+nll_basic3 &lt;-<span class="st"> </span>nll_basic 
+
+<span class="kw">body</span>(nll_basic3)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+pfa2 &lt;-<span class="st"> </span>a2 <span class="op">+</span><span class="st"> </span>a5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d5 
+           <span class="op">+</span><span class="st"> </span>a10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d10 
+           <span class="op">+</span><span class="st"> </span>a20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d20 
+           <span class="op">+</span><span class="st"> </span>a40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d40 
+           <span class="op">+</span><span class="st"> </span>a80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d80 
+           <span class="op">-</span><span class="st"> </span>(a5 <span class="op">+</span><span class="st"> </span>a10 <span class="op">+</span><span class="st"> </span>a20 <span class="op">+</span><span class="st"> </span>a40 <span class="op">+</span><span class="st"> </span>a80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d160
+           )
+
+<span class="kw">body</span>(nll_basic3)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+pfb2 &lt;-<span class="st"> </span>b2 <span class="op">+</span><span class="st"> </span>b5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d5 
+           <span class="op">+</span><span class="st"> </span>b10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d10 
+           <span class="op">+</span><span class="st"> </span>b20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d20 
+           <span class="op">+</span><span class="st"> </span>b40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d40 
+           <span class="op">+</span><span class="st"> </span>b80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d80 
+           <span class="op">-</span><span class="st"> </span>(b5 <span class="op">+</span><span class="st"> </span>b10 <span class="op">+</span><span class="st"> </span>b20 <span class="op">+</span><span class="st"> </span>b40 <span class="op">+</span><span class="st"> </span>b80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d160
+           )
+
+<span class="co"># update formals</span>
+<span class="kw">formals</span>(nll_basic3) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a5 =</span> a5, <span class="dt">a10 =</span> a10, <span class="dt">a20 =</span> a20, <span class="dt">a40 =</span> a40, <span class="dt">a80 =</span> a80, 
+  <span class="dt">b2 =</span> b2, <span class="dt">b5 =</span> b5, <span class="dt">b10 =</span> b10, <span class="dt">b20 =</span> b20, <span class="dt">b40 =</span> b40, <span class="dt">b80 =</span> b80,
+  <span class="dt">data =</span> data01, 
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g, 
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>
+  )
+
+m03_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  a1, b1, 
+  a2, a5, a10, a20, a40, a80, 
+  b2, b5, b10, b20, b40, b80){
+    <span class="kw">nll_basic3</span>(
+      a1, b1, 
+      a2, a5, a10, a20, a40, a80, 
+      b2, b5, b10, b20, b40, b80)
+    }
+
+m03 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m03_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(
+  <span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="fl">4.6</span>,
+  <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">a5 =</span> <span class="dv">0</span>, <span class="dt">a10 =</span> <span class="dv">0</span>, <span class="dt">a20 =</span> <span class="dv">0</span>, <span class="dt">a40 =</span> <span class="dv">0</span>, <span class="dt">a80 =</span> <span class="dv">0</span>, 
+  <span class="dt">b2 =</span> <span class="fl">0.2</span>, <span class="dt">b5 =</span> <span class="dv">0</span>, <span class="dt">b10 =</span> <span class="dv">0</span>, <span class="dt">b20 =</span> <span class="dv">0</span>, <span class="dt">b40 =</span> <span class="dv">0</span>, <span class="dt">b80 =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m03)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m03_prep_function, start = list(a1 = 23, b1 = 4.6, </span>
+<span class="co">#&gt;     a2 = 3, a5 = 0, a10 = 0, a20 = 0, a40 = 0, a80 = 0, b2 = 0.2, </span>
+<span class="co">#&gt;     b5 = 0, b10 = 0, b20 = 0, b40 = 0, b80 = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error  z value     Pr(z)    </span>
+<span class="co">#&gt; a1  23.2051619  0.6525030  35.5633 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1   4.5880595  0.4189079  10.9524 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2   3.0078037  0.0283159 106.2232 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a5   0.1840405  0.0590506   3.1167  0.001829 ** </span>
+<span class="co">#&gt; a10  0.0292572  0.0674387   0.4338  0.664409    </span>
+<span class="co">#&gt; a20  0.0397519  0.0458397   0.8672  0.385836    </span>
+<span class="co">#&gt; a40 -0.0503364  0.0465339  -1.0817  0.279379    </span>
+<span class="co">#&gt; a80 -0.0857037  0.0423325  -2.0245  0.042915 *  </span>
+<span class="co">#&gt; b2   0.1941075  0.0255850   7.5868  3.28e-14 ***</span>
+<span class="co">#&gt; b5  -0.0332491  0.0411073  -0.8088  0.418609    </span>
+<span class="co">#&gt; b10  0.0928078  0.0797457   1.1638  0.244506    </span>
+<span class="co">#&gt; b20 -0.0136344  0.0416699  -0.3272  0.743516    </span>
+<span class="co">#&gt; b40  0.0068783  0.0374779   0.1835  0.854381    </span>
+<span class="co">#&gt; b80 -0.0221821  0.0349606  -0.6345  0.525762    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1501.587</span>
+
+### Model 4 
+<span class="co"># this model estimates the full dose * food interaction</span>
+<span class="co"># and replaces the approximate approach used in the original text</span>
+
+data01 &lt;-<span class="st"> </span>data_lorenz
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;    Infectious.dose Food Sex Spore.Count    t censored d g</span>
+<span class="co">#&gt; 1            10000  100   F      425000 13.0        0 1 1</span>
+<span class="co">#&gt; 2            10000   50   F       22000  3.5        0 1 1</span>
+<span class="co">#&gt; 3            10000  100   F      465000 20.5        0 1 1</span>
+<span class="co">#&gt; 8                0   50   F          NA 17.0        0 1 0</span>
+<span class="co">#&gt; 10          160000   50   F      295000 17.5        0 1 1</span>
+<span class="co">#&gt; 11          160000  100   F           0  4.0        0 1 1</span>
+
+<span class="co"># create columns with dummy variables</span>
+
+data01<span class="op">$</span>d5 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">5000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d10 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">10000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d20 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">20000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d40 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">40000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d80 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">80000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>d160 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">160000</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+data01<span class="op">$</span>af50 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>af100 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+data01<span class="op">$</span>f50d5 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">5000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f50d10 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">10000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f50d20 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">20000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f50d40 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">40000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f50d80 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">80000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f50d160 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">160000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">50</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+data01<span class="op">$</span>f100d5 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">5000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f100d10 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">10000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f100d20 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">20000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f100d40 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">40000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f100d80 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">80000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+data01<span class="op">$</span>f100d160 &lt;-<span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>Infectious.dose <span class="op">==</span><span class="st"> </span><span class="dv">160000</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>Food <span class="op">==</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>, <span class="dv">0</span>)
+
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;    Infectious.dose Food Sex Spore.Count    t censored d g d5 d10 d20 d40 d80</span>
+<span class="co">#&gt; 1            10000  100   F      425000 13.0        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 2            10000   50   F       22000  3.5        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 3            10000  100   F      465000 20.5        0 1 1  0   1   0   0   0</span>
+<span class="co">#&gt; 8                0   50   F          NA 17.0        0 1 0  0   0   0   0   0</span>
+<span class="co">#&gt; 10          160000   50   F      295000 17.5        0 1 1  0   0   0   0   0</span>
+<span class="co">#&gt; 11          160000  100   F           0  4.0        0 1 1  0   0   0   0   0</span>
+<span class="co">#&gt;    d160 af50 af100 f50d5 f50d10 f50d20 f50d40 f50d80 f50d160 f100d5 f100d10</span>
+<span class="co">#&gt; 1     0    0     1     0      0      0      0      0       0      0       1</span>
+<span class="co">#&gt; 2     0    1     0     0      1      0      0      0       0      0       0</span>
+<span class="co">#&gt; 3     0    0     1     0      0      0      0      0       0      0       1</span>
+<span class="co">#&gt; 8     0    1     0     0      0      0      0      0       0      0       0</span>
+<span class="co">#&gt; 10    1    1     0     0      0      0      0      0       1      0       0</span>
+<span class="co">#&gt; 11    1    0     1     0      0      0      0      0       0      0       0</span>
+<span class="co">#&gt;    f100d20 f100d40 f100d80 f100d160</span>
+<span class="co">#&gt; 1        0       0       0        0</span>
+<span class="co">#&gt; 2        0       0       0        0</span>
+<span class="co">#&gt; 3        0       0       0        0</span>
+<span class="co">#&gt; 8        0       0       0        0</span>
+<span class="co">#&gt; 10       0       0       0        0</span>
+<span class="co">#&gt; 11       0       0       0        1</span>
+
+nll_basic4 &lt;-<span class="st"> </span>nll_basic
+
+<span class="co"># make 'pfa2' and 'pfb2' functions of food-by-dose interaction</span>
+
+<span class="kw">body</span>(nll_basic4)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+pfa2 &lt;-<span class="st"> </span>a2 <span class="op">+</span><span class="st"> </span>a5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d5 
+           <span class="op">+</span><span class="st"> </span>a10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d10 
+           <span class="op">+</span><span class="st"> </span>a20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d20 
+           <span class="op">+</span><span class="st"> </span>a40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d40 
+           <span class="op">+</span><span class="st"> </span>a80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d80 
+           <span class="op">-</span><span class="st"> </span>(a5 <span class="op">+</span><span class="st"> </span>a10 <span class="op">+</span><span class="st"> </span>a20 <span class="op">+</span><span class="st"> </span>a40 <span class="op">+</span><span class="st"> </span>a80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d160
+           <span class="op">+</span><span class="st"> </span>af <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>af50
+           <span class="op">-</span><span class="st"> </span>af <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>af100
+           <span class="op">+</span><span class="st"> </span>afd5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d5
+           <span class="op">+</span><span class="st"> </span>afd10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d10
+           <span class="op">+</span><span class="st"> </span>afd20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d20
+           <span class="op">+</span><span class="st"> </span>afd40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d40
+           <span class="op">+</span><span class="st"> </span>afd80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d80
+           <span class="op">-</span><span class="st"> </span>(afd5 <span class="op">+</span><span class="st"> </span>afd10 <span class="op">+</span><span class="st"> </span>afd20 <span class="op">+</span><span class="st"> </span>afd40 <span class="op">+</span><span class="st"> </span>afd80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d160
+           <span class="op">-</span><span class="st"> </span>afd5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d5
+           <span class="op">-</span><span class="st"> </span>afd10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d10
+           <span class="op">-</span><span class="st"> </span>afd20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d20
+           <span class="op">-</span><span class="st"> </span>afd40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d40
+           <span class="op">-</span><span class="st"> </span>afd80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d80
+           <span class="op">+</span><span class="st"> </span>(afd5 <span class="op">+</span><span class="st"> </span>afd10 <span class="op">+</span><span class="st"> </span>afd20 <span class="op">+</span><span class="st"> </span>afd40 <span class="op">+</span><span class="st"> </span>afd80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d160
+           )
+
+<span class="kw">body</span>(nll_basic4)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(
+pfb2 &lt;-<span class="st"> </span>b2 <span class="op">+</span><span class="st"> </span>b5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d5 
+           <span class="op">+</span><span class="st"> </span>b10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d10 
+           <span class="op">+</span><span class="st"> </span>b20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d20 
+           <span class="op">+</span><span class="st"> </span>b40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d40 
+           <span class="op">+</span><span class="st"> </span>b80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d80 
+           <span class="op">-</span><span class="st"> </span>(b5 <span class="op">+</span><span class="st"> </span>b10 <span class="op">+</span><span class="st"> </span>b20 <span class="op">+</span><span class="st"> </span>b40 <span class="op">+</span><span class="st"> </span>b80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>d160
+           <span class="op">+</span><span class="st"> </span>bf <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>af50
+           <span class="op">-</span><span class="st"> </span>bf <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>af100
+           <span class="op">+</span><span class="st"> </span>bfd5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d5
+           <span class="op">+</span><span class="st"> </span>bfd10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d10
+           <span class="op">+</span><span class="st"> </span>bfd20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d20
+           <span class="op">+</span><span class="st"> </span>bfd40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d40
+           <span class="op">+</span><span class="st"> </span>bfd80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d80
+           <span class="op">-</span><span class="st"> </span>(bfd5 <span class="op">+</span><span class="st"> </span>bfd10 <span class="op">+</span><span class="st"> </span>bfd20 <span class="op">+</span><span class="st"> </span>bfd40 <span class="op">+</span><span class="st"> </span>bfd80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f50d160
+           <span class="op">-</span><span class="st"> </span>bfd5 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d5
+           <span class="op">-</span><span class="st"> </span>bfd10 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d10
+           <span class="op">-</span><span class="st"> </span>bfd20 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d20
+           <span class="op">-</span><span class="st"> </span>bfd40 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d40
+           <span class="op">-</span><span class="st"> </span>bfd80 <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d80
+           <span class="op">+</span><span class="st"> </span>(bfd5 <span class="op">+</span><span class="st"> </span>bfd10 <span class="op">+</span><span class="st"> </span>bfd20 <span class="op">+</span><span class="st"> </span>bfd40 <span class="op">+</span><span class="st"> </span>bfd80) <span class="op">*</span><span class="st"> </span>data01<span class="op">$</span>f100d160
+           )
+
+<span class="kw">formals</span>(nll_basic4) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a5 =</span> a5, <span class="dt">a10 =</span> a10, <span class="dt">a20 =</span> a20, <span class="dt">a40 =</span> a40, <span class="dt">a80 =</span> a80,
+  <span class="dt">af =</span> af, <span class="dt">afd5 =</span> afd5, <span class="dt">afd10 =</span> afd10, <span class="dt">afd20 =</span> afd20, <span class="dt">afd40 =</span> afd40, <span class="dt">afd80 =</span> afd80,
+  <span class="dt">b2 =</span> b2, <span class="dt">b5 =</span> b5, <span class="dt">b10 =</span> b10, <span class="dt">b20 =</span> b20, <span class="dt">b40 =</span> b40, <span class="dt">b80 =</span> b80,
+  <span class="dt">bf =</span> bf, <span class="dt">bfd5 =</span> bfd5, <span class="dt">bfd10 =</span> bfd10, <span class="dt">bfd20 =</span> bfd20, <span class="dt">bfd40 =</span> bfd40, <span class="dt">bfd80 =</span> bfd80,
+  <span class="dt">data =</span> data01, 
+  <span class="dt">time =</span> t, 
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g, 
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>) 
+
+m04_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a5 =</span> a5, <span class="dt">a10 =</span> a10, <span class="dt">a20 =</span> a20, <span class="dt">a40 =</span> a40, <span class="dt">a80 =</span> a80,
+  <span class="dt">af =</span> af, <span class="dt">afd5 =</span> afd5, <span class="dt">afd10 =</span> afd10, <span class="dt">afd20 =</span> afd20, <span class="dt">afd40 =</span> afd40, <span class="dt">afd80 =</span> afd80,
+  <span class="dt">b2 =</span> b2, <span class="dt">b5 =</span> b5, <span class="dt">b10 =</span> b10, <span class="dt">b20 =</span> b20, <span class="dt">b40 =</span> b40, <span class="dt">b80 =</span> b80,
+  <span class="dt">bf =</span> bf, <span class="dt">bfd5 =</span> bfd5, <span class="dt">bfd10 =</span> bfd10, <span class="dt">bfd20 =</span> bfd20, <span class="dt">bfd40 =</span> bfd40, <span class="dt">bfd80 =</span> bfd80
+  ){<span class="kw">nll_basic4</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a5 =</span> a5, <span class="dt">a10 =</span> a10, <span class="dt">a20 =</span> a20, <span class="dt">a40 =</span> a40, <span class="dt">a80 =</span> a80,
+  <span class="dt">af =</span> af, <span class="dt">afd5 =</span> afd5, <span class="dt">afd10 =</span> afd10, <span class="dt">afd20 =</span> afd20, <span class="dt">afd40 =</span> afd40, <span class="dt">afd80 =</span> afd80,
+  <span class="dt">b2 =</span> b2, <span class="dt">b5 =</span> b5, <span class="dt">b10 =</span> b10, <span class="dt">b20 =</span> b20, <span class="dt">b40 =</span> b40, <span class="dt">b80 =</span> b80,
+  <span class="dt">bf =</span> bf, <span class="dt">bfd5 =</span> bfd5, <span class="dt">bfd10 =</span> bfd10, <span class="dt">bfd20 =</span> bfd20, <span class="dt">bfd40 =</span> bfd40, <span class="dt">bfd80 =</span> bfd80
+  )}
+
+m04 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m04_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="fl">4.6</span>, 
+    <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">a5 =</span> <span class="fl">0.18</span>, <span class="dt">a10 =</span> <span class="fl">0.03</span>, <span class="dt">a20 =</span> <span class="fl">0.04</span>, <span class="dt">a40 =</span> <span class="op">-</span><span class="fl">0.05</span>, <span class="dt">a80 =</span> <span class="op">-</span><span class="fl">0.08</span>,
+    <span class="dt">af =</span> <span class="dv">0</span>, <span class="dt">afd5 =</span> <span class="dv">0</span>, <span class="dt">afd10 =</span> <span class="dv">0</span>, <span class="dt">afd20 =</span> <span class="dv">0</span>, <span class="dt">afd40 =</span> <span class="dv">0</span>, <span class="dt">afd80 =</span> <span class="dv">0</span>,
+    <span class="dt">b2 =</span> <span class="fl">0.2</span>, <span class="dt">b5 =</span> <span class="op">-</span><span class="fl">0.03</span>, <span class="dt">b10 =</span> <span class="fl">0.09</span>, <span class="dt">b20 =</span> <span class="op">-</span><span class="fl">0.01</span>, <span class="dt">b40 =</span> <span class="fl">0.01</span>, <span class="dt">b80 =</span> <span class="op">-</span><span class="fl">0.02</span>,
+    <span class="dt">bf =</span> <span class="dv">0</span>, <span class="dt">bfd5 =</span> <span class="dv">0</span>, <span class="dt">bfd10 =</span> <span class="dv">0</span>, <span class="dt">bfd20 =</span> <span class="dv">0</span>, <span class="dt">bfd40 =</span> <span class="dv">0</span>, <span class="dt">bfd80 =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">coef</span>(m04)
+<span class="co">#&gt;           a1           b1           a2           a5          a10          a20 </span>
+<span class="co">#&gt; 23.159088319  4.589283055  2.993905503  0.143349586  0.034624488  0.054680576 </span>
+<span class="co">#&gt;          a40          a80           af         afd5        afd10        afd20 </span>
+<span class="co">#&gt; -0.033525078 -0.092740294 -0.039210763 -0.078448071 -0.043172902  0.019762051 </span>
+<span class="co">#&gt;        afd40        afd80           b2           b5          b10          b20 </span>
+<span class="co">#&gt;  0.062786054  0.032678441  0.169070068 -0.107516377  0.065835289  0.004724730 </span>
+<span class="co">#&gt;          b40          b80           bf         bfd5        bfd10        bfd20 </span>
+<span class="co">#&gt;  0.031260873  0.010136435  0.003320434  0.050601433  0.046724363 -0.035313347 </span>
+<span class="co">#&gt;        bfd40        bfd80 </span>
+<span class="co">#&gt; -0.002633637 -0.095967757</span>
+
+### Model 5
+<span class="co"># recall 'nll_basic3' from Model 3 above</span>
+<span class="co"># return 'pfb2' to original form </span>
+
+<span class="kw">body</span>(nll_basic3) 
+<span class="co">#&gt; {</span>
+<span class="co">#&gt;     pfa1 &lt;- a1</span>
+<span class="co">#&gt;     pfb1 &lt;- b1</span>
+<span class="co">#&gt;     pfa2 &lt;- a2 + a5 * data01$d5 + a10 * data01$d10 + a20 * data01$d20 + </span>
+<span class="co">#&gt;         a40 * data01$d40 + a80 * data01$d80 - (a5 + a10 + a20 + </span>
+<span class="co">#&gt;         a40 + a80) * data01$d160</span>
+<span class="co">#&gt;     pfb2 &lt;- b2 + b5 * data01$d5 + b10 * data01$d10 + b20 * data01$d20 + </span>
+<span class="co">#&gt;         b40 * data01$d40 + b80 * data01$d80 - (b5 + b10 + b20 + </span>
+<span class="co">#&gt;         b40 + b80) * data01$d160</span>
+<span class="co">#&gt;     t &lt;- data[[deparse(substitute(time))]]</span>
+<span class="co">#&gt;     g &lt;- data[[deparse(substitute(infected_treatment))]]</span>
+<span class="co">#&gt;     d &lt;- data[[deparse(substitute(censor))]] * -1 + 1</span>
+<span class="co">#&gt;     z1 &lt;- P_get_zx(t, pfa1, pfb1, d1)</span>
+<span class="co">#&gt;     z2 &lt;- P_get_zx(t, pfa2, pfb2, d2)</span>
+<span class="co">#&gt;     h1 &lt;- P_get_hx(t, z1, pfb1, d1)</span>
+<span class="co">#&gt;     h2 &lt;- P_get_hx(t, z2, pfb2, d2)</span>
+<span class="co">#&gt;     S1 &lt;- P_get_Sx(t, z1, d1)</span>
+<span class="co">#&gt;     S2 &lt;- P_get_Sx(t, z2, d2)</span>
+<span class="co">#&gt;     logl &lt;- 0</span>
+<span class="co">#&gt;     model &lt;- (d * log(h1 + g * h2) + log(S1) + g * log(S2))</span>
+<span class="co">#&gt;     if (&quot;fq&quot; %in% colnames(data)) {</span>
+<span class="co">#&gt;         logl &lt;- sum(data$fq * model)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     else {</span>
+<span class="co">#&gt;         logl &lt;- sum(model)</span>
+<span class="co">#&gt;     }</span>
+<span class="co">#&gt;     return(-logl)</span>
+<span class="co">#&gt; }</span>
+
+<span class="kw">body</span>(nll_basic3)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>b2)
+
+<span class="kw">formals</span>(nll_basic3) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a5 =</span> a5, <span class="dt">a10 =</span> a10, <span class="dt">a20 =</span> a20, <span class="dt">a40 =</span> a40, <span class="dt">a80 =</span> a80, 
+  <span class="dt">b2 =</span> b2,
+  <span class="dt">data =</span> data01, 
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g, 
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>
+  )
+
+m05_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, a5, a10, a20, a40, a80, b2){
+    <span class="kw">nll_basic3</span>(a1, b1, a2, a5, a10, a20, a40, a80, b2)
+    }
+
+m05 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m05_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="fl">4.6</span>, 
+    <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">a5 =</span> <span class="fl">0.18</span>, <span class="dt">a10 =</span> <span class="fl">0.03</span>, <span class="dt">a20 =</span> <span class="fl">0.04</span>, <span class="dt">a40 =</span> <span class="op">-</span><span class="fl">0.05</span>, <span class="dt">a80 =</span> <span class="op">-</span><span class="fl">0.08</span>, 
+    <span class="dt">b2 =</span> <span class="fl">0.2</span>)
+  )
+
+<span class="kw">summary</span>(m05)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m05_prep_function, start = list(a1 = 23, b1 = 4.6, </span>
+<span class="co">#&gt;     a2 = 3, a5 = 0.18, a10 = 0.03, a20 = 0.04, a40 = -0.05, a80 = -0.08, </span>
+<span class="co">#&gt;     b2 = 0.2))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;      Estimate Std. Error  z value     Pr(z)    </span>
+<span class="co">#&gt; a1  23.165483   0.652940  35.4788 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1   4.660075   0.384771  12.1113 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2   3.011271   0.027298 110.3099 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a5   0.194128   0.070401   2.7575  0.005825 ** </span>
+<span class="co">#&gt; a10  0.038874   0.048343   0.8041  0.421324    </span>
+<span class="co">#&gt; a20  0.037011   0.046981   0.7878  0.430830    </span>
+<span class="co">#&gt; a40 -0.049675   0.044162  -1.1248  0.260656    </span>
+<span class="co">#&gt; a80 -0.092924   0.043514  -2.1355  0.032719 *  </span>
+<span class="co">#&gt; b2   0.188361   0.020122   9.3609 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1504.575</span>
+
+### Model 6
+<span class="co"># make 'pfa2' a linear function of log(Infectious dose)</span>
+
+nll_basic6 &lt;-<span class="st"> </span>nll_basic 
+
+<span class="kw">body</span>(nll_basic6)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>a2i <span class="op">+</span><span class="st"> </span>a2ii <span class="op">*</span><span class="st"> </span><span class="kw">log</span>(data01<span class="op">$</span>Infectious.dose))
+
+<span class="kw">formals</span>(nll_basic6) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2i =</span> a2i, <span class="dt">a2ii =</span> a2ii, <span class="dt">b2 =</span> b2,
+  <span class="dt">data =</span> data01, <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g, 
+  <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+m06_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic6</span>(a1, b1, a2i, a2ii, b2)
+  }
+
+m06 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m06_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="fl">4.6</span>, <span class="dt">a2i =</span> <span class="dv">4</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="fl">0.2</span>)
+  )
+
+<span class="kw">summary</span>(m06)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m06_prep_function, start = list(a1 = 23, b1 = 4.6, </span>
+<span class="co">#&gt;     a2i = 4, a2ii = -0.1, b2 = 0.2))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1   23.193699   0.656664 35.3205 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    4.718324   0.383030 12.3184 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2i   3.826938   0.189127 20.2348 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2ii -0.079691   0.017512 -4.5507 5.346e-06 ***</span>
+<span class="co">#&gt; b2    0.185438   0.019378  9.5696 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1506.19</span>
+
+<span class="kw">AICc</span>(m01, m02, m03, m04, m05, m06, <span class="dt">nobs =</span> <span class="dv">256</span>)
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1536.580  4</span>
+<span class="co">#&gt; 2 1537.611  8</span>
+<span class="co">#&gt; 3 1531.329 14</span>
+<span class="co">#&gt; 4 1531.097 26</span>
+<span class="co">#&gt; 5 1523.306  9</span>
+<span class="co">#&gt; 6 1516.430  5</span>
+
+
+### Model 6 with different distributions 
+
+m06b_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic6</span>(a1, b1, a2i, a2ii, b2, <span class="dt">d1 =</span> <span class="st">'Weibull'</span>, <span class="dt">d2 =</span> <span class="st">'Gumbel'</span>)
+  }
+
+m06b &lt;-<span class="st"> </span><span class="kw">mle2</span>(m06b_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="fl">0.5</span>, <span class="dt">a2i =</span> <span class="dv">23</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="dv">4</span>)
+  )
+
+m06c_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic6</span>(a1, b1, a2i, a2ii, b2, <span class="dt">d1 =</span> <span class="st">'Weibull'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+  }
+
+m06c &lt;-<span class="st"> </span><span class="kw">mle2</span>(m06c_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="fl">0.5</span>, <span class="dt">a2i =</span> <span class="fl">3.8</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="fl">0.2</span>)
+  )
+
+m06d_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2i, a2ii, b2){
+  <span class="kw">nll_basic6</span>(a1, b1, a2i, a2ii, b2, <span class="dt">d1 =</span> <span class="st">'Gumbel'</span>, <span class="dt">d2 =</span> <span class="st">'Gumbel'</span>)
+  }
+
+m06d &lt;-<span class="st"> </span><span class="kw">mle2</span>(m06d_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2i =</span> <span class="dv">23</span>, <span class="dt">a2ii =</span> <span class="op">-</span><span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="dv">5</span>)
+  )
+
+<span class="kw">AICc</span>(m06, m06b, m06c, m06d, <span class="dt">nobs =</span> <span class="dv">256</span>)
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1516.430  5</span>
+<span class="co">#&gt; 2 1534.636  5</span>
+<span class="co">#&gt; 3 1541.630  5</span>
+<span class="co">#&gt; 4 1517.887  5</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="S10" class="section level2">
+<h2>S10. Analysis of Blanford et al. data (ii)</h2>
+<p>Data from <span class="citation">[2]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+ <span class="co"># data01 &lt;- data_blanford_bl5</span>
+ <span class="co"># subset data for 'block = 5', treatments 'cont', 'Ma06', 'Ma07', 'Ma08'</span>
+
+data01 &lt;-<span class="st"> </span>data_blanford 
+
+data01 &lt;-<span class="st"> </span><span class="kw">subset</span>(data01,
+    (data01<span class="op">$</span>block <span class="op">==</span><span class="st"> </span><span class="dv">5</span>) <span class="op">&amp;</span><span class="st"> </span>(
+      (data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'cont'</span>) <span class="op">|</span>
+<span class="st">      </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma06'</span>) <span class="op">|</span>
+<span class="st">      </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma07'</span>) <span class="op">|</span>
+<span class="st">      </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma08'</span>) ) <span class="op">&amp;</span>
+<span class="st">    </span>(data01<span class="op">$</span>day <span class="op">&gt;</span><span class="st"> </span><span class="dv">0</span>)
+    )
+
+<span class="co"># create column 'g' as index of infected treatment</span>
+data01<span class="op">$</span>g &lt;-<span class="st"> </span>data01<span class="op">$</span>inf
+
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;      block treatment replicate_cage day censor d inf t fq g</span>
+<span class="co">#&gt; 1026     5      cont              1   1      0 1   0 1  2 0</span>
+<span class="co">#&gt; 1027     5      cont              1   2      0 1   0 2  0 0</span>
+<span class="co">#&gt; 1028     5      cont              1   3      0 1   0 3  0 0</span>
+<span class="co">#&gt; 1029     5      cont              1   4      0 1   0 4  2 0</span>
+<span class="co">#&gt; 1030     5      cont              1   5      0 1   0 5  3 0</span>
+<span class="co">#&gt; 1031     5      cont              1   6      0 1   0 6  3 0</span>
+
+nll_basic2 &lt;-<span class="st"> </span>nll_basic
+
+<span class="co"># make 'pfa2' and 'pfb2' functions of fungal treatment</span>
+<span class="co"># NB to avoid problems with log(0), set final ifelse 'false' values to 'exp(0)'</span>
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma06'</span>)), a2, 
+  <span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma07'</span>)), a3,
+  <span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma08'</span>)), a4,
+  <span class="kw">exp</span>(<span class="dv">0</span>)
+  ))))
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma06'</span>)), b2, 
+  <span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma07'</span>)), b3,
+  <span class="kw">ifelse</span>(((data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&amp;</span><span class="st"> </span>(data01<span class="op">$</span>treatment <span class="op">==</span><span class="st"> 'Ma08'</span>)), b4,
+  <span class="kw">exp</span>(<span class="dv">0</span>)
+  ))))
+
+<span class="kw">formals</span>(nll_basic2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1,
+  <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2,
+  <span class="dt">a3 =</span> a3, <span class="dt">b3 =</span> b3,
+  <span class="dt">a4 =</span> a4, <span class="dt">b4 =</span> b4, 
+  <span class="dt">data =</span> data01, 
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censor, <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Weibull'</span>, <span class="dt">d2 =</span> <span class="st">'Fréchet'</span>)
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, a3, b3, a4, b4){
+  <span class="kw">nll_basic2</span>(a1, b1, a2, b2, a3, b3, a4, b4)
+  }
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">1</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">b2 =</span> <span class="dv">1</span>, <span class="dt">a3 =</span> <span class="dv">2</span>, <span class="dt">b3 =</span> <span class="dv">1</span>, <span class="dt">a4 =</span> <span class="dv">2</span>, <span class="dt">b4 =</span> <span class="dv">1</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 2, b1 = 1, </span>
+<span class="co">#&gt;     a2 = 2, b2 = 1, a3 = 2, b3 = 1, a4 = 2, b4 = 1))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;    Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1 3.503561   0.102580  34.154 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1 0.686278   0.046712  14.692 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2 1.871541   0.036112  51.826 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2 0.514390   0.031659  16.248 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a3 1.637038   0.023854  68.627 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b3 0.335179   0.018259  18.357 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a4 2.423527   0.091296  26.546 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b4 0.916577   0.089208  10.275 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 4611.834</span>
+<span class="kw">confint</span>(m01)
+<span class="co">#&gt;        2.5 %    97.5 %</span>
+<span class="co">#&gt; a1 3.3227930 3.7290348</span>
+<span class="co">#&gt; b1 0.6023677 0.7869933</span>
+<span class="co">#&gt; a2 1.8024006 1.9450014</span>
+<span class="co">#&gt; b2 0.4580684 0.5836821</span>
+<span class="co">#&gt; a3 1.5908580 1.6846702</span>
+<span class="co">#&gt; b3 0.3014103 0.3737186</span>
+<span class="co">#&gt; a4 2.2615941 2.6305102</span>
+<span class="co">#&gt; b4 0.7642829 1.1232615</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+<div id="S11" class="section level3">
+<h3>S11. Analysis of Parker et al. data</h3>
+<p>Data from <span class="citation">[5,6]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_parker
+
+<span class="kw">head</span>(data01, <span class="dv">3</span>)
+<span class="co">#&gt;   Genotype SD Fecundity Sporulation Status Time dose censored d  t g</span>
+<span class="co">#&gt; 1      721 16        46           1      1    6    2        0 1  6 1</span>
+<span class="co">#&gt; 2      721  0        56           0      1    7    0        0 1  7 0</span>
+<span class="co">#&gt; 3      721  8        68           0      0   18    1        1 0 18 1</span>
+
+### Model 1 
+
+nll_basic2 &lt;-<span class="st"> </span>nll_basic
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span>a2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, a2i, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, a2ii, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="op">-</span>(a2i <span class="op">+</span><span class="st"> </span>a2ii), 
+       <span class="kw">exp</span>(<span class="dv">0</span>)
+       )))
+  )
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>
+<span class="st">  </span>b2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, b2i, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, b2ii, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="op">-</span>(b2i <span class="op">+</span><span class="st"> </span>b2ii), 
+       <span class="kw">exp</span>(<span class="dv">0</span>)
+       )))
+  )
+
+<span class="kw">formals</span>(nll_basic2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2i =</span> a2i, <span class="dt">a2ii =</span> a2ii, 
+  <span class="dt">b2 =</span> b2, <span class="dt">b2i =</span> b2i, <span class="dt">b2ii =</span> b2ii,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Frechet'</span>, <span class="dt">d2 =</span> <span class="st">'Frechet'</span>)
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  a1, b1, a2, a2i, a2ii, b2, b2i, b2ii){
+    <span class="kw">nll_basic2</span>(a1, b1, a2, a2i, a2ii, b2, b2i, b2ii)
+  }
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">1</span>,
+    <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">a2i =</span> <span class="dv">0</span>, <span class="dt">a2ii =</span> <span class="dv">0</span>, 
+    <span class="dt">b2 =</span> <span class="dv">1</span>, <span class="dt">b2i =</span> <span class="dv">0</span>, <span class="dt">b2ii =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 2, b1 = 1, </span>
+<span class="co">#&gt;     a2 = 2, a2i = 0, a2ii = 0, b2 = 1, b2i = 0, b2ii = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;        Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    2.3518841  0.0829811 28.3424 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    0.6585920  0.0566255 11.6307 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2    2.0466969  0.0692055 29.5742 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2i   0.2784921  0.1043580  2.6686  0.007616 ** </span>
+<span class="co">#&gt; a2ii -0.0291581  0.0684531 -0.4260  0.670139    </span>
+<span class="co">#&gt; b2    0.4802869  0.0504207  9.5256 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2i   0.1919610  0.0811746  2.3648  0.018040 *  </span>
+<span class="co">#&gt; b2ii -0.0018653  0.0565409 -0.0330  0.973682    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1557.2</span>
+
+### Model 2
+<span class="co"># make 'pfa2' and 'pfb2' linear functions of log(dose)</span>
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span>a2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, a2i, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">0</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="op">-</span>a2i, 
+       <span class="kw">exp</span>(<span class="dv">0</span>)
+       )))
+  )
+
+<span class="kw">body</span>(nll_basic2)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>
+<span class="st">  </span>b2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, b2i, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">0</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="op">-</span>b2i, 
+       <span class="kw">exp</span>(<span class="dv">0</span>)
+       )))
+  ) 
+
+<span class="kw">formals</span>(nll_basic2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2i =</span> a2i, 
+  <span class="dt">b2 =</span> b2, <span class="dt">b2i =</span> b2i,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Frechet'</span>, <span class="dt">d2 =</span> <span class="st">'Frechet'</span>)
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  a1, b1, a2, a2i, b2, b2i){
+    <span class="kw">nll_basic2</span>(a1, b1, a2, a2i, b2, b2i)
+  }
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">1</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">a2i =</span> <span class="dv">0</span>, <span class="dt">b2 =</span> <span class="dv">1</span>, <span class="dt">b2i =</span> <span class="dv">0</span>)
+    )
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 2, b1 = 1, </span>
+<span class="co">#&gt;     a2 = 2, a2i = 0, b2 = 1, b2i = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;     Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1  2.355514   0.082213 28.6515 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1  0.660935   0.056451 11.7082 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2  2.040629   0.064046 31.8621 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2i 0.247347   0.062753  3.9416 8.095e-05 ***</span>
+<span class="co">#&gt; b2  0.477763   0.047596 10.0379 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2i 0.187200   0.049455  3.7853 0.0001535 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1557.45</span>
+
+### Model 3
+
+nll_basic3 &lt;-<span class="st"> </span>nll_basic
+
+<span class="kw">body</span>(nll_basic3)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span>a2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>Sporulation <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, a2sp, <span class="op">-</span>a2sp), 
+       <span class="kw">exp</span>(<span class="dv">0</span>))
+  )
+
+<span class="kw">body</span>(nll_basic3)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>
+<span class="st">  </span>b2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>Sporulation <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, b2sp, <span class="op">-</span>b2sp), 
+       <span class="kw">exp</span>(<span class="dv">0</span>))
+  )
+
+<span class="kw">formals</span>(nll_basic3) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2sp =</span> a2sp, 
+  <span class="dt">b2 =</span> b2, <span class="dt">b2sp =</span> b2sp,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Fréchet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+m03_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, a2sp, b2, b2sp){
+  <span class="kw">nll_basic3</span>(a1, b1, a2, a2sp, b2, b2sp)
+  }
+
+m03 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m03_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="fl">2.35</span>, <span class="dt">b1 =</span> <span class="fl">0.66</span>, 
+    <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">a2sp =</span> <span class="dv">0</span>,
+    <span class="dt">b2 =</span> <span class="fl">0.5</span>, <span class="dt">b2sp =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m03) 
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m03_prep_function, start = list(a1 = 2.35, b1 = 0.66, </span>
+<span class="co">#&gt;     a2 = 2, a2sp = 0, b2 = 0.5, b2sp = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    2.170488   0.066675 32.5531 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    0.609945   0.047171 12.9304 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2    2.735482   0.181460 15.0748 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2sp -0.652283   0.176444 -3.6968 0.0002183 ***</span>
+<span class="co">#&gt; b2    0.328575   0.079697  4.1228 3.743e-05 ***</span>
+<span class="co">#&gt; b2sp -0.126966   0.078484 -1.6177 0.1057213    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1513.319</span>
+
+### Model 4
+
+nll_basic4 &lt;-<span class="st"> </span>nll_basic
+
+data01 &lt;-<span class="st"> </span>data_parker
+
+<span class="kw">body</span>(nll_basic4)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span>a2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>Sporulation <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, a2sp <span class="op">+</span><span class="st"> </span>a2d1, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, a2sp <span class="op">-</span><span class="st"> </span>a2d1, a2sp)), 
+       <span class="kw">exp</span>(<span class="dv">0</span>)), 
+       <span class="kw">exp</span>(<span class="dv">0</span>))
+  )
+
+<span class="kw">body</span>(nll_basic4)[[<span class="dv">5</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfb2 &lt;-<span class="st"> </span>
+<span class="st">  </span>b2 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>Sporulation <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, b2sp <span class="op">+</span><span class="st"> </span>b2d1, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, b2sp <span class="op">-</span><span class="st"> </span>b2d1, b2sp)), 
+       <span class="kw">exp</span>(<span class="dv">0</span>)), 
+       <span class="kw">exp</span>(<span class="dv">0</span>))
+  )
+
+<span class="kw">formals</span>(nll_basic4) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2sp =</span> a2sp, <span class="dt">a2d1 =</span> a2d1,
+  <span class="dt">b2 =</span> b2, <span class="dt">b2sp =</span> b2sp, <span class="dt">b2d1 =</span> b2d1,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t, <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Fréchet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+m04_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, a2sp, a2d1, b2, b2sp, b2d1){
+    <span class="kw">nll_basic4</span>(a1, b1, a2, a2sp, a2d1, b2, b2sp, b2d1)
+  } 
+
+m04 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m04_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="fl">2.35</span>, <span class="dt">b1 =</span> <span class="fl">0.66</span>,
+    <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">a2sp =</span> <span class="dv">0</span>, <span class="dt">a2d1 =</span> <span class="dv">0</span>,
+    <span class="dt">b2 =</span> <span class="fl">0.5</span>, <span class="dt">b2sp =</span> <span class="dv">0</span>, <span class="dt">b2d1 =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m04)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m04_prep_function, start = list(a1 = 2.35, b1 = 0.66, </span>
+<span class="co">#&gt;     a2 = 2, a2sp = 0, a2d1 = 0, b2 = 0.5, b2sp = 0, b2d1 = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    2.178448   0.065615 33.2003 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1    0.613280   0.047463 12.9212 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2    2.369249   0.332842  7.1182 1.093e-12 ***</span>
+<span class="co">#&gt; a2sp -0.275297   0.328486 -0.8381  0.401986    </span>
+<span class="co">#&gt; a2d1  0.083912   0.031086  2.6994  0.006947 ** </span>
+<span class="co">#&gt; b2   -0.537586   0.105418 -5.0996 3.404e-07 ***</span>
+<span class="co">#&gt; b2sp  0.727421   0.105199  6.9147 4.687e-12 ***</span>
+<span class="co">#&gt; b2d1 -0.024774   0.018365 -1.3490  0.177339    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1506.256</span>
+
+### Model 5
+ 
+<span class="co"># NB here analyse sporulating vs unsporulating hosts</span>
+  <span class="co"># i.e. pool uninfected + sporulation = 0 hosts together</span>
+  <span class="co"># so for index of 'infected_treatment' use 'Sporulation'</span>
+
+nll_basic5 &lt;-<span class="st"> </span>nll_basic
+
+<span class="kw">body</span>(nll_basic5)[[<span class="dv">4</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfa2 &lt;-<span class="st"> </span>
+<span class="st">  </span><span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, a2 <span class="op">+</span><span class="st"> </span>a2d1, 
+  <span class="kw">ifelse</span>(data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, a2 <span class="op">-</span><span class="st"> </span>a2d1, 
+  a2))
+  )
+
+<span class="kw">formals</span>(nll_basic5) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, 
+  <span class="dt">a2 =</span> a2, <span class="dt">a2d1 =</span> a2d1, <span class="dt">b2 =</span> b2,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t, 
+  <span class="dt">censor =</span> censored, 
+  <span class="dt">infected_treatment =</span> Sporulation,
+  <span class="dt">d1 =</span> <span class="st">'Fréchet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+
+
+m05_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, a2d1, b2){
+  <span class="kw">nll_basic5</span>(a1, b1, a2, a2d1, b2)
+  }
+
+m05 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m05_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">1</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">a2d1 =</span> <span class="fl">0.1</span>, <span class="dt">b2 =</span> <span class="fl">0.5</span>)
+  )
+
+<span class="kw">summary</span>(m05)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m05_prep_function, start = list(a1 = 2, b1 = 1, </span>
+<span class="co">#&gt;     a2 = 2, a2d1 = 0.1, b2 = 0.5))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;      Estimate Std. Error z value  Pr(z)    </span>
+<span class="co">#&gt; a1   2.121152   0.041035 51.6916 &lt;2e-16 ***</span>
+<span class="co">#&gt; b1   0.575389   0.034000 16.9234 &lt;2e-16 ***</span>
+<span class="co">#&gt; a2   2.099621   0.027668 75.8858 &lt;2e-16 ***</span>
+<span class="co">#&gt; a2d1 0.069198   0.031473  2.1986 0.0279 *  </span>
+<span class="co">#&gt; b2   0.196991   0.016106 12.2312 &lt;2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1510.239</span>
+
+<span class="kw">AICc</span>(m01, m02, m03, m04, m05, <span class="dt">nobs =</span> <span class="dv">328</span>)
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1573.651  8</span>
+<span class="co">#&gt; 2 1569.711  6</span>
+<span class="co">#&gt; 3 1525.581  6</span>
+<span class="co">#&gt; 4 1522.707  8</span>
+<span class="co">#&gt; 5 1520.426  5</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="S12" class="section level3">
+<h3>S12. Exposed-but-uninfected hosts model</h3>
+<p>Data from <span class="citation">[5,6]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_parker
+
+<span class="kw">head</span>(data01)
+<span class="co">#&gt;   Genotype SD Fecundity Sporulation Status Time dose censored d  t g</span>
+<span class="co">#&gt; 1      721 16        46           1      1    6    2        0 1  6 1</span>
+<span class="co">#&gt; 2      721  0        56           0      1    7    0        0 1  7 0</span>
+<span class="co">#&gt; 3      721  8        68           0      0   18    1        1 0 18 1</span>
+<span class="co">#&gt; 4      721  8        73           0      0   18    1        1 0 18 1</span>
+<span class="co">#&gt; 5      721  0        57           0      1    8    0        0 1  8 0</span>
+<span class="co">#&gt; 6      721  8        60           0      1   10    1        0 1 10 1</span>
+
+<span class="co"># Infection status known </span>
+
+<span class="co"># Here a host's infection status is defined by whether</span>
+<span class="co"># it had visible signs of sporulation at the time of its death</span>
+<span class="co"># or right-censoring </span>
+<span class="co"># non-sporulating hosts are assumed to only experience same background</span>
+<span class="co"># mortality as uninfected hosts</span>
+
+<span class="co"># this is equivalent to taking infection_treatment =  Sporulation</span>
+
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2){
+  <span class="kw">nll_basic</span>(a1, b1, a2, b2,
+    <span class="dt">data =</span> data01,
+    <span class="dt">time =</span> t,
+    <span class="dt">censor =</span> censored, 
+    <span class="dt">infected_treatment =</span> Sporulation,
+    <span class="dt">d1 =</span> <span class="st">'Fréchet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+  }
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="fl">2.56</span>, <span class="dt">b1 =</span> <span class="fl">0.72</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">b2 =</span> <span class="fl">0.5</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 2.56, b1 = 0.72, </span>
+<span class="co">#&gt;     a2 = 2, b2 = 0.5))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;    Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1 2.115934   0.041024  51.578 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1 0.573568   0.033886  16.927 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2 2.092844   0.027533  76.011 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2 0.199005   0.016864  11.801 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.303</span>
+
+
+<span class="co"># Infection status unknown </span>
+
+<span class="co"># the infection status of individual hosts is not always known</span>
+<span class="co"># the observed survival data may suggest an infected treatment </span>
+<span class="co"># harboured exposed-infected and exposed-uninfected hosts</span>
+<span class="co"># nll_exposed_infected estimates the proportion of hosts in</span>
+<span class="co"># an infected treatment experiencing increased rates of mortality </span>
+<span class="co"># due to infection (p1), and</span>
+<span class="co"># the proportion experiencing only background mortality (1 - p1)</span>
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, p1){
+  <span class="kw">nll_exposed_infected</span>(a1, b1, a2, b2, p1,
+    <span class="dt">data =</span> data01, 
+    <span class="dt">time =</span> t,
+    <span class="dt">censor =</span> censored,
+    <span class="dt">infected_treatment =</span> g, 
+    <span class="dt">d1 =</span> <span class="st">'Frechet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>)
+  }
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function, 
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">1</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">b2 =</span> <span class="fl">0.5</span>, <span class="dt">p1 =</span> <span class="fl">0.5</span>)
+  ) 
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 2, b1 = 1, </span>
+<span class="co">#&gt;     a2 = 2, b2 = 0.5, p1 = 0.5))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;    Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1 2.204858   0.058196 37.8868 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1 0.531848   0.037554 14.1622 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2 1.882150   0.050340 37.3891 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2 0.166504   0.026792  6.2146 5.145e-10 ***</span>
+<span class="co">#&gt; p1 0.479973   0.072172  6.6504 2.922e-11 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1581.703</span>
+
+<span class="co"># in the Parker et al data, the proportion of sporulating hosts in the</span>
+<span class="co"># infected treatments were, 119 / (119 + 127) = 0.484</span>
+
+<span class="kw">aggregate</span>(data01, <span class="dt">by =</span> <span class="kw">list</span>(data01<span class="op">$</span>g, data01<span class="op">$</span>Sporulation), length)
+<span class="co">#&gt;   Group.1 Group.2 Genotype  SD Fecundity Sporulation Status Time dose censored</span>
+<span class="co">#&gt; 1       0       0       82  82        82          82     82   82   82       82</span>
+<span class="co">#&gt; 2       1       0      127 127       127         127    127  127  127      127</span>
+<span class="co">#&gt; 3       1       1      119 119       119         119    119  119  119      119</span>
+<span class="co">#&gt;     d   t   g</span>
+<span class="co">#&gt; 1  82  82  82</span>
+<span class="co">#&gt; 2 127 127 127</span>
+<span class="co">#&gt; 3 119 119 119</span>
+
+
+<span class="co"># extend the above to the proportion sporulating within dose treatments</span>
+
+nll_exposed_infected2 &lt;-<span class="st"> </span>nll_exposed_infected
+
+<span class="kw">body</span>(nll_exposed_infected2)[[<span class="dv">6</span>]] &lt;-<span class="st"> </span><span class="kw">substitute</span>(pfp1 &lt;-<span class="st"> </span>
+<span class="st">  </span>p1 <span class="op">+</span><span class="st"> </span><span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">1</span>, <span class="op">-</span>p1d,
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">3</span>, <span class="op">+</span><span class="st"> </span>p1d, 
+       <span class="kw">ifelse</span>(data01<span class="op">$</span>g <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>data01<span class="op">$</span>dose <span class="op">==</span><span class="st"> </span><span class="dv">2</span>, <span class="dv">0</span>,
+       <span class="kw">exp</span>(<span class="dv">0</span>)
+       )))
+  )
+
+<span class="kw">formals</span>(nll_exposed_infected2) &lt;-<span class="st"> </span><span class="kw">alist</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2,
+  <span class="dt">p1 =</span> p1, <span class="dt">p1d =</span> p1d,
+  <span class="dt">data =</span> data01,
+  <span class="dt">time =</span> t,
+  <span class="dt">censor =</span> censored,
+  <span class="dt">infected_treatment =</span> g,
+  <span class="dt">d1 =</span> <span class="st">'Frechet'</span>, <span class="dt">d2 =</span> <span class="st">'Weibull'</span>
+  )
+
+m03_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, p1, p1d){
+  <span class="kw">nll_exposed_infected2</span>(a1, b1, a2, b2, p1, p1d)
+  }
+
+m03 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m03_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="fl">2.2</span>, <span class="dt">b1 =</span> <span class="fl">0.53</span>, <span class="dt">a2 =</span> <span class="fl">1.88</span>, <span class="dt">b2 =</span> <span class="fl">0.17</span>, 
+    <span class="dt">p1 =</span> <span class="fl">0.48</span>, <span class="dt">p1d =</span> <span class="dv">0</span>)
+  )
+
+<span class="kw">summary</span>(m03)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m03_prep_function, start = list(a1 = 2.2, b1 = 0.53, </span>
+<span class="co">#&gt;     a2 = 1.88, b2 = 0.17, p1 = 0.48, p1d = 0))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;     Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1  2.220077   0.058715 37.8113 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1  0.543872   0.038349 14.1823 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2  1.914102   0.050109 38.1989 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2  0.183066   0.026799  6.8311 8.429e-12 ***</span>
+<span class="co">#&gt; p1  0.513907   0.066363  7.7438 9.646e-15 ***</span>
+<span class="co">#&gt; p1d 0.243259   0.052237  4.6569 3.211e-06 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1561.351</span>
+
+<span class="co"># estimated proportions infected;</span>
+  <span class="co"># dose 1 = 0.51 - 0.24 = 0.27</span>
+  <span class="co"># dose 2 = 0.51 + 0    = 0.51</span>
+  <span class="co"># dose 3 = 0.51 + 0.24 = 0.75</span>
+
+<span class="co"># observed proportions sporulating;</span>
+
+  <span class="kw">aggregate</span>(data01, <span class="dt">by =</span> <span class="kw">list</span>(data01<span class="op">$</span>g, data01<span class="op">$</span>Sporulation, data01<span class="op">$</span>dose), length)
+<span class="co">#&gt;   Group.1 Group.2 Group.3 Genotype SD Fecundity Sporulation Status Time dose</span>
+<span class="co">#&gt; 1       0       0       0       82 82        82          82     82   82   82</span>
+<span class="co">#&gt; 2       1       0       1       56 56        56          56     56   56   56</span>
+<span class="co">#&gt; 3       1       1       1       25 25        25          25     25   25   25</span>
+<span class="co">#&gt; 4       1       0       2       42 42        42          42     42   42   42</span>
+<span class="co">#&gt; 5       1       1       2       40 40        40          40     40   40   40</span>
+<span class="co">#&gt; 6       1       0       3       29 29        29          29     29   29   29</span>
+<span class="co">#&gt; 7       1       1       3       54 54        54          54     54   54   54</span>
+<span class="co">#&gt;   censored  d  t  g</span>
+<span class="co">#&gt; 1       82 82 82 82</span>
+<span class="co">#&gt; 2       56 56 56 56</span>
+<span class="co">#&gt; 3       25 25 25 25</span>
+<span class="co">#&gt; 4       42 42 42 42</span>
+<span class="co">#&gt; 5       40 40 40 40</span>
+<span class="co">#&gt; 6       29 29 29 29</span>
+<span class="co">#&gt; 7       54 54 54 54</span>
+
+<span class="co"># dose 1 = 25 / (25 + 56) = 0.31</span>
+<span class="co"># dose 2 = 40 / (40 + 42) = 0.49</span>
+<span class="co"># dose 3 = 54 / (54 + 29) = 0.65</span>
+ 
+<span class="kw">AICc</span> (m01, m02, m03, <span class="dt">nobs =</span> <span class="dv">328</span>)
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1523.427  4</span>
+<span class="co">#&gt; 2 1591.890  5</span>
+<span class="co">#&gt; 3 1573.613  6</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="S14" class="section level3">
+<h3>S14. Lorenz &amp; Koella pooled data</h3>
+<p>Data from <span class="citation">[3,4]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_lorenz
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2){
+      <span class="kw">nll_basic</span>(
+        <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2,
+        <span class="dt">data =</span> data01,
+        <span class="dt">time =</span> t,
+        <span class="dt">censor =</span> censored,
+        <span class="dt">infected_treatment =</span> g,
+        <span class="dt">d1 =</span> <span class="st">&quot;Gumbel&quot;</span>,
+        <span class="dt">d2 =</span> <span class="st">&quot;Frechet&quot;</span>
+        )}
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+      <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">b2 =</span> <span class="fl">0.5</span>)
+      )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 3, b2 = 0.5))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;     Estimate Std. Error  z value     Pr(z)    </span>
+<span class="co">#&gt; a1 22.693577   0.553906  40.9701 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1  4.760078   0.329663  14.4392 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2  2.843594   0.026058 109.1272 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2  0.217803   0.021846   9.9698 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.153</span>
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(
+  <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2, <span class="dt">theta =</span> theta){
+      <span class="kw">nll_frailty</span>(
+        <span class="dt">a1 =</span> a1, <span class="dt">b1 =</span> b1, <span class="dt">a2 =</span> a2, <span class="dt">b2 =</span> b2, <span class="dt">theta =</span> theta,
+        <span class="dt">data =</span> data_lorenz,
+        <span class="dt">time =</span> t,
+        <span class="dt">censor =</span> censored,
+        <span class="dt">infected_treatment =</span> g,
+        <span class="dt">d1 =</span> <span class="st">&quot;Gumbel&quot;</span>,
+        <span class="dt">d2 =</span> <span class="st">&quot;Weibull&quot;</span>,
+        <span class="dt">d3 =</span> <span class="st">&quot;Gamma&quot;</span>
+        )}
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+      <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">3</span>, <span class="dt">b2 =</span> <span class="fl">0.1</span>, <span class="dt">theta =</span> <span class="dv">2</span>)
+      )
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 3, b2 = 0.1, theta = 2))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;        Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    22.789421   0.599282 38.0279 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1     4.763390   0.339709 14.0220 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2     2.857107   0.036650 77.9566 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2     0.090079   0.019450  4.6314 3.632e-06 ***</span>
+<span class="co">#&gt; theta  2.618774   1.093566  2.3947   0.01663 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1514.97</span>
+
+<span class="kw">AICc</span>(m01, m02, <span class="dt">nobs =</span> <span class="dv">256</span>) 
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1523.312  4</span>
+<span class="co">#&gt; 2 1525.210  5</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="S15" class="section level3">
+<h3>S15. Shared and correlated frailty models</h3>
+<p>Data from <span class="citation">[3,4]</span></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+data01 &lt;-<span class="st"> </span>data_lorenz
+
+m01_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, theta){
+  <span class="kw">nll_frailty_shared</span>(a1, b1, a2, b2, theta,
+    <span class="dt">data =</span> data01,
+    <span class="dt">time =</span> t,
+    <span class="dt">censor =</span> censored,
+    <span class="dt">infected_treatment =</span> g,
+    <span class="dt">d1 =</span> <span class="st">&quot;Gumbel&quot;</span>, <span class="dt">d2 =</span> <span class="st">&quot;Gumbel&quot;</span>)
+  }
+
+
+m01 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m01_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">23</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">10</span>, <span class="dt">b2 =</span> <span class="dv">1</span>, <span class="dt">theta =</span> <span class="dv">1</span>),
+  <span class="dt">method =</span> <span class="st">&quot;Nelder-Mead&quot;</span>,
+  <span class="dt">control =</span> <span class="kw">list</span>(<span class="dt">maxit =</span> <span class="dv">5000</span>)
+  )
+
+<span class="kw">summary</span>(m01)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m01_prep_function, start = list(a1 = 23, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 10, b2 = 1, theta = 1), method = &quot;Nelder-Mead&quot;, control = list(maxit = 5000))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    22.89581    0.77752 29.4472 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1     3.60055    0.45224  7.9616 1.698e-15 ***</span>
+<span class="co">#&gt; a2    18.72795    0.70588 26.5313 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2     3.34756    0.42925  7.7986 6.259e-15 ***</span>
+<span class="co">#&gt; theta  0.34593    0.15975  2.1655   0.03035 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1526.578</span>
+
+
+m02_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, theta01, theta02, rho){
+  <span class="kw">nll_frailty_correlated</span>(a1, b1, a2, b2, theta01, theta02, rho,
+    <span class="dt">data =</span> data01,
+    <span class="dt">time =</span> t,
+    <span class="dt">censor =</span> censored,
+    <span class="dt">infected_treatment =</span> g,
+    <span class="dt">d1 =</span> <span class="st">&quot;Gumbel&quot;</span>,
+    <span class="dt">d2 =</span> <span class="st">&quot;Gumbel&quot;</span>)
+  }
+
+m02 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">20</span>, <span class="dt">b2 =</span> <span class="dv">4</span>, <span class="dt">theta01 =</span> <span class="dv">1</span>, <span class="dt">theta02 =</span> <span class="dv">1</span>, <span class="dt">rho =</span> <span class="dv">1</span>),
+    <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,
+    <span class="dt">lower =</span> <span class="kw">list</span>(
+      <span class="dt">a1 =</span> <span class="fl">1e-6</span>, <span class="dt">b1 =</span> <span class="fl">1e-6</span>, <span class="dt">a2 =</span> <span class="fl">1e-6</span>, <span class="dt">b2 =</span> <span class="fl">1e-6</span>,
+      <span class="dt">theta01 =</span> <span class="fl">1e-6</span>, <span class="dt">theta02 =</span> <span class="fl">1e-6</span>, <span class="dt">rho =</span> <span class="fl">1e-6</span>)
+    )
+
+<span class="kw">summary</span>(m02)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 20, b2 = 4, theta01 = 1, theta02 = 1, rho = 1), method = &quot;L-BFGS-B&quot;, </span>
+<span class="co">#&gt;     lower = list(a1 = 1e-06, b1 = 1e-06, a2 = 1e-06, b2 = 1e-06, </span>
+<span class="co">#&gt;         theta01 = 1e-06, theta02 = 1e-06, rho = 1e-06))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;          Estimate Std. Error z value Pr(z)</span>
+<span class="co">#&gt; a1      22.880954         NA      NA    NA</span>
+<span class="co">#&gt; b1       4.773423         NA      NA    NA</span>
+<span class="co">#&gt; a2      16.914601         NA      NA    NA</span>
+<span class="co">#&gt; b2       1.267076         NA      NA    NA</span>
+<span class="co">#&gt; theta01  0.000001         NA      NA    NA</span>
+<span class="co">#&gt; theta02  3.857864         NA      NA    NA</span>
+<span class="co">#&gt; rho      1.043373         NA      NA    NA</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.177</span>
+
+<span class="co"># NB no standard errors estimated and estimate of 'theta01' at lower boundary</span>
+<span class="co"># rerun model with theta01 set at lower boundary</span>
+    
+m02b &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">20</span>, <span class="dt">b2 =</span> <span class="dv">4</span>,
+    <span class="dt">theta01 =</span> <span class="dv">1</span>, <span class="dt">theta02 =</span> <span class="dv">1</span>, <span class="dt">rho =</span> <span class="dv">1</span>),
+    <span class="dt">fixed =</span> <span class="kw">list</span>(<span class="dt">theta01 =</span> <span class="fl">1e-6</span>),
+    <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,
+    <span class="dt">lower =</span> <span class="kw">list</span>(
+      <span class="dt">a1 =</span> <span class="fl">1e-6</span>, <span class="dt">b1 =</span> <span class="fl">1e-6</span>, <span class="dt">a2 =</span> <span class="fl">1e-6</span>, <span class="dt">b2 =</span> <span class="fl">1e-6</span>, 
+      <span class="dt">theta02 =</span> <span class="fl">1e-6</span>, <span class="dt">rho =</span> <span class="fl">1e-6</span>)
+    )
+
+<span class="kw">summary</span>(m02b)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 20, b2 = 4, theta01 = 1, theta02 = 1, rho = 1), method = &quot;L-BFGS-B&quot;, </span>
+<span class="co">#&gt;     fixed = list(theta01 = 1e-06), lower = list(a1 = 1e-06, b1 = 1e-06, </span>
+<span class="co">#&gt;         a2 = 1e-06, b2 = 1e-06, theta02 = 1e-06, rho = 1e-06))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;          Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1       22.87859    0.62613 36.5399 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1        4.77634    0.35150 13.5886 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2       16.91544    0.70807 23.8896 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2        1.26642    0.32547  3.8911  9.98e-05 ***</span>
+<span class="co">#&gt; theta02   3.86031    1.80024  2.1443   0.03201 *  </span>
+<span class="co">#&gt; rho       0.99938  834.99077  0.0012   0.99905    </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.177</span>
+
+<span class="co"># NB standard error of 'rho' crosses zero (0)</span>
+<span class="co"># rerun model with rho set to lower limit</span>
+
+m02c &lt;-<span class="st"> </span><span class="kw">mle2</span>(m02_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(
+    <span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">5</span>, <span class="dt">a2 =</span> <span class="dv">20</span>, <span class="dt">b2 =</span> <span class="dv">4</span>,
+    <span class="dt">theta01 =</span> <span class="dv">1</span>, <span class="dt">theta02 =</span> <span class="dv">1</span>, <span class="dt">rho =</span> <span class="dv">1</span>),
+    <span class="dt">fixed =</span> <span class="kw">list</span>(<span class="dt">theta01 =</span> <span class="fl">1e-6</span>, <span class="dt">rho =</span> <span class="fl">1e-6</span>),
+    <span class="dt">method =</span> <span class="st">&quot;L-BFGS-B&quot;</span>,
+    <span class="dt">lower =</span> <span class="kw">list</span>(
+      <span class="dt">a1 =</span> <span class="fl">1e-6</span>, <span class="dt">b1 =</span> <span class="fl">1e-6</span>, <span class="dt">a2 =</span> <span class="fl">1e-6</span>, <span class="dt">b2 =</span> <span class="fl">1e-6</span>, 
+      <span class="dt">theta02 =</span> <span class="fl">1e-6</span>)
+    )
+
+<span class="kw">summary</span>(m02c)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m02_prep_function, start = list(a1 = 20, b1 = 5, </span>
+<span class="co">#&gt;     a2 = 20, b2 = 4, theta01 = 1, theta02 = 1, rho = 1), method = &quot;L-BFGS-B&quot;, </span>
+<span class="co">#&gt;     fixed = list(theta01 = 1e-06, rho = 1e-06), lower = list(a1 = 1e-06, </span>
+<span class="co">#&gt;         b1 = 1e-06, a2 = 1e-06, b2 = 1e-06, theta02 = 1e-06))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;         Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1      22.87892    0.61671 37.0983 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1       4.77634    0.34855 13.7035 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2      16.91596    0.64164 26.3635 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2       1.26657    0.32409  3.9081 9.303e-05 ***</span>
+<span class="co">#&gt; theta02  3.86069    1.57823  2.4462   0.01444 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.176</span>
+
+<span class="co"># result of m02c corresponds with estimates from the 'nll_frailty' model,</span>
+<span class="co"># where it is assumed there is no unobserved variation in the rate of background mortality </span>
+<span class="co"># and where the gamma distribution describes the unobserved variation in virulence</span>
+
+m03_prep_function &lt;-<span class="st"> </span><span class="cf">function</span>(a1, b1, a2, b2, theta){
+      <span class="kw">nll_frailty</span>(a1, b1, a2, b2, theta,
+        <span class="dt">data =</span> data01, <span class="dt">time =</span> t,
+        <span class="dt">censor =</span> censored, <span class="dt">infected_treatment =</span> g,
+        <span class="dt">d1 =</span> <span class="st">&quot;Gumbel&quot;</span>, <span class="dt">d2 =</span> <span class="st">&quot;Gumbel&quot;</span>, <span class="dt">d3 =</span> <span class="st">&quot;Gamma&quot;</span>)
+      }
+
+m03 &lt;-<span class="st"> </span><span class="kw">mle2</span>(m03_prep_function,
+  <span class="dt">start =</span> <span class="kw">list</span>(<span class="dt">a1 =</span> <span class="dv">20</span>, <span class="dt">b1 =</span> <span class="dv">4</span>, <span class="dt">a2 =</span> <span class="dv">20</span>, <span class="dt">b2 =</span> <span class="dv">4</span>, <span class="dt">theta =</span> <span class="dv">1</span>)
+  )
+
+<span class="kw">summary</span>(m03)
+<span class="co">#&gt; Maximum likelihood estimation</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Call:</span>
+<span class="co">#&gt; mle2(minuslogl = m03_prep_function, start = list(a1 = 20, b1 = 4, </span>
+<span class="co">#&gt;     a2 = 20, b2 = 4, theta = 1))</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Coefficients:</span>
+<span class="co">#&gt;       Estimate Std. Error z value     Pr(z)    </span>
+<span class="co">#&gt; a1    22.87860    0.61668 37.0999 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b1     4.77647    0.34855 13.7037 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; a2    16.91591    0.64161 26.3649 &lt; 2.2e-16 ***</span>
+<span class="co">#&gt; b2     1.26648    0.32402  3.9087  9.28e-05 ***</span>
+<span class="co">#&gt; theta  3.86109    1.57816  2.4466   0.01442 *  </span>
+<span class="co">#&gt; ---</span>
+<span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; -2 log L: 1515.176</span>
+
+<span class="kw">AICc</span>(m02c, m03, <span class="dt">nobs =</span> <span class="dv">256</span>)
+<span class="co">#&gt;       AICc df</span>
+<span class="co">#&gt; 1 1525.416  5</span>
+<span class="co">#&gt; 2 1525.416  5</span>
+
+<span class="kw">coef</span>(m02c)
+<span class="co">#&gt;        a1        b1        a2        b2   theta01   theta02       rho </span>
+<span class="co">#&gt; 22.878916  4.776338 16.915958  1.266575  0.000001  3.860685  0.000001</span>
+<span class="kw">coef</span>(m03)
+<span class="co">#&gt;        a1        b1        a2        b2     theta </span>
+<span class="co">#&gt; 22.878598  4.776473 16.915907  1.266480  3.861087</span></code></pre></div>
+<p><a href="#introduction">back to top</a></p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Agnew_2019">
+<p>1. Agnew P. 2019 Estimating virulence from relative survival. <em>bioRxiv</em> (doi:<a href="https://doi.org/10.1101/530709">10.1101/530709</a>)</p>
+</div>
+<div id="ref-Blanford_2012">
+<p>2. Blanford S, Jenkins NE, Read AF, Thomas MB. 2012 Evaluating the lethal and pre-lethal effects of a range of fungi against adult anopheles stephensi mosquitoes. <em>Malaria Journal</em> <strong>11</strong>, 10. (doi:<a href="https://doi.org/10.1186/1475-2875-11-365">10.1186/1475-2875-11-365</a>)</p>
+</div>
+<div id="ref-Lorenz_2011">
+<p>3. Lorenz LM, Koella JC. 2011 The microsporidian parasite vavraia culicis as a potential late life-acting control agent of malaria. <em>Evolutionary Applications</em> <strong>4</strong>, 783–790. (doi:<a href="https://doi.org/10.1111/j.1752-4571.2011.00199.x">10.1111/j.1752-4571.2011.00199.x</a>)</p>
+</div>
+<div id="ref-Lorenz_data_2011">
+<p>4. Lorenz LM, Koella JC. 2011 Data from: The microsporidian parasite vavraia culicis as a potential late life-acting control agent of malaria. <em>Dryad Digital Repository</em> (doi:<a href="https://doi.org/10.5061/dryad.2s231">10.5061/dryad.2s231</a>)</p>
+</div>
+<div id="ref-Parker_2014">
+<p>5. Parker BJ, Garcia JR, Gerardo NM. 2014 Genetic variation in resistance and fecundity tolerance in a natural host-pathogen interaction. <em>Evolution</em> <strong>68</strong>, 2421–2429. (doi:<a href="https://doi.org/10.1111/evo.12418">10.1111/evo.12418</a>)</p>
+</div>
+<div id="ref-Parker_data_2014">
+<p>6. Parker BJ, Garcia JR, Gerardo NM. 2014 Data from: Genetic variation in resistance and fecundity tolerance in a natural host-pathogen interaction. <em>Dryad Digital Repository</em> (doi:<a href="https://doi.org/10.5061/dryad.24gq7">10.5061/dryad.24gq7</a>)</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

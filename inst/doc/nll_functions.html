@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Likelihood functions described</title>
+
+
+
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Likelihood functions described</h1>
+
+
+
+<div id="top" class="section level3">
+<h3>Introduction</h3>
+<p>This vignette gives details of the log-likelihood functions in this package.</p>
+<p>The likelihood functions are expressed in terms of survival functions; <em>S</em>(<em>t</em>), <em>f</em>(<em>t</em>), etc...</p>
+<p>The qualitative and quantitative behaviour of these survival functions depends on the probability distribution from which they arise (<em>Weibull, Gumbel</em>, etc...) and the value of the location and scale parameters (<em>a, b</em>) determining where and over what range mortality is distributed along the time axis. The location and scale parameters can be made functions themselves, e.g., of infectious dose, host age or gender, etc...</p>
+<p>The next sections outline how the likelihood functions are derived. These are followed by details of each likelihood function in this package and the assumptions they make about the data analysed.</p>
+<p>Jump to: <a href="#likelihood_functions_in_this_package">Likelihood functions in this package</a></p>
+</div>
+<div id="log-likelihood-expressions-no-censoring" class="section level3">
+<h3>Log-likelihood expressions: no censoring</h3>
+<p>Data collected during the course of a survival experiment provides information on the frequency of individuals dying between sampling intervals. These can be used to estimate the probability density function, <em>f</em>(<em>t</em>), for the probability an individual alive at time <em>t</em><sub>0</sub> will die at time <em>t</em>.</p>
+If the probability of dying at any one time <em>t</em> is equal for all <em>n</em> members of a population and the death of any one individual <em>i</em> has no effect on the timing of death of any other individuals, the overall likelihood <em>L</em> of dying at time <em>t</em> is the product of the probability of each individual dying at time <em>t</em>,
+<span class="math display">\[\begin{equation}
+L=\prod_{i=1}^{n}L_i
+\end{equation}\]</span>
+where <span class="math inline">\(L_i=f(t_i)\)</span>. It is often more convenient to work with the likelihood expression after log-transformation,
+<span class="math display">\[\begin{equation}
+\log L = \sum_{i=1}^{n} \log L_i = \sum_{i=1}^{n} \log f \left( t_i \right)
+\end{equation}\]</span>
+<p>Maximum likelihood techniques can be applied to this expression to find the combination of which probability distribution and values of their associated location and scale parameters are most likely to describe the observed pattern for the frequency of individuals dying at times <em>t</em> in an experiment.</p>
+<p>The observed data will provide maximum information for estimating the likelihood when the time of death of all individuals in an experiment is known. In this case, the frequencies of individuals dying at each time <em>t</em> will sum to 1. However empirical studies are frequently terminated before all, or even most, individuals die. Consequently these individuals do not experience the event of interest and do contribute towards the estimation of <em>f</em>(<em>t</em>) as the time of their death is unknown. These are known as censored individuals, or more precisely, as right-censored individuals. They include individuals removed from populations during the course of an experiment, e.g. to control for infection success, those that escape, or are accidently killed, where the timing of the event is known. The next section indicates how likelihood models can adapt to right-censored individuals.</p>
+</div>
+<div id="log-likelihood-expressions-with-censoring" class="section level3">
+<h3>Log-likelihood expressions: with censoring</h3>
+<p>Although the time of death of right-censored individuals is unknown, it is known they survived at least until the time <em>t</em> when they were censored. This latter information can contribute towards likelihood expressions as the probability density function <em>f</em>(<em>t</em>) equals the probability of surviving until time <em>t</em>, <em>S</em>(<em>t</em>), multiplied by the probability of dying at time <em>t</em> for those surviving until time <em>t</em>, <em>h</em>(<em>t</em>),</p>
+<span class="math display">\[\begin{equation}
+f(t)=S(t) \cdot h(t)
+\end{equation}\]</span>
+<p>This expression can allow for right-censored individuals,</p>
+<span class="math display">\[\begin{equation}
+f(t) = \left[ h(t) \right]^d \cdot S(t)
+\end{equation}\]</span>
+where <em>d</em> is a death indicator taking a value of '1' for individuals dying during the experiment and '0' for those censored during or at the end of the experiment. Hence individuals dying during the experiment contribute towards the estimation of <em>f</em>(<em>t</em>) via <em>h</em>(<em>t</em>) and <em>S</em>(<em>t</em>), whereas those censored only contribute via <em>S</em>(<em>t</em>). By substitution, the log-likelihood expression above becomes
+<span class="math display">\[\begin{equation}
+\log L = \sum_{i=1}^{n} \left\{ d \log \left[ h \left( t_i \right) \right] + \log \left[  S \left( t_i \right) \right] \right\}
+\end{equation}\]</span>
+<p>which can be used to analyse survival data, allowing for right-censored individuals.</p>
+</div>
+<div id="log-likelihood-expressions-relative-survival-with-censoring" class="section level3">
+<h3>Log-likelihood expressions: relative survival, with censoring</h3>
+<p>The likelihood expression above are suitable for situations in which the observed patterns of mortality in a host population are assumed to be determined by single source of mortality, background mortality. This is assumed to be the case for individuals in uninfected or control populations. Hence the <strong>observed</strong> pattern of mortality in an uninfected treatment is expected to equal,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.UNINF}(t) &amp;= S_1(t) \\
+\\
+f_{OBS.UNINF}(t) &amp;= f_1(t) \\
+\\
+h_{OBS.UNINF}(t) &amp;= f_{OBS.UNINF}(t) \;/\; S_{OBS.UNINF}(t) \\
+\\
+               &amp;= h_1(t)
+\end{align}\]</span>
+<p>Under the assumptions of relative survival, infected individuals are assumed to experience two independent and mutually exclusive sources of mortality; background mortality and mortality due to infection. Consequently the <strong>observed</strong> pattern of mortality in an infected treatment is expected to equal,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.INF}(t) &amp;= S_1(t) \cdot S_2(t) \\
+\\
+f_{OBS.INF}(t) &amp;= f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t) \\
+\\
+h_{OBS.INF}(t) &amp;= f_{OBS.INF}(t) \;/\; S_{OBS.INF}(t) \\
+\\
+               &amp;= h_1(t) + h_2(t)
+\end{align}\]</span>
+<p>where indices '1' and '2' indicate background mortality and mortality due to infection, respectively. Here it assumed all the individuals in an infected treatment are infected and virulence is homogeneous, i.e., as for background mortality, a single hazard function with a particular combination of values for its location and scale parameters can describe the pattern of mortality due to infection experienced by every member of the infected treatment or population.</p>
+<p>These expressions can be subtituted into the likelihood expression above to get an expression for the likelihood of observing mortality in an infected treatment at time <em>t</em>. As infected and uninfected treatments are assumed to experience the same background mortality, the likelihood expressions for the observed mortality in each treatment can be combined as,</p>
+<span class="math display">\[\begin{equation}
+\log L = \sum_{i=1}^{n} \left\{ d \log \left[ h_1(t_i) + g \cdot h_2(t_i) \right] + \log \left[ S_1(t_i) \right] + g \cdot \log \left[ S_2(t_i) \right] \right\}
+\end{equation}\]</span>
+<p>where <em>g</em> is an infection-treatment indicator taking a value of '1' for infected treatments and '0' for uninfected treatments. Hence individuals in the infected treatments contribute towards estimates of background mortality and mortality due to infection, whereas the uninfected treatments only contribute towards the estimation of background mortality.</p>
+</div>
+<div id="likelihood_functions_in_this_package" class="section level2">
+<h2>Likelihood functions in this package</h2>
+<p>The following describes the negative log-likelihood (<em>nll</em>) functions available in this package for estimating the rate of background mortality and virulence. The negative of the log-likelihood is returned as this is required as input for the maximum likelihood estimation of parameters by the function <em>mle2</em> in the package <em>bbmle</em> by Ben Bolker and the R Core Development team.</p>
+<p>In each case ;</p>
+<ul>
+<li>Indices '1' and '2' denote background mortality and mortality due to infection, respectively</li>
+<li><em>d</em> a death indicator; '1' died during experiment, '0' right-censored during or at end of experiment</li>
+<li><em>g</em> an infection-treatment indicator; '1' infected treatment, '0' uninfected treatment.</li>
+<li>All models assume each member of an uninfected treatment is uninfected, but not all models assume each member of an infected treatment is infected.</li>
+<li>Some models assume all members of an infected treatment are infected, but allow for variation in virulence among members for the population; this variation can be discreately or continously distributed, and be directly observed or assumed to be present.</li>
+<li>There is also a model allowing for recovery from infection.</li>
+</ul>
+<div id="back" class="section level5">
+<h5>The functions:</h5>
+<p><a href="#nll_basic">nll_basic</a> | <a href="#nll_basic_logscale">nll_basic_logscale</a> | <a href="#nll_controls">nll_controls</a> | <a href="#nll_exposed_infected">nll_exposed_infected</a> | <a href="#nll_frailty">nll_frailty</a> | <a href="#nll_frailty_correlated">nll_frailty_correlated</a> | <a href="#nll_frailty_logscale">nll_frailty_logscale</a> | <a href="#nll_frailty_shared">nll_frailty_shared</a> | <a href="#nll_proportional_virulence">nll_proportional_virulence</a> | <a href="#nll_recovery">nll_recovery</a> | <a href="#nll_recovery_II">nll_recovery_II</a> | <a href="#nll_two_inf_subpops_obs">nll_two_inf_subpops_obs</a> | <a href="#nll_two_inf_subpops_unobs">nll_two_inf_subpops_unobs</a></p>
+</div>
+<div id="nll_basic" class="section level3">
+<h3>nll_basic</h3>
+<p>This function is for the 'basic' log-likelihood expression described above. It assumes all the individuals in the infected population are infected and they all experience the same pattern of mortality due to infection, i.e. virulence is homogeneous for the population.</p>
+<span class="math display">\[\begin{align}
+S_{OBS.INF}(t) &amp;= S_1(t) \cdot S_2(t) \\
+\\
+f_{OBS.INF}(t) &amp;= f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t) \\
+\\
+h_{OBS.INF}(t) &amp;= f_{OBS.INF}(t) \;/\; S_{OBS.INF}(t) \\
+\\
+               &amp;= h_1(t) + h_2(t)
+\end{align}\]</span>
+<p>Hence the observed rate of mortality in the infected population at time <em>t</em> is equal to the the rate of background mortality at time time <em>t</em>, <em>h</em><sub>1</sub>(<em>t</em>), plus the rate of mortality due to infection at time <em>t</em>, <em>h</em><sub>2</sub>(<em>t</em>), that is, the pathogen's virulence at time <em>t</em>.</p>
+<p>The log-likelihood expression for the probability of dying at time <em>t</em> in the infected and uninfected treatments is,</p>
+<span class="math display">\[\begin{equation}
+\log L=\sum_{i=1}^{n}\left\lbrace d \log \left[h_1(t_i) + g \cdot h_2(t_i)\right] +\log\left[S_1(t_i)\right] + g \cdot \log\left[S_2(t_i)\right] \right\rbrace
+\end{equation}\]</span>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_basic_logscale" class="section level3">
+<h3>nll_basic_logscale</h3>
+<p>As for <em>nll_basic</em>, except input values of location and scale parameters are assumed to be on a logscale.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_controls" class="section level3">
+<h3>nll_controls</h3>
+<p>This function is for uninfected or control data only. It assumes the observed pattern of mortality is due only to background mortality,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.UNINF}(t) &amp;= S_1(t) \\
+\\
+f_{OBS.UNINF}(t) &amp;= f_1(t) \\
+\\
+h_{OBS.UNINF}(t) &amp;= f_1(t) \;/\; S_1(t) \\
+\\
+               &amp;= h_1(t)
+\end{align}\]</span>
+<p>The log-likelihood expression for the probability of dying at time <em>t</em> in the uninfected treatment is,</p>
+<span class="math display">\[\begin{equation}
+\log L=\sum_{i=1}^{n}\left\lbrace d \log \left[ h_1(t_i)\right] +\log\left[ S_1(t_i) \right] \right\rbrace
+\end{equation}\]</span>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_exposed_infected" class="section level3">
+<h3>nll_exposed_infected</h3>
+<p>Exposure to infection does not garantee infection. This function assumes only a proportion <em>p</em> of the individuals exposed to infection experience both background mortality and an increased rate of mortality due to infection, while the remaining proportion (1 - <em>p</em>) experience only background mortality.</p>
+<p>The expressions describing the observed patterns of mortality in the infected treatment are,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.INF}(t) &amp;= p \cdot [S_1(t) \cdot S_2(t)] + (1-p) \cdot [S_1(t)] \\
+\\
+f_{OBS.INF}(t) &amp;= p \cdot [f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t)] + (1-p) \cdot f_1(t) \\
+\\
+h_{OBS.INF}(t) &amp;= S_{OBS.INF}(t) \;/\; f_{OBS.INF}(t) \\
+\\
+\end{align}\]</span>
+<p>where <em>p</em> is a constant to be estimated; 0 ≤ <em>p</em> ≤ 1. Here the pattern of mortality experienced by members of the treatment exposed to infection is no longer homogeneous as it varies according to whether an individual is infected or not.</p>
+<p>The overall log-likelihood expression for the observed pattern of mortality in the infected and uninfected treatments is,</p>
+<span class="math display">\[\begin{align}
+\log L=\sum_{i=1}^{n}match(treatment)
+\begin{cases}
+infected &amp; \Rightarrow d \log \left[ h_{OBS.INF}(t_i)\right] +\log\left[ S_{OBS.INF}(t_i) \right] \\
+\\
+uninfected &amp; \Rightarrow d \log \left[ h_1(t_i)\right] +\log\left[ S_1(t_i) \right] \\
+\end{cases}
+\\ 
+\\
+\end{align}\]</span>
+<p>This type of model is sometimes referred to as a 'cure' model <span class="citation">[1]</span>. This is not because infected hosts recover from infection, but rather because there will be proportionately fewer infected individuals in the 'infected' population over time due to their higher rate of mortality, i.e., the 'infected' population is progressively 'cured' of its infected members.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_frailty" class="section level3">
+<h3>nll_frailty</h3>
+<p>This function assumes all the individuals in an infected treatment are infected, but there is unobserved variation in the pathogen's virulence. It is assumed there is an underlying rate of mortality due to infection, <em>h<sub>V</sub></em>(<em>t</em>), which is multiplied by a constant, e.g., <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> is distributed as a continuous random variable with a mean value of 1. 'Frail' individuals with values of <span class="math inline">\(\lambda\)</span> &gt; 1 tend to die earlier than those with <span class="math inline">\(\lambda\)</span> &lt; 1 <span class="citation">[2,3]</span>.</p>
+<p>In this package <span class="math inline">\(\lambda\)</span> is assumed to follow either the gamma or inverse Gaussian distribution. In the case of the gamma distribution, the hazard function for mortality due to infection, <em>h</em><sub>2</sub>(<em>t</em>), is</p>
+<span class="math display">\[\begin{equation}
+h_2(t) = \frac{h_V(t)}{1 + \theta H_V(t)}
+\end{equation}\]</span>
+<p>where <em>H<sub>V</sub></em>(<em>t</em>) is the cumulative hazard function for the underlying pattern of virulence at time <em>t</em>, <em>h<sub>V</sub></em>(<em>t</em>), and <span class="math inline">\(\theta\)</span> is a constant describing the variance of the distribution in the rate of mortality and a parameter to be estimated.</p>
+<p>The corresponding cumulative survival function for mortality due to infection, <em>S</em><sub>2</sub>(<em>t</em>), is</p>
+<span class="math display">\[\begin{equation}
+S_2(t) = [1 + \theta H_v(t)]^{-1/\theta}
+\end{equation}\]</span>
+<p>In the case of the inverse Gaussian distribution, the hazard function for mortality due to infection, <em>h</em><sub>2</sub>(<em>t</em>), is</p>
+<span class="math display">\[\begin{equation}
+h_2(t) = \frac{h_V(t)}{[1 + 2 \theta H_V(t)]^{1/2}}
+\end{equation}\]</span>
+<p>and the cumulative survival function, <em>S</em><sub>2</sub>(<em>t</em>),</p>
+<span class="math display">\[\begin{equation}
+S_2(t) = \exp \left\{ \frac{1}{\theta} \cdot \left( 1 - [1 + 2 \theta H_V(t)]^{1/2} \right) \right\}
+\end{equation}\]</span>
+<p>In both cases the overall log-likelihood expression for the observed mortality in infected and uninfected treatments is,</p>
+<span class="math display">\[\begin{equation}
+\log L=\sum_{i=1}^{n}\left\lbrace d \log \left[ h_1(t_i) + g \cdot h_2(t_i)  \right] +\log\left[ S_1(t_i) \right] + g \cdot \log[S_2(t_i)] \right\rbrace
+\end{equation}\]</span>
+<p>with the expressions for <em>h</em><sub>2</sub>(<em>t</em>) and <em>S</em><sub>2</sub>(<em>t</em>) corresponding with the probability distribution describing the unobserved variation in virulence.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_frailty_correlated" class="section level3">
+<h3>nll_frailty_correlated</h3>
+<p>This function allows for separate, but positively correlated, frailty effects acting on background mortality and mortality due to infection, where the strength of this correlation is a variable to be estimated <span class="citation">[4]</span>.</p>
+<p>The observed rate of mortality due to infection at time <em>t</em> in an infected population, <em>h<sub>OBS.INF</sub></em>(<em>t</em>), equals</p>
+<span class="math display">\[\begin{equation}
+h_{OBS.INF}(t) = h_1(t) + h_2(t) - \rho \sqrt{\theta_1} \sqrt{\theta_2} \frac{h_1(t)H_V(t) + h_2(t)H_B(t)}{1 + \theta_B H_B(t) + \theta_V H_V(t)}
+\end{equation}\]</span>
+<p>where <em>h</em><sub>1</sub>(<em>t</em>) and <em>h</em><sub>2</sub>(<em>t</em>) are the population wide rates of mortality due to the background mortality and that due to infection at time <em>t</em>, respectively. <em>H<sub>B</sub></em>(<em>t</em>) and <em>H<sub>V</sub></em>(<em>t</em>) are the cumulative hazard functions for the underlying background mortality and the underlying virulence of the pathogen at time <em>t</em>, respectively; <span class="math inline">\(\theta_B\)</span> and <span class="math inline">\(\theta_V\)</span> are the variances of the unobserved variation in the background mortality and that due to infection, respectively, and constants to be estimated. <span class="math inline">\(\rho\)</span> is the strength of the positive correlation between the two frailty effects (<span class="math inline">\(\rho\)</span> ≥ 0). Estimates of <span class="math inline">\(\rho\)</span> will tend towards zero as the difference in the variance of the two frailty effects increases.</p>
+<p>The population wide rate of background mortality at time <em>t</em>, <em>h</em><sub>1</sub>(<em>t</em>), is</p>
+<span class="math display">\[\begin{equation}
+h_1(t) = \frac{h_B(t)}{1 + \theta_B H_B(t)} \\
+\end{equation}\]</span>
+<p>where <em>h<sub>B</sub></em>(<em>t</em>) and <em>H<sub>B</sub></em>(<em>t</em>) are the hazard and cumulative hazard functions for the underlying rate of background mortality at time <em>t</em>, respectively. The population wide rate of mortality due to infection at time <em>t</em>, <em>h</em><sub>2</sub>(<em>t</em>), is</p>
+<span class="math display">\[\begin{equation}
+h_2(t) = \frac{h_V(t)}{1 + \theta_V H_V(t)}
+\end{equation}\]</span>
+<p>where <em>h<sub>V</sub></em>(<em>t</em>) and <em>H<sub>V</sub></em>(<em>t</em>) are the hazard and cumulative hazard functions for the underlying rate of mortality due to infection at time <em>t</em>, respectively.</p>
+<p>The observed cumulative survival of infected hosts at time <em>t</em>, <em>S<sub>OBS.INF</sub></em>(<em>t</em>), is given by</p>
+<span class="math display">\[\begin{equation}
+S_{OBS.INF}(t) = \left[S_1(t)^{-\theta_B} + S_2(t)^{-\theta_V} - 1 \right]^{- \rho / \sqrt{\theta_B} \sqrt{\theta_V}}
+\cdot S_1(t)^{1 - \rho \sqrt{\theta_B} \sqrt{\theta_V}} \cdot S_2(t)^{1 - \rho \sqrt{\theta_V} \sqrt{\theta_B}} \\
+\\
+\end{equation}\]</span>
+<p>where</p>
+<span class="math display">\[\begin{equation}
+S_1(t) = \left[ 1 + \theta_B H_B(t) \right]^{-1 / \theta_B} \\
+\end{equation}\]</span>
+<p>and</p>
+<span class="math display">\[\begin{equation}
+S_2(t) = \left[ 1 + \theta_V H_V(t) \right]^{-1 / \theta_V} \\
+\end{equation}\]</span>
+<p>The expressions <em>S</em><sub>1</sub>(<em>t</em>) and <em>S</em><sub>2</sub>(<em>t</em>) correct for an error in the original paper where the cumulative hazard terms were multiplied by <span class="math inline">\(\sqrt{\theta_i}\)</span>, instead of <span class="math inline">\(\theta_i\)</span>; <em>i</em> = <em>U, V</em> <span class="citation">[4]</span>.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_frailty_logscale" class="section level3">
+<h3>nll_frailty_logscale</h3>
+<p>This function is identical to the function <em>nll_frailty</em> except it values for location and scale parameters are on a logscale; this can help convergence during maximum likelihood estimation.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_frailty_shared" class="section level3">
+<h3>nll_frailty_shared</h3>
+<p>In this function it is assumed there is an underlying rate of background mortality, <em>h</em><sub>1</sub>(<em>t</em>), and an underlying rate of mortality due to infection, <em>h</em><sub>2</sub>(<em>t</em>), and both are multiplied by a constant, e.g., <span class="math inline">\(\lambda\)</span>,</p>
+<span class="math display">\[\begin{equation}
+h(t) =  \lambda \left[ h_1(t) + h_2(t) \right]
+\end{equation}\]</span>
+<p>where <span class="math inline">\(\lambda\)</span> is distributed as a continuous random variable drawn from a gamma distribution with a mean of 1 and variance <span class="math inline">\(\theta\)</span> <span class="citation">[4]</span>.</p>
+<p>In this case, the observed rate of mortality in the infected treatment, <em>h<sub>OBS.INF</sub></em>(<em>t</em>), at time <em>t</em> will be,</p>
+<span class="math display">\[\begin{equation}
+h_{OBS.INF}(t) =  \frac{h_1(t) + h_2(t)}{1 + \theta [H_1(t) + H_2(t)]}
+\end{equation}\]</span>
+<p>the observed cumulative survival at time <em>t</em>, <em>S<sub>OBS.INF</sub></em>(<em>t</em>), will be,</p>
+<span class="math display">\[\begin{equation}
+S_{OBS.INF}(t) = \left(1 + \theta \left[H_1(t) + H_2(t) \right] \right)^{-1/\theta}
+\end{equation}\]</span>
+and the corresponding likelihood model,
+<span class="math display">\[\begin{equation}
+\log L=\sum_{i=1}^{n}\left\lbrace d \log \left[\frac{h_1(t_i) + gh_2(t_i)}{1 + \theta[H_1(t_i) + gH_2(t_i)]}   \right] +\log \left[(1 + \theta[H_1(t_i) + gH_2(t_i)])^{-1/\theta} \right] \right\rbrace
+\end{equation}\]</span>
+<p>where <em>g</em> is an infection indicator taking a value of '1' for an infected treatment and '0' for an uninfected or control treatment.</p>
+<p>See the original paper <span class="citation">[4]</span> for a discussion of the shortcomings of this type of model.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_proportional_virulence" class="section level3">
+<h3>nll_proportional_virulence</h3>
+<p>This function assumes a proportional hazards relationship for virulence among infected treatments within an experiment, such that,</p>
+<span class="math display">\[\begin{equation}
+h_A(t) \;/\; h_B(t) = c
+\end{equation}\]</span>
+<p>where <em>h<sub>A</sub></em>(<em>t</em>) and <em>h<sub>B</sub></em>(<em>t</em>) are the hazard functions describing pathogen virulence in infected treatments <em>A</em> and <em>B</em> at time <em>t</em>, respectively, and <em>c</em> is a constant.</p>
+<p>A treatment of infected hosts is chosen as the reference population. The observed patterns of survival in this treatment are described in the same way as for the function <em>nll_basic</em>,</p>
+<span class="math display">\[\begin{align}
+
+S_{OBS.REF}(t) &amp;= S_1(t) \cdot S_{REF}(t) \\
+\\
+f_{OBS.REF}(t) &amp;= f_1(t) \cdot S_{REF}(t) + f_{REF}(t) \cdot S_1(t) \\
+\\
+h_{OBS.REF}(t) &amp;= f_{OBS.REF}(t) \;/\; S_{OBS.REF}(t) \\
+\\
+               &amp;= h_1(t) + h_{REF}(t)
+\end{align}\]</span>
+<p>where the indice <em>REF</em> indicates the reference treatment or population of infected hosts.</p>
+<p>The patterns of survival and mortality in other infected treatments are estimated as a function of those for the reference population,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.ALT}(t) &amp;= S_1(t) \cdot \left[ S_{REF}(t) \right]^\theta \\
+\\
+f_{OBS.ALT}(t) &amp;= f_1(t) \cdot \left[ S_{REF}(t) \right]^\theta + \theta \cdot \left[ S_{REF}(t) \right]^{\theta - 1} \cdot f_{REF}(t) \cdot S_1(t) \\
+\\
+h_{OBS.ALT}(t) &amp;= f_{OBS.ALT}(t) \;/\; S_{OBS.ALT}(t) \\
+\\
+               &amp;= h_1(t) + \theta \cdot h_{REF}(t)
+\end{align}\]</span>
+<p>where the indice <em>ALT</em> indicates and alternative infected treatment, and <span class="math inline">\(\theta\)</span> is a constant scaling the pathogen's virulence relative to that in the reference population; <span class="math inline">\(\theta &gt; 0\)</span></p>
+<p>The overall log-likelihood expression for the observed pattern of mortality in the infected and uninfected treatments is,</p>
+<span class="math display">\[\begin{align}
+\log L=\sum_{i=1}^{n}match(treatment)
+\begin{cases}
+uninf &amp; \Rightarrow d \log \left[ h_1(t_i)\right] +\log \left[ S_1(t_i) \right] \\
+\\
+ref &amp; \Rightarrow d \log \left[ h_1(t_i) + h_{REF}(t_i) \right] +\log \left[ S_1(t_i) \right] + \log \left[ S_{REF}(t_i) \right] \\
+\\
+alt &amp; \Rightarrow d \log \left[ h_1(t_i) + \theta h_{REF}(t_i) \right] +\log \left[ S_1(t_i) \right] + \theta \log \left[ S_{REF}(t_i) \right] \\
+\end{cases}
+\\ 
+\\
+\end{align}\]</span>
+<p>where <em>uninf, ref</em> and <em>alt</em> refer to the uninfected, infected reference and alternative infected treatments, respectively.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_recovery" class="section level3">
+<h3>nll_recovery</h3>
+<p>This function allows for infected hosts that recover from infection. It assumes that all hosts in an infected treatment are initially infected and experience increased mortality due to infection. However hosts can recover from infection, such that, recovered individuals only experience background mortality equal to that of hosts in a matching uninfected or control treatment.</p>
+<p>The timing of recovery from infection is assumed to follow a probability distribution and to be independent of the probability distributions for the timing of background mortality and mortality due to infection. Hence the pattern of events in an infected treatment at time <em>t</em>, <em>S<sub>INF.POP</sub></em>(<em>t</em>), can be expressed as the product of three independent probability distributions,</p>
+<span class="math display">\[\begin{equation}
+S_{INF.POP}(t) = S_1(t) \cdot S_2(t) \cdot S_3(t)
+\end{equation}\]</span>
+<p>where <em>S</em><sub>1</sub>(<em>t</em>) is the cumulative survival function for background mortality at time <em>t</em>, <em>S</em><sub>2</sub>(<em>t</em>) is the cumulative survival function for mortality due to infection at time <em>t</em>, and <em>S</em><sub>3</sub>(<em>t</em>) is the cumulative probaility that an infection 'survives' until time <em>t</em>. Here the index 'INF.POP' is used rather than 'OBS.INF' as recovery from infection may not be an observed event.</p>
+Differentiating the above with respect to time and taking the negative gives the probability density function, <em>f<sub>INF.POP</sub></em>(<em>t</em>), for events occurring in the population at time <em>t</em>,
+<span class="math display">\[\begin{equation}
+    \begin{aligned}
+    f_{INF.POP}(t) &amp;= f_1 \left(t\right) \cdot S_2\left(t\right) \cdot S_3\left(t\right) \\
+    &amp;+f_2 \left(t\right) \cdot S_1\left(t\right) \cdot S_3\left(t\right) \\
+    &amp;+f_3 \left(t\right) \cdot S_1\left(t\right) \cdot S_2\left(t\right)
+    \end{aligned}
+\end{equation}\]</span>
+<p>where the sum of the first two expressions gives the probability an infected host is infected and dies at time <em>t</em>, from either background mortality or mortality due to infection, and corresponds with data collected on the time of death of infected hosts.</p>
+<p>The third expression describes the probability an infected host is alive and recovers from infection at time <em>t</em>, and corresponds with data collected on the timing of recovery of infected hosts. Hence the expression can be estimated when the timing of recovery is known. This will not be the case if a host's recovery status is only determined after the host has died or been censored, as the data collected correspond with the time hosts recovered and subsequently survived before dying or being censored. However it is assumed recovered individuals experience the same background mortality as uninfected hosts. This information can be used to estimate the likelihood a recovered individual dying at time <em>t</em>, recovered at an earlier time and subsequently survived until time <em>t</em>, when it died or was censored. For example, in an experiment recording survival daily, the probability a recovered individual dies on the second day <em>t</em><sub>2</sub> can be estimated from,</p>
+<span class="math display">\[\begin{equation*}
+    \begin{aligned}
+&amp; \left[ f_3(t_2) \cdot S_1(t_2) \cdot S_2(t_2) \right] \cdot h_1(t_2) \; + \nonumber \\
+&amp; \left[ f_3(t_1) \cdot S_1(t_1) \cdot S_2(t_1) \right] \cdot \left[ S_1(t_2)\;/\;S_1(t_1) \right] \cdot h_1(t_2)
+\end{aligned}
+\end{equation*}\]</span>
+<p>where the first line gives the probability an individual survives until and recovers on the second day, multiplied by the background rate of mortality on day 2. The second line gives the probability an individual recovered on the first day, survived background mortality from day 1 to day 2, <em>S</em><sub>1</sub>(<em>t</em><sub>2</sub>) / <em>S</em><sub>1</sub>(<em>t</em><sub>1</sub>), and died of background mortality on day 2. Multiplication by <em>h</em><sub>1</sub>(<em>t</em><sub>2</sub>) would be omitted in cases where a recovered individual was censored at the end of day 2. Hence observed data for the times when recovered individuals die or are censored can be used to estimate the unobserved distribution of recovery times.</p>
+<p>The <em>nll_recovery</em> function assumes all the individuals in an infected treatment were initially infected and their recovery status is known at the time of their death or censoring, i.e., still infected vs. recovered. This information is used along with data on the timing of death or censoring in a matching uninfected or control treatment to calculate the likelihood of the events being described by the model.</p>
+<p>NB This function requires the data to be specified in a specific format different to that of other functions.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_recovery_II" class="section level3">
+<h3>nll_recovery_II</h3>
+<p>This is essentially the same model <em>nll_recovery</em>, except it assumes there was no background mortality, such that, <em>S</em><sub>1</sub>(<em>t</em>) = 1 and <em>f</em><sub>1</sub>(<em>t</em>) = 0 throughout the experiment.</p>
+<p>In such cases the only observed dynamics will be the death of infected hosts due to infection, before they recover from infection, <em>f</em><sub>2</sub>(<em>t</em>)<em>S</em><sub>1</sub>(<em>t</em>)<em>S</em><sub>3</sub>(<em>t</em>), or <em>f</em><sub>2</sub>(<em>t</em>)<em>S</em><sub>3</sub>(<em>t</em>) as <em>S</em><sub>1</sub>(<em>t</em>) = 1.</p>
+<p>As recovered hosts are assumed to only experience the same background mortality as individuals in a matching control treatment, any recovered individuals will all survive to be right-censored at the end of the experiment.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_two_inf_subpops_obs" class="section level3">
+<h3>nll_two_inf_subpops_obs</h3>
+<p>This function assumes all the individuals in an infected treatment are infected but there is data identifying the presence of two discrete subpopulations, e.g., <em>A</em> and <em>B</em> in proportions <em>p</em> and (1 - <em>p</em>), respectively, where the additional rate of mortality due to infection in the two subpopulations is different, e.g., hosts dying with/without visible signs of infection or those with viral titres above/below a threshold value.</p>
+<p>The observed patterns of mortality in the infected treatment as a whole will be,</p>
+<span class="math display">\[\begin{align}
+S_{OBS.INF}(t) &amp;= p \cdot [ S_1(t) \cdot S_{2A}(t)] + (1-p) \cdot [S_1(t) \cdot S_{2B}(t)] \\
+\\
+f_{OBS.INF}(t) &amp;= p \cdot [f_1(t) \cdot S_{2A}(t) + f_{2A}(t) \cdot S_1(t)] + (1-p) \cdot [f_1(t) \cdot S_{2B}(t) + f_{2B}(t) \cdot S_1(t)] \\
+\\
+h_{OBS.INF}(t) &amp;= S_{OBS.INF}(t) \;/\; f_{OBS.INF}(t) \\
+\\
+\end{align}\]</span>
+<p>where the indices <em>2A</em> and <em>2B</em> denote the two discrete subpopulations of infected hosts.</p>
+<p>Mortality in the two subpopulations is assumed to act independently, consequently the likelihood expressions for each population can be estimated separately based on their membership of subpopulation <em>A</em> or <em>B</em>,</p>
+<span class="math display">\[\begin{align}
+\log L=\sum_{i=1}^{n}match(treatment)
+\begin{cases}
+uninfected &amp; \Rightarrow d \log \left[ h_1(t_i)\right] +\log \left[ S_1(t_i) \right] \\
+\\
+infected \; A &amp; \Rightarrow d \log \left[ h_1(t_i) + h_{2A}(t_i) \right] +\log \left[ S_1(t_i) \right] + \log \left[ S_{2A}(t_i) \right] \\
+\\
+infected \; B &amp; \Rightarrow d \log \left[ h_1(t_i) + h_{2B}(t_i) \right] +\log \left[ S_1(t_i) \right] + \log \left[ S_{2B}(t_i) \right] \\
+\end{cases}
+\\ 
+\\
+\end{align}\]</span>
+<p>where each subpopulation shares the same background mortality as a matching control treatment.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="nll_two_inf_subpops_unobs" class="section level3">
+<h3>nll_two_inf_subpops_unobs</h3>
+<p>This function is similar to the function <em>nll_two_obs_inf_subpops</em>, except the presence of two discrete subpopulations in proportions <em>p</em> and (1 - <em>p</em>) is assumed rather than based on evidence, e.g., data on visual signs of infection or viral titres were not recorded. In this case, <em>p</em> is a parameter to be estimated (0 ≤ <em>p</em> ≤ 1).</p>
+The observed patterns of mortality will be as described for <em>nll_two_obs_inf_subpops</em>, but the likelihood expression for the two presumed subpopulations can not be estimated separately as the data are not available to identify them,
+<span class="math display">\[\begin{align}
+\log L=\sum_{i=1}^{n}match(treatment)
+\begin{cases}
+uninfected &amp; \Rightarrow d \log \left[ h_1(t_i)\right] +\log \left[ S_1(t_i) \right] \\
+\\
+infected &amp; \Rightarrow d \log \left[ h_1(t_i) + h_{OBS.INF}(t_i) \right] +\log \left[ S_1(t_i) \right] + \log \left[ S_{OBS.INF}(t_i) \right] \\
+\end{cases}
+\\
+\\
+\end{align}\]</span>
+<p>hence the patterns of mortality and the proportions of the two supposed subpopulations needs to be inferred from the pattern of mortality for the infected population as a whole.</p>
+<p><a href="#back">back to list</a></p>
+</div>
+<div id="back-to-top" class="section level3">
+<h3><a href="#top">Back to top</a></h3>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Lambert_2007">
+<p>1. Lambert PC. 2007 Modeling of the cure fraction in survival studies. <em>Stata Journal</em> <strong>7</strong>, 351–375.</p>
+</div>
+<div id="ref-Aalen_1988">
+<p>2. Aalen OO. 1988 Heterogeneity in survival analysis. <em>Statistics in Medicine</em> <strong>7</strong>, 1121–1137. (doi:<a href="https://doi.org/10.1002/sim.4780071105">10.1002/sim.4780071105</a>)</p>
+</div>
+<div id="ref-Hougaard_1984">
+<p>3. Hougaard P. 1984 Life table methods for heterogeneous populations - distributions describing the heterogeneity. <em>Biometrika</em> <strong>71</strong>, 75–83. (doi:<a href="https://doi.org/10.1093/biomet/71.1.75">10.1093/biomet/71.1.75</a>)</p>
+</div>
+<div id="ref-Zahl_1997">
+<p>4. Zahl PH. 1997 Frailty modelling for the excess hazard. <em>Statistics in Medicine</em> <strong>16</strong>, 1573–1585. (doi:<a href="https://doi.org/10.1002/(sici)1097-0258(19970730)16:14&lt;1573::aid-sim585&gt;3.0.co;2-q">10.1002/(sici)1097-0258(19970730)16:14&lt;1573::aid-sim585&gt;3.0.co;2-q</a>)</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

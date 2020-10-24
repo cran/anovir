@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Introduction</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Introduction</h1>
+
+
+
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(anovir)
+<span class="co">#&gt; Loading required package: bbmle</span>
+<span class="co">#&gt; Loading required package: stats4</span></code></pre></div>
+<div id="top" class="section level3">
+<h3>Introduction</h3>
+<p>A pathogen's virulence is a key parameter in the mathematical models on which most epidemiological theory is based. In these models virulence is generally defined as the increased per capita rate of mortality of infected hosts due to infection <span class="citation">[1,2]</span>. This package allows this rate of mortality to be estimated from the relative survival of hosts in experimentally-infected vs. uninfected treatments over time.</p>
+<p>The analysis of relative survival is frequently encountered in the medical literature where it is the method of choice for estimating how survival in a population of patients is affected by a specific factor <span class="citation">[3–6]</span>. This factor can be a disease or illness, e.g., a particular type of cancer, or a specific event, such as, breaking a hip bone. This approach compares the observed survival in the target population of patients against their expected survival had they not experienced the factor in question; the difference between them being attributable to the factor involved.</p>
+<p>The following sections briefly outlines the rationale for this approach when applied to comparing survival in matching populations of hosts differing only in their experimental exposure to infection, or not. For a more detailed version, see <span class="citation">[7]</span>.</p>
+</div>
+<div id="population-dynamics" class="section level3">
+<h3>Population dynamics</h3>
+<p>The mathemetical models on which most epidemiological theory is based are population dynamics models describing the flow of hosts among different compartments, or subpopulations, of the host population as a whole <span class="citation">[1,2]</span>. For example the following model has two compartments, or subpopulations, for uninfected (<em>X</em>) and infected (<em>Y</em>) hosts,</p>
+<span class="math display">\[\begin{align}
+dX / dt &amp;= b(t) X(t) - [\beta(t) Y(t) + \mu(t)] X(t) \\ \\
+dY / dt &amp;= \beta(t) X(t) Y(t) - [\mu(t) + \nu(t)] Y(t) \\
+\end{align}\]</span>
+<p>where all hosts are of the same age and the respective rates of change in the size of each subpopulation at time <em>t</em>, <em>dX/dt, dY/dt</em>, are determined by the value of various parameters at time <em>t</em>;</p>
+<p><em>b</em>(<em>t</em>), the birth rate of uninfected hosts,</p>
+<p><span class="math inline">\(\beta(t)\)</span>, the probability infection is transmitted when infected and uninfected hosts come into contact,</p>
+<p><span class="math inline">\(\mu(t)\)</span>, the 'natural' or background rate of mortality of uninfected hosts, and</p>
+<p><span class="math inline">\(\nu(t)\)</span>, <strong>the pathogen's virulence</strong>, which is the additional rate of mortality of infected hosts due to infection.</p>
+A variety of expressions can be derived from these equations. For example if <span class="math inline">\(\beta(t), \mu(t), \nu(t)\)</span> remain constant over time, the basic reproductive number <em>R</em><sub>0</sub> <span class="citation">[1]</span> estimating the pathogen's fitness is,
+<span class="math display">\[\begin{equation}
+R_0 = \frac{\beta X}{\mu + \nu}
+\end{equation}\]</span>
+<p>where the number of secondary infections a single infected host is expected to create when introduced into a susceptible population of uninfected hosts is proportional to how well the disease transmits (<span class="math inline">\(\beta\)</span>) and the size of the population into which it is introduced (<em>X</em>), multiplied by the average longevity of an infected host, 1/(<span class="math inline">\(\mu+\nu\)</span>).</p>
+</div>
+<div id="empirical-setting" class="section level3">
+<h3>Empirical setting</h3>
+<p>The type of model described above can also be used to describe the observed dynamics in experimental populations of infected and uninfected hosts. Furthermore, experiments can be designed such that the only population dynamics to be observed will be those due to host mortality,</p>
+<span class="math display">\[\begin{align}
+-\frac{dX / dt}{X(t)} &amp;= \mu(t) \\ \\
+-\frac{dY / dy}{Y(t)} &amp;= \mu(t) + \nu(t) \\
+\end{align}\]</span>
+<p>where the per capita rate of decrease in the size of the uninfected population at time <em>t</em>, -(<em>dX/dt</em>)/<em>X</em>(<em>t</em>), is due only to background mortality at time <em>t</em>, and that for the infected population, -(<em>dY/dt</em>)/<em>Y</em>(<em>t</em>), is due to the sum of both the background rate of mortality and mortality due to infection.</p>
+<p>These conditions can be achieved, for example, by using only juvenile hosts to avoid any dynamics due to births and by housing infected and uninfected hosts separately to eliminate any dynamics due to the transmission of disease.</p>
+<p>The analysis of relative survival can be used to estimate these two rates of mortality from the type of data routinely generated in experiments comparing survival in cohorts of experimentally-infected vs. uninfected hosts. This follows a brief description of some survival functions and how they are related.</p>
+</div>
+<div id="survival-functions" class="section level3">
+<h3>Survival functions</h3>
+<p>The probability that an individual alive in a particular population or treatment at the beginning of an experiment, <em>t</em><sub>0</sub>, will still be alive at time <em>t</em> can be expressed as,</p>
+<span class="math display">\[\begin{equation}
+S(t)=1-F(t)
+\end{equation}\]</span>
+<p>where <em>S</em>(<em>t</em>) is the cumulative survival function in continuous time at time <em>t</em>. It is the complement of the cumulative density function, <em>F</em>(<em>t</em>), for the probability the individual will have died by time <em>t</em>; 0 ≤ <em>S</em>(<em>t</em>), <em>F</em>(<em>t</em>) ≤ 1.</p>
+<p>Differentiating <em>F</em>(<em>t</em>) with respect to time gives the rate at which mortality reduces the size of the population at time <em>t</em>,</p>
+<span class="math display">\[\begin{equation}
+f(t)=-S^{\prime}(t)
+\end{equation}\]</span>
+<p>where <em>f</em>(<em>t</em>) is the probability density function for mortality. It corresponds with data collected for the number of individuals dying at time <em>t</em>, divided by the initial size of the population.</p>
+<p>Whereas <em>f</em>(<em>t</em>) represents the probability an individual alive at <em>t</em><sub>0</sub> will die at time <em>t</em>, the hazard function, <em>h</em>(<em>t</em>), represents the probability an individual alive at time <em>t</em> will die at time <em>t</em>,</p>
+<span class="math display">\[\begin{equation}
+h(t)=\frac{f(t)}{S(t)}
+\end{equation}\]</span>
+<p>where the probability of dying at time <em>t</em>, <em>f</em>(<em>t</em>), is corrected by the probability of being alive at time <em>t</em>, <em>S</em>(<em>t</em>). This is the rate of mortality in the population at time <em>t</em> and represents the per capita risk of dying at time <em>t</em>.</p>
+<p>If the hazard function <em>h</em>(<em>t</em>) represents the risk an individual alive at time <em>t</em> will die at time <em>t</em>, the cumulative hazard function, <em>H</em>(<em>t</em>), represents the individual's accumulated exposure to the risk of dying at time <em>t</em>. It is related to the cumulative survival function, <em>S</em>(<em>t</em>), as,</p>
+<span class="math display">\[\begin{equation}
+S(t) = \exp [-H(t)] 
+\end{equation}\]</span>
+<p>and can take values greater than one.</p>
+<!-- S(t) = \exp \left[ -H \left( t \right) \right] -->
+<p>Analyses testing for the effects of a pathogen on the survival of infected vs. uninfected hosts usually involve the estimation and comparison of one of the expressions above. What makes the analysis of relative survival different is how it treats the survival of infected hosts.</p>
+</div>
+<div id="relative-survival" class="section level3">
+<h3>Relative survival</h3>
+<p>The analysis of relative survival assumes individuals in the target population are exposed to two independent and mutually exclusive sources of mortality;</p>
+<p><em>1. Background or `natural' mortality</em>. This is the mortality individuals in the target population would be expected to experience had they not been afflicted by the disease or illness in question, and,</p>
+<p><em>2. Mortality due to disease or illness</em>. This is mortality individuals in the target population experience due to the disease or illness in question.</p>
+<p>In the expressions below, and throughout the package, the index '1' will be used to indicate the effect of background mortality and the index '2' to indicate the effect of mortality due to infection.</p>
+<p>When infected hosts die, it is not possible to tell whether they died due to background mortality or due to infection. However to remain alive means the host has not died due to the cumulative effects of background mortality, <em>F</em><sub>1</sub>(<em>t</em>), or the cumulative effects of mortality due to infection, <em>F</em><sub>2</sub>(<em>t</em>). As these two sources of mortality are independent, the probability an infected host will be observed surviving until time <em>t</em>, <em>S<sub>OBS.INF</sub></em>(<em>t</em>), can be expressed as,</p>
+<span class="math display">\[\begin{equation}
+S_{OBS.INF}(t) = [1-F_1(t)] \cdot [1-F_2(t)] = S_1(t) \cdot S_2(t)
+\end{equation}\]</span>
+<p>where <em>S</em><sub>1</sub>(<em>t</em>) and <em>S</em><sub>2</sub>(<em>t</em>) are the cumulative survival functions for background mortality and mortality due to infection at time <em>t</em>, respectively.</p>
+<p>The relative survival of infected hosts at time <em>t</em>, <em>S<sub>REL</sub></em>(<em>t</em>), is calculated as their observed probability of surviving until time <em>t</em>, divided by that for uninfected hosts,</p>
+<span class="math display">\[\begin{equation}
+S_{REL}(t)=\frac{S_{OBS.INF}(t)}{S_1(t)}=\frac{S_1(t) \cdot S_2(t)}{S_1(t)}=S_2(t)
+\end{equation}\]</span>
+<p>which equals the expected survival of infected hosts due only to the effects of infection, <em>S</em><sub>2</sub>(<em>t</em>). That is, relative survival is the observed survival of infected hosts corrected for background mortality.</p>
+<p>Differentiating <em>S<sub>OBS.INF</sub></em>(<em>t</em>) with respect to time and taking the negative gives the probability density function for mortality observed in the infected treatment at time <em>t</em>, <em>f<sub>OBS.INF</sub></em>(<em>t</em>),</p>
+<span class="math display">\[\begin{equation}
+f_{OBS.INF}(t) =-S'_{OBS.INF}(t) = f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t)
+\end{equation}\]</span>
+<p>where <em>f</em><sub>1</sub>(<em>t</em>) and <em>f</em><sub>2</sub>(<em>t</em>) are the probability density functions for the probability an individual alive at time <em>t</em><sub>0</sub> will die at time <em>t</em> due to background mortality or mortality due to infection, respectively.</p>
+<p>Dividing <em>f<sub>OBS.INF</sub></em>(<em>t</em>) by <em>S<sub>OBS.INF</sub></em>(<em>t</em>) gives the hazard function, <em>h<sub>OBS.INF</sub></em>(<em>t</em>),</p>
+<span class="math display">\[\begin{equation}
+h_{OBS.INF}(t) = \frac{f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t) }{S_1(t) \cdot S_2(t)} = \frac{f_1(t)}{S_1(t)} + \frac{f_2(t)}{S_2(t)} = h_1(t) + h_2(t)
+\end{equation}\]</span>
+<p>where at time <em>t</em> the observed rate of mortality in the infected population is the sum of the background rate of mortality, <em>h</em><sub>1</sub>(<em>t</em>), plus the rate of mortality due to infection, <em>h</em><sub>2</sub>(<em>t</em>).</p>
+</div>
+<div id="relative-survival-and-virulence" class="section level3">
+<h3>Relative survival and virulence</h3>
+<p>The expressions for -(<em>dY/dt</em>)/<em>Y</em>(<em>t</em>) and <em>h<sub>OBS.INF</sub></em>(<em>t</em>) both describe the observed per capita rate of mortality in an infected population of hosts at time <em>t</em>. Hence in the conditions of the empirical setting described above,</p>
+<span class="math display">\[\begin{equation}
+\mu(t) + \nu(t) = h_1(t) + h_2(t)
+\end{equation}\]</span>
+<p>where the analysis of relative survival can be used to estimate <em>h</em><sub>1</sub>(<em>t</em>) and <em>h</em><sub>2</sub>(<em>t</em>), that is the background rate of mortality and virulence as it is defined in the mathematical models on which most epidemiological theory is based.</p>
+<p>In the empirical scenario describe above, it was assumed;</p>
+<ul>
+<li><p>all of the hosts in the infected population were infected, and</p></li>
+<li><p>they experienced equally virulent infections, that is, a single hazard function could describe the rate of mortality due to infection for each member of the population.</p></li>
+<li><p>It was also assumed that hosts could not recover from infection.</p></li>
+</ul>
+<p>Each of these assumptions can be relaxed and relative survival models adapted to allow for incomplete infection success, for virulence to vary among infected hosts, and for hosts to recover from infection.</p>
+<p>For a more detailed text, with worked examples, see <span class="citation">[7]</span>.</p>
+<p><a href="#top">back to top</a></p>
+</div>
+<div id="references" class="section level3 unnumbered">
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Anderson_May_1979">
+<p>1. Anderson RM, May RM. 1979 Population biology of infectious-diseases. 1. <em>Nature</em> <strong>280</strong>, 361–367. (doi:<a href="https://doi.org/10.1038/280361a0">10.1038/280361a0</a>)</p>
+</div>
+<div id="ref-May_Anderson_1979">
+<p>2. May RM, Anderson RM. 1979 Population biology of infectious-diseases. 2. <em>Nature</em> <strong>280</strong>, 455–461. (doi:<a href="https://doi.org/10.1038/280455a0">10.1038/280455a0</a>)</p>
+</div>
+<div id="ref-Dickman_2004">
+<p>3. Dickman PW, Sloggett A, Hills M, Hakulinen T. 2004 Regression models for relative survival. <em>Statistics in Medicine</em> <strong>23</strong>, 51–64. (doi:<a href="https://doi.org/10.1002/sim.1597">10.1002/sim.1597</a>)</p>
+</div>
+<div id="ref-Ederer_1961">
+<p>4. Ederer F, Axtell LM, Cutler SJ. 1961 The relative survival rate: a statistical methodology. <em>Natl Cancer Inst Monogr</em> <strong>6</strong>, 101–121.</p>
+</div>
+<div id="ref-Esteve_1990">
+<p>5. Esteve J, Benhamou E, Croasdale M, Raymond L. 1990 Relative survival and the estimation of net survival - elements for further discussion. <em>Statistics in Medicine</em> <strong>9</strong>, 529–538. (doi:<a href="https://doi.org/10.1002/sim.4780090506">10.1002/sim.4780090506</a>)</p>
+</div>
+<div id="ref-Monson_1974">
+<p>6. Monson RR. 1974 Analysis of relative survival and proportional mortality. <em>Computers and Biomedical Research</em> <strong>7</strong>, 325–332. (doi:<a href="https://doi.org/10.1016/0010-4809(74)90010-x">10.1016/0010-4809(74)90010-x</a>)</p>
+</div>
+<div id="ref-Agnew_2019">
+<p>7. Agnew P. 2019 Estimating virulence from relative survival. <em>bioRxiv</em> (doi:<a href="https://doi.org/10.1101/530709">10.1101/530709</a>)</p>
+</div>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

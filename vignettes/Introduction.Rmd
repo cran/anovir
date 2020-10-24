@@ -1,0 +1,180 @@
+---
+title: "Introduction"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Introduction}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: \usepackage{amsmath}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(anovir)
+```
+### Introduction {#top}
+
+A pathogen's virulence is a key parameter in the mathematical models on which most epidemiological theory is based. In these models virulence is generally defined as the increased per capita rate of mortality of infected hosts due to infection [@Anderson_May_1979; @May_Anderson_1979]. This package allows this rate of mortality to be estimated from the relative survival of hosts in experimentally-infected vs. uninfected treatments over time. 
+
+The analysis of relative survival is frequently encountered in the medical literature where it is the method of choice for estimating how survival in a population of patients is affected by a specific factor [@Dickman_2004; @Ederer_1961; @Esteve_1990; @Monson_1974]. This factor can be a disease or illness, e.g., a particular type of cancer, or a specific event, such as, breaking a hip bone. This approach compares the observed survival in the target population of patients against their expected survival had they not experienced the factor in question; the difference between them being attributable to the factor involved.
+
+The following sections briefly outlines the rationale for this approach when applied to comparing survival in matching populations of hosts differing only in their experimental exposure to infection, or not. For a more detailed version, see [@Agnew_2019]. 
+
+### Population dynamics
+
+The mathemetical models on which most epidemiological theory is based are population dynamics models describing the flow of hosts among different compartments, or subpopulations, of the host population as a whole [@Anderson_May_1979; @May_Anderson_1979]. 
+For example the following model has two compartments, or subpopulations, for uninfected (_X_) and infected (_Y_) hosts, 
+
+\begin{align}
+dX / dt &= b(t) X(t) - [\beta(t) Y(t) + \mu(t)] X(t) \\ \\
+dY / dt &= \beta(t) X(t) Y(t) - [\mu(t) + \nu(t)] Y(t) \\
+\end{align}
+
+where all hosts are of the same age and the respective rates of change in the size of each subpopulation at time _t_, _dX/dt, dY/dt_, are determined by the value of various parameters at time _t_; 
+
+_b_(_t_), the birth rate of uninfected hosts,
+
+\(\beta(t)\), the probability infection is transmitted when infected and uninfected hosts come into contact, 
+
+\(\mu(t)\), the 'natural' or background rate of mortality of uninfected hosts, and
+
+\(\nu(t)\), __the pathogen's virulence__,  which is the additional rate of mortality of infected hosts due to infection.
+
+A variety of expressions can be derived from these equations.
+For example if \(\beta(t), \mu(t), \nu(t)\) remain constant over time, the basic reproductive number _R_~0~ [@Anderson_May_1979] estimating the pathogen's fitness is,
+\begin{equation}
+R_0 = \frac{\beta X}{\mu + \nu}
+\end{equation}
+where the number of secondary infections a single infected host is expected to create when introduced into a susceptible population of uninfected hosts is proportional to how well the disease transmits (\(\beta\)) and the size of the population into which it is introduced (_X_), multiplied by the average longevity of an infected host, 1/(\(\mu+\nu\)).
+
+### Empirical setting
+
+The type of model described above can also be used to describe the observed dynamics in experimental populations of infected and uninfected hosts.
+Furthermore, experiments can be designed such that the only population dynamics to be observed will be those due to host mortality, 
+
+\begin{align}
+-\frac{dX / dt}{X(t)} &= \mu(t) \\ \\
+-\frac{dY / dy}{Y(t)} &= \mu(t) + \nu(t) \\
+\end{align}
+
+where the per capita rate of decrease in the size of the uninfected population at time _t_, -(_dX/dt_)/_X_(_t_), is due only to background mortality at time _t_, and that for the infected population, -(_dY/dt_)/_Y_(_t_), is due to the sum of both the background rate of mortality and mortality due to infection.
+
+These conditions can be achieved, for example, by using only juvenile hosts to avoid any dynamics due to births and by housing infected and uninfected hosts separately to eliminate any dynamics due to the transmission of disease.
+
+The analysis of relative survival can be used to estimate these two rates of mortality from the type of data routinely generated in experiments comparing survival in cohorts of experimentally-infected vs. uninfected hosts. This follows a brief description of some survival functions and how they are related.
+
+### Survival functions
+
+The probability that an individual alive in a particular population or treatment at the beginning of an experiment, _t_~0~, will still be alive at time _t_ can be expressed as,
+
+\begin{equation}
+S(t)=1-F(t)
+\end{equation}
+
+where _S_(_t_) is the cumulative survival function in continuous time at time _t_. It is the complement of the cumulative density function, _F_(_t_), for the probability the individual will have died by time _t_; 0 ≤ _S_(_t_), _F_(_t_) ≤ 1.
+
+Differentiating  _F_(_t_) with respect to time gives the rate at which mortality reduces the size of the population at time _t_,
+
+\begin{equation}
+f(t)=-S^{\prime}(t)
+\end{equation}
+
+where _f_(_t_) is the probability density function for mortality. It corresponds with data collected for the number of individuals dying at time _t_, divided by the initial size of the population.
+
+Whereas _f_(_t_) represents the probability an individual alive at _t_~0~ will die at time _t_, the hazard function, _h_(_t_), represents the probability an individual alive at time _t_ will die at time _t_,
+
+\begin{equation}
+h(t)=\frac{f(t)}{S(t)}
+\end{equation}
+
+where the probability of dying at time _t_, _f_(_t_), is corrected by the probability of being alive at time _t_, _S_(_t_). This is the rate of mortality in the population at time _t_ and represents the per capita risk of dying at time _t_. 
+
+If the hazard function _h_(_t_) represents the risk an individual alive at time _t_ will die at time _t_, the cumulative hazard function, _H_(_t_), represents the individual's accumulated exposure to the risk of dying at time _t_. It is related to the cumulative survival function, _S_(_t_), as,
+
+\begin{equation}
+S(t) = \exp [-H(t)] 
+\end{equation}
+
+and can take values greater than one. 
+
+<!-- S(t) = \exp \left[ -H \left( t \right) \right] --> 
+
+Analyses testing for the effects of a pathogen on the survival of infected vs. uninfected hosts usually involve the estimation and comparison of one of the expressions above. What makes the analysis of relative survival different is how it treats the survival of infected hosts.
+
+### Relative survival 
+
+The analysis of relative survival assumes individuals in the target population are exposed to two independent and mutually exclusive sources of mortality;
+
+_1. Background or `natural' mortality_. This is the mortality individuals in the target population would be expected to experience had they not been afflicted by the disease or illness in question, and,
+
+_2. Mortality due to disease or illness_. This is mortality individuals in the target population experience due to the disease or illness in question.
+
+In the expressions below, and throughout the package, the index '1' will be used to indicate the effect of background mortality and the index '2' to indicate the effect of mortality due to infection. 
+
+When infected hosts die, it is not possible to tell whether they died due to background mortality or due to infection. However to remain alive means the host has not died due to the cumulative effects of background mortality, _F_~1~(_t_), or the cumulative effects of mortality due to infection, _F_~2~(_t_). As these two sources of mortality are independent, the probability an infected host will be observed surviving until time _t_, _S~OBS.INF~_(_t_), can be expressed as, 
+
+\begin{equation}
+S_{OBS.INF}(t) = [1-F_1(t)] \cdot [1-F_2(t)] = S_1(t) \cdot S_2(t)
+\end{equation}
+
+where _S_~1~(_t_) and _S_~2~(_t_) are the cumulative survival functions for background mortality and mortality due to infection at time _t_, respectively. 
+
+The relative survival of infected hosts at time _t_, _S~REL~_(_t_), is calculated as their observed probability of surviving until time _t_, divided by that for uninfected hosts,
+
+\begin{equation}
+S_{REL}(t)=\frac{S_{OBS.INF}(t)}{S_1(t)}=\frac{S_1(t) \cdot S_2(t)}{S_1(t)}=S_2(t)
+\end{equation}
+
+which equals the expected survival of infected hosts due only to the effects of infection, _S_~2~(_t_). That is, relative survival is the observed survival of infected hosts corrected for background mortality.
+
+Differentiating _S~OBS.INF~_(_t_) with respect to time and taking the negative gives the probability density function for mortality observed in the infected treatment at time _t_, _f~OBS.INF~_(_t_), 
+
+\begin{equation}
+f_{OBS.INF}(t) =-S'_{OBS.INF}(t) = f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t)
+\end{equation}
+
+where _f_~1~(_t_) and _f_~2~(_t_) are the probability density functions for the probability an individual alive at time _t_~0~ will die at time _t_ due to background mortality or mortality due to infection, respectively.
+
+Dividing _f~OBS.INF~_(_t_) by _S~OBS.INF~_(_t_) gives the hazard function, _h~OBS.INF~_(_t_),
+
+\begin{equation}
+h_{OBS.INF}(t) = \frac{f_1(t) \cdot S_2(t) + f_2(t) \cdot S_1(t) }{S_1(t) \cdot S_2(t)} = \frac{f_1(t)}{S_1(t)} + \frac{f_2(t)}{S_2(t)} = h_1(t) + h_2(t)
+\end{equation}
+
+where at time _t_ the observed rate of mortality in the infected population is the sum of the background rate of mortality, _h_~1~(_t_), plus the rate of mortality due to infection, _h_~2~(_t_). 
+
+### Relative survival and virulence
+
+The expressions for -(_dY/dt_)/_Y_(_t_) and _h~OBS.INF~_(_t_) both describe the observed per capita rate of mortality in an infected population of hosts at time _t_.
+Hence in the conditions of the empirical setting described above,
+
+\begin{equation}
+\mu(t) + \nu(t) = h_1(t) + h_2(t)
+\end{equation}
+
+where the analysis of relative survival can be used to estimate _h_~1~(_t_) and _h_~2~(_t_), that is the background rate of mortality and virulence as it is defined in the mathematical models on which most epidemiological theory is based.
+
+In the empirical scenario describe above, it was assumed; 
+
+* all of the hosts in the infected population were infected, and 
+
+* they experienced equally virulent infections, that is, a single hazard function could describe the rate of mortality due to infection for each member of the population. 
+
+* It was also assumed that hosts could not recover from infection. 
+
+Each of these assumptions can be relaxed and relative survival models adapted to allow for incomplete infection success, for virulence to vary among infected hosts, and for hosts to recover from infection. 
+
+For a more detailed text, with worked examples, see [@Agnew_2019]. 
+
+[back to top](#top)
+
+### References 
+

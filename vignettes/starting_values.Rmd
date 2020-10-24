@@ -1,0 +1,389 @@
+
+
+---
+title: "Starting values"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Starting values}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: 
+  \usepackage{amsmath}
+  # devtools::install(build_vignettes = TRUE)
+---
+  
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(anovir)
+```
+
+### Introduction {#top}
+
+Maximum likelihood estimation techniques used to solve likelihood problems require initial values for the parameters to be estimated. 
+The estimation process starts from these values and progressively adjusts them iteratively until the fit between the likelihood model and the observed data does not improve beyond a threshold value. 
+The process of convergence to this solution is enhanced and a solution more likely to be found when the starting values are close to the 'true' values.
+
+This vignette illustrates how starting values can be estimated by linear or non-linear regression of observed cumulative survival data. 
+
+### Linear regression of transformed cumulative survival data 
+
+The cumulative survival functions of some probability distributions transform into linear functions of time. 
+
+For example the cumulative survival function, _S_(_t_), of the Weibull distribution,
+
+\begin{equation}
+S(t) = \exp \left( - \exp \left[ \frac{\log t - a}{b} \right] \right)
+\end{equation}
+
+is a linear function of log(_t_) following a complementary log-log transformation,
+
+\begin{equation}
+\log \left( - \log \left[ S(t) \right] \right) = \frac{1}{b} \log t - \frac{a}{b}
+\end{equation}
+
+where _a_ and _b_ are the location and scale parameters, respectively.
+
+An advantage of this linearisation is that observed cumulative survival data given a complementary log-log transformation and plotted against log(_t_) will be approximately linear, if they follow the Weibull distribution. 
+
+When this is the case, the coefficients for the slope and intercept of a linear regression can be used to estimate the location and scale parameters of the distribution.
+
+This approach is particularly suited to data from uninfected or control treatments, where a single survival function is assumed to describe the pattern of survival in the treatment as a whole. 
+
+This is not the case for infected treatments, where the relative survival approach assumes the observed patterns of host survival arise as the product of cumulative survival functions for background mortality and mortality due to infection [@Dickman_2004; @Ederer_1961; @Esteve_1990; @Monson_1974].
+
+The contribution of background mortality, _S~UNINF~_(_t_), to the cumulative survival observed in an infected treatment, _S~OBS.INF~_(_t_), can be removed by calculating their relative survival, _S~REL~_(_t_),
+
+\begin{equation}
+S_{REL}(t) = \frac{S_{OBS.INF}(t)}{S_{UNINF}(t)} = \frac{S_{INF}(t) \cdot S_{UNINF}(t)}{S_{UNINF}(t)} = S_{INF}(t) \\
+\end{equation}
+
+which equals host survival due only to the effects of infection, _S~INF~_(_t_). 
+
+The latter can be transformed and plotted against time for evidence of a linear relationship.
+When this is the case, linear regression allows the location and scale parameters of the distribution describing mortality due to infection to be estimated. 
+
+The product of two Weibull cumulative survival functions is a cumulative survival function that also follows the Weibull distribution. 
+Hence from the relationship, _S~OBS.INF~_(_t_) = _S~UNINF~_(_t_) x _S~INF~_(_t_), it follows that if the observed cumulative survival in an infected treatment and that in a matching uninfected treatment are both approximately linear when given a complementary log-log transformation and plotted against log(_t_), the unobserved pattern of mortality due to infection is also likely to follow the Weibull distribution.
+
+The cumulative survival functions for the Gumbel and Fréchet distribution can also transformed into linear functions of time; see [Probability distributions](probability_distributions.html) for details. 
+
+
+### Non-linear regression of cumulative survival data 
+
+The nonlinear least squares, `nls`, function from the package 'stats' of _R_ [@R] can be used to directly estimate the location and scale parameters from untransformed cumulative survival data. 
+
+As for linear regression, this approach is more suited to estimating location and scale parameters of a single survival function, rather those for two functions at the same time. 
+
+In this case, the estimation of parameters for mortality due to infection can be estimated from the cumulative relative survival of infected hosts.
+Alternatively the observed cumulative survival in an infected treatment can be estimated as the
+product of two cumulative survival functions, where the values of the location and scale parameters for background mortality are given fixed values based on a non-linear regression of data in the matching uninfected or control population (see below).
+
+
+### Limitations to regression of cumulative survival data
+
+The location and scale parameters estimated by the linear or non-linear regression of cumulative survival data should be treated as approximate.
+
+Two reasons for this are because both approaches use summary data, rather than data from individual hosts, and the degrees of freedom on which these regressions are based depend on the number of sampling intervals in the dataset, rather than the number of individuals dying or censored in each interval. 
+
+The negative log-likelihood (_nll_) models in this package also rely upon regression. 
+However the maximum likelihood approach to estimating parameters uses data from individual hosts and explictly takes into account the frequencies of individuals dying or censored in each sampling interval.
+
+### Example 
+
+The following example uses a subset of data from the study by Blanford et al [@Blanford_2012] and made available here by kind permission of Matthew Thomas. The data are for the uninfected and infected treatments, `cont` and `Bb06`, respectively, from the third block of the experiment. 
+These data were used to calculate survival in both treatments over time
+and stored in `data01`
+
+The first figure below shows the pattern of survival in the uninfected
+`cont` treatment (black) and in the infected treatment `Bb06` (blue).
+
+```{r include = FALSE}
+subset_data_bl3 <- subset(data_blanford,
+  (data_blanford$block == 3) & 
+  ((data_blanford$treatment == 'cont') | (data_blanford$treatment == 'Bb06')) &
+  (data_blanford$day > 0)
+  )
+```
+
+<!-- The following example uses a subset of `data_blanford`, a subset of data from a study by Blanford et al [@Blanford_2012] and made available here by kind permission of Matthew Thomas.
+
+The first figure shows the observed cumulative survival in an uninfected population of adult female mosquitoes (black line) and that of a population of female mosquitoes exposed to strain _'Bb06'_ of the fungal pathogen _Beauveria bassiana_ (blue line).
+
+If background mortality and mortality due to infection both follow the Weibull distribution, the observed data in both treatments will be approximately linear when given a complementary log-log transformation and plotted against log(_time_) as;
+
+\begin{equation}
+\log\left(-\log \left[S \left(t \right) \right] \right) = \frac{1}{b} \log t - \frac{a}{b}
+\end{equation}
+-->
+
+The second figure shows the survival data following a complementary log-log transformation plotted against log(_time_). 
+The approximately linear plots for both treatments indicate the Weibull distribution was suitable for describing both background mortality and mortality due to infection. 
+
+```{r include = FALSE, message = FALSE, warning = FALSE}
+  time <- c(1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+  Suninf <- c(0.976,0.96,0.952,0.944,0.927,0.911,0.879,0.831,0.782,0.742,0.726,0.685,0.613,0.508)
+  Sobsinf <- c(0.988,0.969,0.963,0.939,0.902,0.853,0.779,0.687,0.601,0.509,0.399,0.337,0.172,0.11)
+  data01 <- data.frame(time, Suninf, Sobsinf)
+  data01$log_time <- round(log(data01$time), 3)
+  data01$clogSuninf <- round(log(-log(data01$Suninf)), 3)
+  data01$clogSobsinf <- round(log(-log(data01$Sobsinf)), 3)
+  data01$Srel <- data01$Sobsinf / data01$Suninf
+  data01$clogSrel <- log(-log(data01$Srel))
+```
+
+```{r, echo = FALSE, fig.height = 3.25, fig.width = 3.25, fig.show = 'hold'}
+    plot(data01$time, data01$Suninf, 
+       type = 's', col = 'black', lty = 'solid',
+       xlim = c(0, 15), ylim = c(0, 1.1),
+       xlab = 'time (days)', ylab = 'Cumulative survival',
+       main = 'Observed survival',
+       axes = FALSE
+       )
+  lines(data01$time, data01$Suninf, 
+        type = 'p', col = 'black', cex = 0.5
+        )
+  lines(data01$time, data01$Sobsinf, 
+        type = 's', col = 'blue', lty = 'solid'
+        )
+  lines(data01$time, data01$Sobsinf, 
+        type = 'p', col = 'blue', cex = 0.5
+        )
+    axis(side = 1, seq(0, 15, by = 7))
+    axis(side = 2, seq(0, 1.1, by = 0.25))
+#    legend("bottomleft", c("Uninfected", "Infected"), lty = c(1, 1), col = c('black', 'blue'))
+  
+  plot(data01$log_time, data01$clogSuninf, 
+       type = 'l', col = 'black', lty = 'solid',
+       xlim = c(0, 3), ylim = c(-5, 1),
+       xlab = 'log(time)', ylab = 'log(-log S[t])',
+       main = 'Transformed survival',
+       axes = FALSE
+       )
+  lines(data01$log_time, data01$clogSuninf, 
+        type = 'p', col = 'black', cex = 0.5
+        )
+  lines(data01$log_time, data01$clogSobsinf, 
+        type = 'l', col = 'blue', lty = 'solid'
+        )
+  lines(data01$log_time, data01$clogSobsinf, 
+        type = 'p', col = 'blue', cex = 0.5
+        )
+    axis(side = 1, seq(0, 3, by = 1))
+    axis(side = 2, seq(-5, 1, by = 2))
+#    legend("bottomleft", c("Uninfected", "Infected"), lty = c(1, 1), col = c('black', 'blue'))
+```
+
+#### Linear regressions
+
+The observed cumulative survival of uninfected hosts was given a complementary log-log transformation and used in a linear regression against log(_time_);
+
+```{r, include = TRUE}
+lr_clogSuninf <- lm(data01$clogSuninf ~ data01$log_time, data = data01)
+coef(lr_clogSuninf)
+df.residual(lr_clogSuninf)
+```
+
+The values estimated for the slope and intercept of this regression were used to estimate the parameters for the Weibull distribution describing background mortality; 
+
+_b_ = 1/`r round(coef(lr_clogSuninf)[2], 3)` = `r round(1/coef(lr_clogSuninf)[2], 3)`  
+
+_a_ = `r round(-coef(lr_clogSuninf)[1], 3)` * `r round(1/coef(lr_clogSuninf)[2], 3)` =  `r round(-coef(lr_clogSuninf)[1] * 1/coef(lr_clogSuninf)[2], 3)`
+
+
+The relative survival of infected hosts was calculated, given a complementary log-log transformation, and used in a linear regression against log(_time_);
+
+```{r, include = TRUE}
+lr_clogSrel <- lm(data01$clogSrel ~ data01$log_time, data = data01)
+coef(lr_clogSrel)
+df.residual(lr_clogSrel)
+```
+
+The values estimated for the slope and intercept of this regression were used to calculate the parameters for the Weibull distribution describing mortality due to infection; 
+
+_b_ = 1/`r round(coef(lr_clogSrel)[2], 3)` = `r round(1/coef(lr_clogSrel)[2], 3)` 
+
+_a_ = `r round(-coef(lr_clogSrel)[1], 3)` * `r round(1/coef(lr_clogSrel)[2], 3)` =  `r round(-coef(lr_clogSrel)[1] * 1/coef(lr_clogSrel)[2], 3)`
+
+There were `r df.residual(lr_clogSuninf)` residual degrees of freedom for the regression of uninfected host data, but only `r df.residual(lr_clogSrel)` for infected hosts.
+This difference arises because a few more uninfected hosts died than infected hosts at the beginning of the experiment.
+This lead to the relative survival of infected hosts being calculated as greater than one (> 1) for three sampling intervals. 
+A complementary log-log transformation cannot be calculated for these estimates due to a negative value of -log(_x_) when _x_ > 1. 
+
+
+#### Non-linear regressions
+
+The `nls` function used a formula for the obsersved cumulative survival of uninfected hosts as a function of the Weibull survival function to estimate the location, _a1_, and scale, _b1_ parameters for background mortality;
+
+```{r, message = FALSE, warning = FALSE}
+     nlr01 <- nls(Suninf ~ exp(-exp((log(time) - a1) / b1)), 
+                data = data01,
+                start = list(a1 = 2, b1 = 1)
+                )
+    coef(nlr01)
+    df.residual(nlr01)
+```
+
+A second `nls` function used a formula for the observed cumulative survival of infected hosts as a function of the product of two Weibull survival functions for background mortality and mortality due to infection. 
+The values estimated above for the location and scale parameters for background mortality were substituted into the survival function for background mortality, leaving only the location and scale parameters for mortality due to infection, _a2_ and _b2_, respectively, to be estimated;
+
+```{r, message = FALSE, warning = FALSE}
+      nlr02 <- nls(Sobsinf ~ exp(-exp((log(time) - 2.888) / 0.474)) * 
+                           exp(-exp((log(time) - a2) / b2)),
+                           data = data01,
+                           start = list(a2 = 2, b2 = 1)
+                           )
+      coef(nlr02)
+      df.residual(nlr02)
+
+```
+
+No degrees of freedom were lost in the second regression due to incompatable data transformation.
+
+
+#### Maximum likelihood estimation
+
+The data above were also estimated by maximum likelihood using a combination of `nll_basic` from this package and `mle2` of the package `bbmle` [@bbmle].
+
+The first step involve a 'prep function' which provided the information needed for `nll_basic` to calculate a negative log-likelihood given the values of _a1, b1, a2, b2_. 
+
+The 'prep function' was then sent to `mle2` from the package `bbmle`
+for maximum likelihood estimation, using the values estimated by the 
+linear regression of transformed cumulative survival data as staring values;
+
+```{r include = TRUE}
+  head(subset_data_bl3, 3)
+```
+```{r, include = TRUE, message = FALSE, warning = FALSE}
+  # step #1: prep-function for maximum likelihood estimation
+     mle01_prep_function <- function(a1, b1, a2, b2){
+       nll_basic(
+         a1, b1, a2, b2,
+         data = subset_data_bl3,
+         time = day,
+         censor = censor,
+         infected_treatment = inf,
+         d1 = 'Weibull', d2 = 'Weibull'
+       )}
+
+  # step #2: start values from linear regression of transformed data
+    mle01 <- mle2(mle01_prep_function,
+               start = list(a1 = 3.339, b1 = 0.790, a2 = 2.515, b2 = 0.239)
+               )
+   coef(mle01)
+
+```
+
+#### Compare models
+
+One way to compare the results of the above models is to take their estimates and use them as starting values for the 'prep function' to be sent to `mle2` using the option `eval.only = TRUE`; this will return the likelihood calculated by `nll_basic` given the starting values; 
+
+```{r, include = TRUE}
+   # linear regression estimates
+    LR <- mle2(mle01_prep_function,
+                 start = list(a1 = 3.339, b1 = 0.790, a2 = 2.515, b2 = 0.239),
+                 eval.only = TRUE
+                 )
+
+   # non-linear regression estimates   
+   NLR <- mle2(mle01_prep_function,
+                 start = list(a1 = 2.888, b1 = 0.474, a2 = 2.542, b2 = 0.266),
+                 eval.only = TRUE
+                 )
+   
+   # maximum likelihood estimates
+   MLE <- mle2(mle01_prep_function,
+                 start = list(a1 = 2.845, b1 = 0.483, a2 = 2.581, b2 = 0.183),
+                 eval.only = TRUE
+                 )
+   
+   # compare models by Akaike's Information Criteria, adjusted for small sample sizes
+   AICc(LR, NLR, MLE, nobs = 287)
+   
+```
+
+According to Akaike's information criterion corrected for small sample size, AICc [@Hurvich_1989], the maximum likelihood model provided the best description of the data.
+
+These estimates were used to generate the estimated cumulative survival of uninfected and infected hosts, along with the pathogen's estimated virulence.
+
+The `conf_ints_virulence` function of this package was also used to calculate approximate 95\% confidence intervals for the estimated virulence of the pathogen based on the variance and covariance of estimates of _a2_ and _b2_ generated by `mle2`.
+
+```{r, include = TRUE}
+  coef(mle01) ; vcov(mle01)
+
+  ci_matrix01 <- conf_ints_virulence(
+    a2 = 2.5807774,
+    b2 = 0.1831184,
+    var_a2 = 0.0008196247,
+    var_b2 = 0.0010005684,
+    cov_a2b2 = -0.0003118982, 
+    d2 = "Weibull", tmax = 14)
+
+```
+
+```{r, echo = FALSE, fig.height = 3.25, fig.width = 3.25, fig.show = 'hold'}
+  a1 <- 2.845
+  b1 <- 0.483
+  a2 <- 2.581
+  b2 <- 0.183
+
+  data01$Suninf_est <- exp(-exp((log(time) - a1) / b1))
+  data01$Sobsinf_est <- exp(-exp((log(time) - a1) / b1)) * exp(-exp((log(time) - a2) / b2))
+
+  
+  plot(data01$time, data01$Suninf, 
+       type = 's', col = 'black', lty = 'dotted',
+       xlim = c(0, 15), ylim = c(0, 1.1),
+       xlab = 'time (days)', ylab = 'Cumulative survival',
+       main = 'Estimated curves',
+       axes = FALSE
+       )
+  lines(data01$time, data01$Suninf, 
+        type = 'p', col = 'black', cex = 0.5
+        )
+  lines(data01$time, data01$Sobsinf, 
+        type = 's', col = 'blue', lty = 'dotted'
+        )
+  lines(data01$time, data01$Sobsinf, 
+        type = 'p', col = 'blue', cex = 0.5
+        )
+  lines(data01$Suninf_est, lty = 'solid', col = 'black', lwd = 2)
+  lines(data01$Sobsinf_est, lty = 'solid', col = 'blue', lwd = 2)
+    axis(side = 1, seq(0, 15, by = 7))
+    axis(side = 2, seq(0, 1.1, by = 0.25))
+ 
+  ci_matrix01 <- conf_ints_virulence(
+    a2 = 2.5807774,
+    b2 = 0.1831184,
+    var_a2 = 0.0008196247,
+    var_b2 = 0.0010005684,
+    cov_a2b2 = -0.0003118982, 
+    d2 = "Weibull", tmax = 14) 
+    
+  
+    plot(ci_matrix01[, 't'], ci_matrix01[, 'h2'], 
+         xlim = c(0, 14), ylim = c(0, 1.1),
+         type = 'l', col = 'blue', lwd = 2,
+         xlab = 'time (days)', ylab = 'virulence (± 95% ci)',
+         main = 'Estimated virulence',
+         axes = FALSE
+         )
+      lines(ci_matrix01[, 'lower_ci'], col = 'grey')
+      lines(ci_matrix01[, 'upper_ci'], col = 'grey')
+    axis(side = 1, seq(0, 14, by = 7))
+    axis(side = 2, seq(0, 1, by = 0.2))
+
+```
+
+[back to top](#top)
+
+### References
+
+

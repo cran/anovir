@@ -1,0 +1,146 @@
+---
+title: "Modifying nll functions"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Modifying nll functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: \usepackage{amsmath}
+
+---
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup, message = FALSE}
+library(anovir)
+```
+
+### Introduction {#top}
+
+The formals for the negative log-likelihood (_nll_) models in this package contain a list of arguments which provide the information necessary to calculate the _nll_ returned by the function; these arguments include those taking values for the variables to be estimated by maximum likelihood. 
+
+Within the _nll\_function_ the values of the variables to estimate are assigned to parameters used in calculating the _nll_. By default, each parameter is defined by a function taking as input the value from a single argument. 
+
+Hence in the default form of a _nll\_function_, the number of parameters to calculate equals the number of variables to estimate.
+
+The number of parameters to be calculated by each _nll\_function_ cannot be modified. However, the functions defining parameters can be modified to make them depend on values of more than one variable. The advantage of this is to increase the flexibility of _nll\_functions_ and the patterns of mortality they can describe.
+
+
+### Modifying _nll\_basic_
+
+The following example illustrates how to modify the default version of _nll\_basic_, such that, instead of estimating the location parameter for mortality due to infection, _a2_, as a constant it is made a function of the dose of spores to which infected hosts were exposed;
+
+$$ a2 \rightarrow c1 + c2 \cdot \log\left(dose\right) $$
+
+
+The default form of _nll\_basic_ estimates the location parameter for mortality due to infection as a constant (_a2_); the modified version of _nll\_basic_ estimates it as a linear function the dose of spores infected hosts were exposed to _c1 + c2 * log_(_dose_).
+The data are from a study by Lorenz & Koella [@Lorenz_2011; @Lorenz_data_2011].
+
+The formals for _nll\_basic_ are,
+```{r}
+utils::str(nll_basic)
+```
+The first four arguments are for, _a1, b1, a2, b2_; the values given to these arguments are the variables to be estimated by maximum likelihood for the default form of _nll\_basic_.
+
+The values of these variables will be assigned to functions describing the location and scale parameters for background mortality and mortality due to infection, respectively. 
+
+By default, these _parameter functions_ are functions taking as input the value from a single argument. This can be seen at the top of the body of _nll\_basic_,
+
+```{r}
+head(body(nll_basic), 5)
+```
+
+where the values of _a1, b1, a2, b2_ are assigned to _pfa1, pfb1, pfa2, pfb2_, respectively; the prefix _'pf'_ stands for _'parameter function'_.
+
+The values held by these _parameter functions_ are taken as input for the survival functions in the log-likelihood expression of _nll\_basic_. 
+
+#### Default: 4 variables to estimate
+
+```{r message = FALSE, warning = FALSE}
+    head(data_lorenz, 2)
+
+    # step #1
+       m01_prep_function <- function(a1 = a1, b1 = b1, a2 = a2, b2 = b2){
+         nll_basic(a1 = a1, b1 = b1, a2 = a2, b2 = b2,
+           data = data_lorenz, time = t, censor = censored,
+           infected_treatment = g, d1 = 'Gumbel', d2 = 'Weibull')
+       }
+    # step #2
+       m01 <- mle2(m01_prep_function,
+                start = list(a1 = 23, b1 = 5, a2 = 3, b2 = 0.2)
+                )
+       coef(m01)
+```
+
+#### Modified: 5 variables to estimate 
+
+The following steps make _'pfa2'_ a function of _log_(_Infectious.dose_), with _c1_ and _c2_ as variables to estimate;
+
+```{r message = FALSE, warning = FALSE}
+  # copy/rename 'nll_function' (not obligatory, but recommended)
+    nll_basic2 <- nll_basic
+  # find/check location of code to be replaced. NB double '[['
+    body(nll_basic2)[[4]]
+  # replace default code with new code for function
+    body(nll_basic2)[[4]] <- substitute(pfa2 <- c1 + c2 * log(data$Infectious.dose))
+  # check code
+    head(body(nll_basic2), 5)
+  # replace argument 'a2' with those for 'c1', 'c2'. NB use of 'alist'
+    formals(nll_basic2) <- alist(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2,
+                            data = data, time = time, censor = censor,
+                            infected_treatment = infected_treatment, d1 = "", d2 = "")
+  # new analysis: step #1
+    m02_prep_function <- function(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2){
+      nll_basic2(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2,
+           data = data_lorenz, time = t, censor = censored,
+           infected_treatment = g, d1 = 'Gumbel', d2 = 'Weibull')
+         }
+  # step #2
+    m02 <- mle2(m02_prep_function,
+                start = list(a1 = 23, b1 = 5, c1 = 4, c2 = -0.1, b2 = 0.2)
+                )
+    coef(m02)
+    
+  # compare results
+    AICc(m01, m02, nobs = 256)
+  # according to AICc m02 is better than m01  
+    
+```
+
+
+The names of the data frame columns to use can also be modified when changing a functions' formals, thus reducing the code needed when preparing the function in 'step #1' 
+
+```{r message = FALSE, warning = FALSE}
+  # copy/rename nll_function
+    nll_basic3 <- nll_basic
+    body(nll_basic3)[[4]] <- substitute(pfa2 <- c1 + c2 * log(data$Infectious.dose))
+
+  # replace argument 'a2' with those for 'c1', 'c2', and assign column names  
+    formals(nll_basic3) <- alist(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2,
+                            data = data_lorenz, time = t, censor = censored,
+                            infected_treatment = g, d1 = "Gumbel", d2 = "Weibull")
+  # new analysis: step #1
+    m03_prep_function <- function(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2){
+      nll_basic3(a1 = a1, b1 = b1, c1 = c1, c2 = c2, b2 = b2)
+      }
+  # step #2
+    m03 <- mle2(m03_prep_function,
+                start = list(a1 = 23, b1 = 5, c1 = 4, c2 = -0.1, b2 = 0.2)
+                )
+    coef(m03)
+    identical(coef(m02), coef(m03))
+
+```
+
+
+
+[back to top](#top)
+
+### References
+

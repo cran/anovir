@@ -1,0 +1,143 @@
+---
+title: "Probability distribution functions"
+output: rmarkdown::html_vignette
+bibliography: references.bib
+csl: proc_b.csl
+vignette: >
+  %\VignetteIndexEntry{Probability distribution functions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+header-includes: 
+  \usepackage{amsmath}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(anovir)
+```
+
+### Parameters {#top}
+
+The expressions for the probability distributions used in this package are given below. 
+In each case, at time _t_,
+
+* _S_(_t_) is the cumulative survival function,
+
+* _f_(_t_) is the probability distribution function,
+
+* _h_(_t_) is the hazard function, where
+
+* _a_ is the location parameter, and 
+
+* _b_ the scale parameter.
+
+### Weibull distribution
+
+\(\quad S(t) = \exp \left[ - \exp (z) \right]\)
+
+\(\quad f(t) = \frac{1}{bt} \exp \left[ z - \exp(z)  \right]\)
+
+\(\quad h(t) = \frac{1}{bt} \exp \left[ z  \right]\)
+
+where
+
+\(\quad z = \frac{\log t - a}{b} \\ \)
+
+
+### Gumbel distribution
+
+\(\quad S(t) = \exp \left[ - \exp (z) \right]\)
+
+\(\quad f(t) = \frac{1}{b} \exp \left[ z - \exp(z)  \right]\)
+
+\(\quad h(t) = \frac{1}{b} \exp \left[ z  \right]\)
+
+where
+
+\(\quad z = \frac{t - a}{b} \\\)
+
+### Fréchet distribution
+
+\(\quad S(t) = 1 - \exp \left[ - \exp (-z) \right]\)
+
+\(\quad f(t) = \frac{1}{bt} \exp \left[ -z - \exp(-z)  \right]\)
+
+\(\quad h(t) = \frac{f(t)}{S(t)}\)
+
+where
+
+\(\quad z = \frac{\log t - a}{b}\)
+
+### Exponential distribution
+
+This is a special case of the Weibull distribution when _b = 1_
+
+\(\quad S(t) = \exp \left[ - \exp (z) \right]\)
+
+\(\quad f(t) = \frac{1}{t} \exp \left[ z - \exp(z)  \right]\)
+
+\(\quad h(t) = \frac{1}{t} \exp \left[ z  \right]\)
+
+where
+
+\(\quad z = \log t - a\)
+
+The hazard function is constant over time at, _h_(_t_) = _exp_(_-a_)
+
+
+#### [back to top](#top)
+
+### Notes
+
+The Weibull distribution is frequently expressed in terms of _scale_ and _shape_ parameters.
+
+
+\(\quad S(t) = \exp \left[ - \left( \frac{t}{\alpha} \right) ^{\beta} \right]\)
+
+\(\quad f(t) = \frac{\beta}{\alpha} \left( \frac{t}{\alpha} \right)^{\beta-1}  \exp \left[ - \left( \frac{t}{\alpha} \right) ^{\beta} \right]\)
+
+\(\quad h(t) = \frac{\beta}{\alpha} \left( \frac{t}{\alpha} \right)^{\beta-1} \\\)
+
+where \(\alpha\) is the scale parameter and \(\beta\) the shape parameter. 
+
+This can be converted to the location and scale form with the substitutions, \(\alpha\) = _exp_(_a_) and \(\beta\) = 1/_b_
+
+\(S(t) = \exp \left( - \left[ \frac{t}{\alpha} \right]^\beta \right)\)
+
+\(S(t) = \exp \left( - \left[ \frac{\exp\left(\log t\right)}{\exp(a)} \right]^\beta \right)\)
+
+\(S(t) = \exp \left( - \left[ \exp \left( \log t - a \right) \right]^\beta \right)\)
+
+\(S(t) = \exp \left( - \left[ \exp \left( \log t - a \right) \right]^{1/b} \right)\)
+
+\(S(t) = \exp \left( - \left[ \exp \left( \frac{\log t - a}{b} \right) \right] \right) \\ \)
+
+
+### Linear transformations of cumulative survival 
+
+The cumulative survival functions of the Weibull, Gumbel, Fréchet and exponential distributions can be tranformed into linear functions of time;
+
+\begin{align}
+\log\left(-\log \left[S \left(t \right) \right] \right) &= \frac{1}{b} \log t - \frac{a}{b} \\ \\
+\log\left[-\log S \left(t \right) \right] &= \frac{1}{b} t - \frac{a}{b} \\  \\
+-\log\left(-\log \left[1 - S \left(t \right) \right] \right) &= \frac{1}{b} \log t - \frac{a}{b} \\ \\
+\log\left(-\log \left[S \left(t \right) \right] \right) &= \log t - a \\ \\
+\end{align}
+
+where _a_ and _b_ are the location and scale parameters, respectively. 
+
+If plotting transformed cumulative survival data against the appropriate measure of time yields an approximately linear relationship, it indicates the data follow the particular probability distribution in question. 
+When this is the case, the coefficients for the intercept and slope of a linear regression can be used to get approximate estimates of the distributions' location and scale parameters.
+
+
+
+
+#### [back to top](#top)
+
+
